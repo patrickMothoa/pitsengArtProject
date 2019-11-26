@@ -7,8 +7,21 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-searchbar (ionChange)="onSearchTerm($event)" placeholder="Search an item"></ion-searchbar>
+  <ion-list>
+    <div *ngIf="items.length > 0; else noItems">
+      <ion-item *ngFor="let item of items">
+        <ion-icon [name]="item.icon" slot="start"></ion-icon>
+        {{item.title}}
+        <div class="item-note" slot="end">
+          {{item.note}}
+        </div>
+      </ion-item>
+    </div>
+    <ng-template #noItems>
+      <ion-item>
+        No items found.
+      </ion-item>
+    </ng-template>
+  </ion-list>
 </ion-content>
