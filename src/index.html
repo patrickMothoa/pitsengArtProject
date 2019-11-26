@@ -20,6 +20,22 @@
 
 <body>
   <app-root></app-root>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyB1es8iP2ZqtEUH8TJCa9HRDU7yjgRcuqs",
+      authDomain: "pitsengart.firebaseapp.com",
+      databaseURL: "https://pitsengart.firebaseio.com",
+      projectId: "pitsengart",
+      storageBucket: "pitsengart.appspot.com",
+      messagingSenderId: "381927677673",
+      appId: "1:381927677673:web:0c7a2746479e8fda33da78",
+      measurementId: "G-3KKJYT38C2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </body>
 
 </html>

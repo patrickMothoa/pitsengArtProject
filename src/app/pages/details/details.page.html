@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+ <ion-content padding>
+    <div class="display">
+        <div class ="info" *ngFor="let p of Products" > 
+            <div class="d-image">
+                <img src="{{p. obj.image}}" alt="">
+          </div>
+          <div class="name">
+              <p class="single-desc" >{{p.obj.categories}}</p>
+              <p class="single-price" > {{p.obj.price}}</p>
+          </div>
+          <div class="desc">
+              <p class="single-desc" >{{p.obj.desc}}</p>
+              <p class="single-price" > {{p.obj.productno}}</p>
+              <p class="single-price" > {{p.obj.items}}</p>
+          </div>
+
+        </div>
+        </div>
+
+</ion-content>
