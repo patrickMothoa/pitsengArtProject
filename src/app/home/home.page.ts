@@ -5,12 +5,15 @@ import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 
 
+import { from } from 'rxjs';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
 
   db = firebase.firestore();
   event = {
@@ -41,13 +44,38 @@ export class HomePage {
     centeredSlides: true
   };
 
+  // public items: Array<{ title: string; icon: string }> = [];
+  public allItems: Array<{ title: string; icon: string }> = [];
+ 
+  
   cart = [];
   xxx = [];
-  constructor(public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {}
+  constructor(public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
+    for (let i = 0; i < this.Products.length; i++) {
+      this.items.push({
+        title: this.Products[i].charAt(0).toUpperCase() + this.Products[i].slice(1),
+        icon: this.Products[i]
+      });
+    }
+    this.allItems = this.items;
+  }
+ 
+  onSearchTerm(ev: CustomEvent) {
+    this.items = this.allItems;
+    const val = ev.detail.value;
+ 
+    if (val.trim() !== '') {
+      this.items = this.items.filter(term => {
+        return term.title.toLowerCase().indexOf(val.trim().toLowerCase()) > -1;
+      });
+    } 
+  
+  }
 
   ngOnInit() {
-    this.getProducts();
-
+    this.getProducts('');
+   console.log();
+   
    //this.xxx = this.cartService.getProductList();
     this.items = this.productService.getProductList();
     this.productService.getCart();
@@ -56,7 +84,7 @@ export class HomePage {
   // addToCart(product) {
   //   this.cartService.addProduct(product);
   // }
-
+ 
   addToCart(event, cid) {
     this.productService.addToCart(event, cid) 
   }
@@ -123,24 +151,44 @@ export class HomePage {
 
 
       // retriving from firebase.firestore
-  getProducts() {
+  getProducts(categories) {
         let obj = {id : '', obj : {}};
-        this.db.collection('Products').get().then(snapshot => {
-          this.Products = [];
-          if (snapshot.empty) {
-                  this.myProduct = false;
-                } else {
-                  this.myProduct = true;
-                  snapshot.forEach(doc => {
-                    obj.id = doc.id;
-                    obj.obj = doc.data();
-                    this.Products.push(obj);
-                    obj = {id : '', obj : {}};
-                    console.log("herererer", this.Products);
-                  });
-                  return this.Products;
-                }
-        });
+        if(categories) {
+          this.db.collection('Products').where('categories', '==', categories).get().then((snapshot) => {
+            this.Products = [];
+            if (snapshot.empty) {
+                    this.myProduct = false;
+                  } else {
+                    this.myProduct = true;
+                    snapshot.forEach(doc => {
+                      obj.id = doc.id;
+                      obj.obj = doc.data();
+                      this.Products.push(obj);
+                      obj = {id : '', obj : {}};
+                      console.log("herererer", this.Products);
+                    });
+                    return this.Products;
+              }
+          })
+        }else {
+          this.db.collection('Products').get().then(snapshot => {
+            this.Products = [];
+            if (snapshot.empty) {
+                    this.myProduct = false;
+                  } else {
+                    this.myProduct = true;
+                    snapshot.forEach(doc => {
+                      obj.id = doc.id;
+                      obj.obj = doc.data();
+                      this.Products.push(obj);
+                      obj = {id : '', obj : {}};
+                      console.log("herererer", this.Products);
+                    });
+                    return this.Products;
+                  }
+          });
+        }
+  
       }
 
   navDetails = []
@@ -152,6 +200,7 @@ export class HomePage {
   itemClick(itemInfo){
   //  this.navCtrl.push(ItemViewPage,itemInfo);
   }
+
 
 }
 

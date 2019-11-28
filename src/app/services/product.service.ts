@@ -66,6 +66,7 @@ export class ProductService {
       });
 
     }
+  
 
   //////updating
   updateProduct(event) {

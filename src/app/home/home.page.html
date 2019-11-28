@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
-     
+   <a href="login" (click) ="onLogin()" >Login</a>/<a href="register" (click) ="onRegister()">Register</a>
+    <ion-button (click)="getProducts('Vase')" slot="end">Vase</ion-button>
+    <ion-button (click)="getProducts('Bowls and Pots')" slot="end">Bowls and pots</ion-button>
+    <ion-button (click)="getProducts('Cups and Plates')" slot="end">Mugs and plates</ion-button>
+    <ion-button (click)="getProducts('Photo Frame')" slot="end">Photo frames</ion-button>
+    <ion-button (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
+    <ion-button (click)="getProducts('Decor Pallets')" slot="end">Lamps</ion-button>
+    <ion-button (click)="getProducts('Wall Deco')" slot="end">Wall decorations</ion-button>
       <ion-button (click)="openProfile()" slot="end">Profile</ion-button>
       <ion-button (click)="logOut()" slot="end">Logout</ion-button>
       <ion-buttons slot="end">
@@ -10,12 +17,31 @@
         </ion-button>
     </ion-buttons>
   </ion-toolbar>
-
+  
 </ion-header>
 
 <ion-content>
 
+    
+     
 
+  <!-- <ion-list>
+    <div *ngIf="items.length > 0; else noItems">
+      <ion-item *ngFor="let item of items">
+        <ion-icon [name]="item.icon" slot="start"></ion-icon>
+        {{item.title}}
+        <div class="item-note" slot="end">
+          {{item.note}}
+        </div>
+      </ion-item>
+    </div>
+    <ng-template #noItems>
+      <ion-item>
+        No items found.
+      </ion-item>
+    </ng-template>
+  </ion-list> -->
+  <ion-searchbar (ionChange)="onSearchTerm($event)" placeholder="Search an item"></ion-searchbar>
   <div class="categories-block"  *ngFor="let event of Products" >
       <ion-row no-padding class="categories-banner">
           <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
@@ -41,21 +67,6 @@
           </ion-slide>
       </ion-slides>
   </div>
-  <ion-searchbar (ionChange)="onSearchTerm($event)" placeholder="Search an item"></ion-searchbar>
-  <ion-list>
-    <div *ngIf="items.length > 0; else noItems">
-      <ion-item *ngFor="let item of items">
-        <ion-icon [name]="item.icon" slot="start"></ion-icon>
-        {{item.title}}
-        <div class="item-note" slot="end">
-          {{item.note}}
-        </div>
-      </ion-item>
-    </div>
-    <ng-template #noItems>
-      <ion-item>
-        No items found.
-      </ion-item>
-    </ng-template>
-  </ion-list>
+  
+  
 </ion-content>
