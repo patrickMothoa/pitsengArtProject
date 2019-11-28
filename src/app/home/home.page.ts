@@ -60,6 +60,11 @@ export class HomePage {
     this.allItems = this.items;
   }
  
+
+  onRegister(){
+    this.router.navigateByUrl('/register')
+  }
+
   onSearchTerm(ev: CustomEvent) {
     this.items = this.allItems;
     const val = ev.detail.value;
