@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class HomePage {
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
 
-  constructor(private navCtrl:NavController,public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
+  constructor(public alertController: AlertController,private navCtrl:NavController,public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
   }
@@ -76,14 +77,7 @@ export class HomePage {
   }
 
 
-  logOut(){
-    firebase.auth().signOut().then(()=> {
-      // Sign-out successful.
-      this.router.navigateByUrl('/login');
-    }).catch((error)=> {
-      // An error happened.
-    });
-  }
+
 
 
   ViewDetails(view) {
@@ -184,6 +178,101 @@ SearchProducts(ev: CustomEvent){
   }
 }
 
+  
+  async showLogin(){
+    const alert = await this.alertController.create({
+      header: 'LOGIN',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Phone Number'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
 
+          placeholder: 'Password'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'SIGN-IN',
+          handler: (name) => {
+            console.log('Confirm Ok', name);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
+
+
+ async showPrompt(){
+    const alert = await this.alertController.create({
+      header: 'Register!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Full name'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+
+          placeholder: 'Phone Number'
+        },
+       
+        {
+          name: 'name4',
+          type: 'text',
+  
+          placeholder: 'Password'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'SingUp',
+          handler: (name) => {
+            console.log('Confirm Ok', name);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+}  
+
+logOut(){
+  firebase.auth().signOut().then(()=> {
+    // Sign-out successful.
+    this.router.navigateByUrl('/login');
+  }).catch((error)=> {
+    // An error happened.
+  });
+ 
 }
 
+}
