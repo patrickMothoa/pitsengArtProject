@@ -33,6 +33,12 @@
        
           <ion-button fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
           <ion-button fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
+          <ion-buttons slot="end">
+        <ion-button (click)="openCart()">
+            <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+            <ion-icon slot="icon-only" name="cart"></ion-icon>
+        </ion-button>
+    </ion-buttons>
         </nav>
           
         <div class="container">
