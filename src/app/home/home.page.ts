@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import {NavController} from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
+import * as firebase from 'firebase';
+import { ProductService } from '../services/product.service';
+import { CartService } from 'src/app/services/cart.service';
+
 
 @Component({
   selector: 'app-home',
@@ -7,6 +14,135 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  db = firebase.firestore();
+  event = {
+    id: '',
+    image: '',
+    categories:'',
+    name:'',
+    price:null,
+    productno:'',
+    desc: null,
+    small:'',
+    medium:'',
+    large: ''
+  };
+
+  Products = [];
+  supplier
+  myProduct = false;
+
+  sliderConfig = {
+    slidesPerView: 1.6,
+    spaceBetween: 10,
+    centeredSlides: true
+  };
+  autocompleteItemz: any;
+  autocompletez:any;
+
+  getPro = [];
+  cart = [];
+  xxx = [];
+
+  public itemz: Array<{ title: string; icon: string }> = [];
+  public allItems: Array<{ title: string; icon: string }> = [];
+
+  constructor(private navCtrl:NavController,public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
+    this.autocompleteItemz = [];
+    this.autocompletez = { input: '' };
+  }
+
+
+  ngOnInit() {
+    this.getProducts();
+    this.cart = this.cartService.getCart();
+  }
+
+
+   /// taking values db to cart
+  addToCart(event) {
+    this.cartService.addProduct(event);
+    console.log("pushing to Cart",event);
+    
+  }
+
+  openCart() {
+    this.router.navigateByUrl('/cart');
+  }
+
+
+  openProfile(){
+    this.router.navigateByUrl('/profile');
+  }
+
+
+  logOut(){
+    firebase.auth().signOut().then(()=> {
+      // Sign-out successful.
+      this.router.navigateByUrl('/login');
+    }).catch((error)=> {
+      // An error happened.
+    });
+  }
+
+
+  ViewDetails(view) {
+    console.log("sds", view);
+    this.data.data = view;
+    this.router.navigateByUrl('/details')
+  }
+
+  productDetails(item){
+    this.data.data = item;
+    this.router.navigateByUrl('/details')
+  }
+
+
+      // retriving from firebase.firestore
+  getProducts() {
+        let obj = {id : '', obj : {}};
+        this.db.collection('Products').get().then(snapshot => {
+          this.Products = [];
+          if (snapshot.empty) {
+                  this.myProduct = false;
+                } else {
+                  this.myProduct = true;
+                  snapshot.forEach(doc => {
+                    obj.id = doc.id;
+                    obj.obj = doc.data();
+                    this.Products.push(obj);
+                    obj = {id : '', obj : {}};
+                  //  console.log("herererer", this.Products);
+                  });
+                  return this.Products;
+                }
+        });
+      }
+
+  navDetails = []
+
+  editProduct() {
+    this.myProduct = false;
+  }
+
+////// for searching
+SearchProducts(ev: CustomEvent){
+  if(this.supplier === '') {
+    this.autocompleteItemz = [];
+    return;
+  }
+ this.autocompleteItemz = this.Products;
+ console.log("ooo", this.autocompleteItemz );
+  this.getProducts();
+
+  const val = ev.detail.value; 
+  if (val.trim() !== '') {
+    this.autocompleteItemz = this.autocompleteItemz.filter(term => {
+      return term.obj.name.toLowerCase().indexOf(val.trim().toLowerCase()) > -1;
+    });
+  }
+}
+
 
 }
+

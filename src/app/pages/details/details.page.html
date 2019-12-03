@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>details</ion-title>
+  </ion-toolbar>
+  <ion-button (click)="openCart()">
+    <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+    <ion-icon slot="icon-only" name="cart"></ion-icon>
+</ion-button>
+</ion-header>
+
+ <ion-content padding>
+    <div class="display">
+        <div class ="info" *ngFor="let p of Products" > 
+            <div class="d-image">
+                <img src="{{p.obj.image}}" alt="">
+          </div>
+          <div class="name">
+              <p class="single-desc" >{{p.obj.categories}}</p>
+              <p class="single-price" > {{p.obj.price}}</p>
+          </div>
+          <div class="desc">
+              <p class="single-desc" >{{p.obj.desc}}</p>
+              <p class="single-price" > {{p.obj.productno}}</p>
+              <p class="single-price" > {{p.obj.items}}</p>
+          </div>
+          <ion-button (click)="addToCart( p )" slot="end">Add to Cart </ion-button>
+        </div>
+        </div>
+
+</ion-content>

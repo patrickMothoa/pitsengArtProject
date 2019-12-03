@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title class="message">
+    	<h4><ion-icon name="checkmark-circle" class="navicon"></ion-icon>Order Successful</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<div class="message"> 
+		<h5>Thank you for Shopping with PitsengArt!</h5>
+		<p>You will receive your order after your payments.</p>
+		<p>Your order confirmation number is  <span class="ornum">{{orderNumber}}</span> </p>
+	</div>
+	<div>
+   		<ion-list >
+		  <ion-item class="review-item" *ngFor="let li of Orders">
+		    <ion-thumbnail item-start>
+          <img src="{{li.image}}">
+		    </ion-thumbnail>
+		    <h4>{{li.name}}</h4>
+		    <h2> R {{li.price.toFixed(2)}} </h2>
+		    <h5>Size: {{li.size}}</h5>
+		    <p>Quantity: {{li.quantity}}</p>
+		  </ion-item>
+		</ion-list>
+   </div>
+
+   <div class="total">
+    <h4 >Total:</h4>
+    <h5 > {{totalpay.toFixed(2)}}</h5>
+  </div >
+
+	<ion-label>Banking Details: </ion-label>
+
+	<ion-card class="bill-info">
+		<!-- put All PitsengArt banking details here -->
+	</ion-card>
+	
+</ion-content>
