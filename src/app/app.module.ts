@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './../app/services/auth.service';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import * as firebase from 'firebase';
-import { from } from 'rxjs';
 
 
 const firebaseConfig = {

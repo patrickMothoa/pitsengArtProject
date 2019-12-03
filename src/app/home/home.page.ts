@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import {NavController} from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 
-
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,6 @@ import { from } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
 
   db = firebase.firestore();
   event = {
@@ -30,12 +29,7 @@ export class HomePage {
   };
 
   Products = [];
-
-  thisSearches = []
-  public searchTerm: string = '';
-  public items: any;
-  public searching: boolean = false;
-
+  supplier
   myProduct = false;
 
   sliderConfig = {
@@ -43,63 +37,43 @@ export class HomePage {
     spaceBetween: 10,
     centeredSlides: true
   };
+  autocompleteItemz: any;
+  autocompletez:any;
 
-  // public items: Array<{ title: string; icon: string }> = [];
-  public allItems: Array<{ title: string; icon: string }> = [];
- 
-  
+  getPro = [];
   cart = [];
   xxx = [];
-  constructor(public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
-    for (let i = 0; i < this.Products.length; i++) {
-      this.items.push({
-        title: this.Products[i].charAt(0).toUpperCase() + this.Products[i].slice(1),
-        icon: this.Products[i]
-      });
-    }
-    this.allItems = this.items;
+
+  public itemz: Array<{ title: string; icon: string }> = [];
+  public allItems: Array<{ title: string; icon: string }> = [];
+
+  constructor(private navCtrl:NavController,public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
+    this.autocompleteItemz = [];
+    this.autocompletez = { input: '' };
   }
- 
-  onSearchTerm(ev: CustomEvent) {
-    this.items = this.allItems;
-    const val = ev.detail.value;
- 
-    if (val.trim() !== '') {
-      this.items = this.items.filter(term => {
-        return term.title.toLowerCase().indexOf(val.trim().toLowerCase()) > -1;
-      });
-    } 
-  
-  }
+
 
   ngOnInit() {
-    this.getProducts('');
-   console.log();
-   
-   //this.xxx = this.cartService.getProductList();
-    this.items = this.productService.getProductList();
-    this.productService.getCart();
+    this.getProducts();
+    this.cart = this.cartService.getCart();
   }
 
-  // addToCart(product) {
-  //   this.cartService.addProduct(product);
-  // }
- 
-  addToCart(event, cid) {
-    this.productService.addToCart(event, cid) 
+
+   /// taking values db to cart
+  addToCart(event) {
+    this.cartService.addProduct(event);
+    console.log("pushing to Cart",event);
+    
   }
 
   openCart() {
-    this.router.navigate(['cart']);
+    this.router.navigateByUrl('/cart');
   }
+
 
   openProfile(){
     this.router.navigateByUrl('/profile');
   }
-
-  // ViewDetails(event){
-  //   this.router.navigateByUrl('/details');
-  // }
 
 
   logOut(){
@@ -109,7 +83,6 @@ export class HomePage {
     }).catch((error)=> {
       // An error happened.
     });
-   
   }
 
 
@@ -118,35 +91,10 @@ export class HomePage {
     this.data.data = view;
     this.router.navigateByUrl('/details')
   }
-  ///////////////////////
-  searchQuery: string;
-  searched:boolean = false;
 
-  //Default page one
-  pageNumber:number=1;
-  //list of products
-  Pots:any=[];
-  // Show loading icon when api is being fetched
-  apiLoader:boolean = false;
-  customErrorMsg:boolean = false;
-  listFetchStatus:boolean = false;
-
- 
-  onSearchInput(){
-    
-    if(this.searchTerm.length>0){
-     //  this.event = this.productService.filterItems(this.searchTerm);
-       this.searching = true;
-       
-    }else{
-      this.searching = false;
-    }
-  }
-
-  select(item){
-    this.searchTerm = item.title;
-    this.searching = false;
-    this.thisSearches.push({searchItem:item});
+  productDetails(item){
+    this.data.data = item;
+    this.router.navigateByUrl('/details')
   }
 
 
@@ -197,9 +145,44 @@ export class HomePage {
     this.myProduct = false;
   }
 
-  itemClick(itemInfo){
-  //  this.navCtrl.push(ItemViewPage,itemInfo);
+////// for searching
+
+getProduct(){
+  let obj = {id : '', obj : {}};
+  this.db.collection('Products').get().then(snapshot => {
+    this.Products = [];
+    if (snapshot.empty) {
+            this.myProduct = false;
+          } else {
+            this.myProduct = true;
+            snapshot.forEach(doc => {
+              obj.id = doc.id;
+              obj.obj = doc.data();
+              this.Products.push(obj);
+              obj = {id : '', obj : {}};
+              console.log("herererer", this.Products);
+            });
+            return this.Products;
+          }
+  });
+}
+
+SearchProducts(ev: CustomEvent){
+  if(this.supplier === '') {
+    this.autocompleteItemz = [];
+    return;
   }
+ this.autocompleteItemz = this.Products;
+ console.log("ooo", this.autocompleteItemz );
+  this.getProduct();
+
+  const val = ev.detail.value; 
+  if (val.trim() !== '') {
+    this.autocompleteItemz = this.autocompleteItemz.filter(term => {
+      return term.obj.name.toLowerCase().indexOf(val.trim().toLowerCase()) > -1;
+    });
+  }
+}
 
 
 }

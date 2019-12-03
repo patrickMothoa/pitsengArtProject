@@ -93,6 +93,46 @@
     </ng-template>
   </ion-list> -->
 <!--   <ion-searchbar (ionChange)="onSearchTerm($event)" placeholder="Search an item"></ion-searchbar>
+<ion-header>
+  <ion-toolbar>
+     
+   <a href="login" (click) ="onLogin()" >Login</a>/<a href="register" (click) ="onRegister()">Register</a>
+    <ion-button (click)="getProducts('Vase')" slot="end">Vase</ion-button>
+    <ion-button (click)="getProducts('Bowls and Pots')" slot="end">Bowls and pots</ion-button>
+    <ion-button (click)="getProducts('Cups and Plates')" slot="end">Mugs and plates</ion-button>
+    <ion-button (click)="getProducts('Photo Frame')" slot="end">Photo frames</ion-button>
+    <ion-button (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
+    <ion-button (click)="getProducts('Decor Pallets')" slot="end">Lamps</ion-button>
+    <ion-button (click)="getProducts('Wall Deco')" slot="end">Wall decorations</ion-button>
+      <ion-button (click)="openProfile()" slot="end">Profile</ion-button>
+      <ion-button (click)="logOut()" slot="end">Logout</ion-button>
+      <ion-buttons slot="end">
+        <ion-button (click)="openCart()">
+            <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+            <ion-icon slot="icon-only" name="cart"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+<!-- attempting search from here -->
+  <ion-toolbar> 
+          <ion-searchbar placeholder="Search Products"  [(ngModel)]='myDest' (ionChange)='SearchProducts($event);' value="" style='min-width: 200px;'></ion-searchbar> 
+          <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon>
+          <ion-list  [hidden]="autocompleteItemz.length == 0" >
+            <div *ngIf="autocompleteItemz.length > 0">
+          <ion-item class="list"  *ngFor="let item of autocompleteItemz" tappable id="submit" (click)="productDetails(item)">
+                <ion-avatar>
+                    <img src="{{item.obj.image}}" alt="" height="300" width="300">
+                </ion-avatar>
+                <ion-label> {{ item.obj.name }}</ion-label>  
+          </ion-item>
+          </div>
+         </ion-list>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
   <div class="categories-block"  *ngFor="let event of Products" >
       <ion-row no-padding class="categories-banner">
           <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
@@ -110,7 +150,7 @@
                           <ion-card-content>
                             {{event.obj.name}} <br>
                             R{{event.obj.price}}<br> 
-                            <ion-button (click)="addToCart(event, cid)" slot="end">Add to Cart </ion-button>
+                            <ion-button (click)="addToCart(event)" slot="end">Add to Cart </ion-button>
                           </ion-card-content>
                       </ion-card-header>
                   </ion-card>
