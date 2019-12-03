@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
+import { AlertController } from '@ionic/angular';
 
-
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +49,7 @@ export class HomePage {
   
   cart = [];
   xxx = [];
-  constructor(public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
+  constructor( public data: ProductService, public alertController: AlertController, private cartService: CartService,private router: Router, public productService: ProductService) {
     for (let i = 0; i < this.Products.length; i++) {
       this.items.push({
         title: this.Products[i].charAt(0).toUpperCase() + this.Products[i].slice(1),
@@ -58,11 +57,6 @@ export class HomePage {
       });
     }
     this.allItems = this.items;
-  }
- 
-
-  onRegister(){
-    this.router.navigateByUrl('/register')
   }
 
   onSearchTerm(ev: CustomEvent) {
@@ -206,6 +200,91 @@ export class HomePage {
   //  this.navCtrl.push(ItemViewPage,itemInfo);
   }
 
+  
+  async showLogin(){
+    const alert = await this.alertController.create({
+      header: 'LOGIN',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Phone Number'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+
+          placeholder: 'Password'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'SIGN-IN',
+          handler: (name) => {
+            console.log('Confirm Ok', name);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
+
+
+ async showPrompt(){
+    const alert = await this.alertController.create({
+      header: 'Register!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Full name'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+
+          placeholder: 'Phone Number'
+        },
+       
+        {
+          name: 'name4',
+          type: 'text',
+  
+          placeholder: 'Password'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'SingUp',
+          handler: (name) => {
+            console.log('Confirm Ok', name);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
 
 }
 
+}
