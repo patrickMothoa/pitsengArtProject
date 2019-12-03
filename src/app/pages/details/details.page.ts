@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
 import { AlertController } from '@ionic/angular';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -25,16 +26,33 @@ export class DetailsPage implements OnInit {
     large: ''
   };
 
+  public items: any;
+  cart = [];
   Products = [];
   myProduct = false;
-  constructor(
+  constructor(private cartService: CartService,
     public productService: ProductService, 
     public data : ProductService,
     public alertCtrl: AlertController,
-    public route : Router) { }
+    public route : Router,
+    private router: Router) { }
 
   ngOnInit() {
     this.getProducts();
+
+   // this.items = this.cartService.getProducts();
+    this.cart = this.cartService.getCart();
+  }
+
+   /// taking values from db to cart
+  addToCart( p ) {
+    this.cartService.addProduct( p );
+    console.log("pushing to Cart",event);
+    
+  }
+
+  openCart() {
+    this.router.navigate(['cart']);
   }
 
   ionViewWillEnter(){

@@ -1,47 +1,23 @@
 <ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>cart</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-      <ion-title>Cart</ion-title>
+<ion-content>               
+  <ion-list>
+      <ion-item *ngFor="let item of myArray " lines="inset">
+        {{item.count  }}x {{ item.productno }}- {{ item.name }} - {{ item.price | currency:'R':'symbol' }}
+          <ion-label slot="end" text-right>{{ (item.price * count) | currency:'R':'symbol' }}</ion-label>
+      </ion-item>
+      <ion-item>
+          Total: <span slot="end">{{ total | currency:'R':'symbol' }}</span>
+      </ion-item>
+  </ion-list>
 
-  </ion-header>
-  
-  
-  <ion-content>
-  
-    <div>
-      <ion-list no-lines>
-        <ion-item *ngFor="let item of cart" (swipe)="removeItem(item)">
-          <ion-thumbnail item-start tappable>
-            <img src="{{item.photos[0].url}}">
-          </ion-thumbnail>
-          <h2>{{item.name}}</h2>
-          <p>{{item.price}}</p>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <div tappable (click)="decreaseQuantity(item)">
-                  <p>-</p>
-                </div>
-              </ion-col>
-              <ion-col>
-                <div>
-                  <p>{{item.quantity}}</p>
-                </div>
-              </ion-col>
-              <ion-col>
-                <div tappable (click)="increaseQuantity(item)">
-                  <p>+</p>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <button ion-button primary item-end (click)="openItem(item)">View</button>
-        </ion-item>
-      </ion-list>
-    </div>
-  
-    <ion-fab right bottom>
-      <button ion-fab color="light" (click)="checkout()">
-        <ion-icon name="exit"></ion-icon>
-      </button>
-    </ion-fab>
-  </ion-content>
+  <ion-button (click)="placeOrder()">
+    <ion-icon name="checkmark-circle" class="navicon" ></ion-icon>PLACE ORDER</ion-button>
+</ion-content>
