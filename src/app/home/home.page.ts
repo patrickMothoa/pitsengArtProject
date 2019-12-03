@@ -100,14 +100,7 @@ export class HomePage {
   }
 
 
-  logOut(){
-    firebase.auth().signOut().then(()=> {
-      // Sign-out successful.
-      this.router.navigateByUrl('/login');
-    }).catch((error)=> {
-      // An error happened.
-    });
-  }
+
 
 
   ViewDetails(view) {
@@ -330,38 +323,17 @@ SearchProducts(ev: CustomEvent){
       ]
     });
     await alert.present();
-    // this.alert();
-  }}
 
-//       buttons: [
-//         {
-//           text: 'Cancel',
-//           role: 'cancel',
-//           cssClass: 'primary',
-//           handler: () => {
-//             console.log('Confirm Cancel');
-//           }
-//         }, {
-//           text: 'SingUp',
-//           handler: name => {
-//             this.phoneNumber = this.registrationForm.get('phoneNumber').value
-//             console.log(this.phoneNumber);
-//             window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-//            size: 'invisible',
-            
-//     });
-        
-//     console.log(window.recaptchaVerifier);
-//     let appVerifier = window.recaptchaVerifier
-//     return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
-//       if(result.success === true){
-//         console.log(result);
-//         this.confirmationResult = result.result
-//         console.log(this.confirmationResult);
-      
-//        this.alert();
-//       }
-    
-//   }]
-// });
-// }}
+}  
+
+logOut(){
+  firebase.auth().signOut().then(()=> {
+    // Sign-out successful.
+    this.router.navigateByUrl('/login');
+  }).catch((error)=> {
+    // An error happened.
+  });
+ 
+}
+
+}

@@ -34,8 +34,30 @@
 
     <section class="content-wrapper">
         <nav class="navigation-bar">
+            <!-- attempting search from here  -->
+           
+                <ion-searchbar placeholder="Search Products"  [(ngModel)]='myDest' (ionChange)='SearchProducts($event);' value="" style='min-width: 200px;'></ion-searchbar> 
+                <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon>
+                <ion-list  [hidden]="autocompleteItemz.length == 0" >
+                  <div *ngIf="autocompleteItemz.length > 0">
+                <ion-item class="list"  *ngFor="let item of autocompleteItemz" tappable id="submit" (click)="productDetails(item)">
+                      <ion-avatar>
+                          <img src="{{item.obj.image}}" alt="" height="300" width="300">
+                      </ion-avatar>
+                      <ion-label> {{ item.obj.name }}</ion-label>  
+                </ion-item>
+                </div>
+               </ion-list>
+       
           <ion-button fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
-          <ion-button fill="clear" (click)="logOut()" slot="end">Logout</ion-button></nav>
+          <ion-button fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
+          <ion-buttons slot="end">
+        <ion-button (click)="openCart()">
+            <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+            <ion-icon slot="icon-only" name="cart"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+        </nav>
           
         <div class="container">
             <div class="categories-block"  *ngFor="let event of Products" >
@@ -44,9 +66,7 @@
                         {{event.categories }}<br>
                     </ion-col>
                 </ion-row>
-                <ion-slides [options]="sliderConfig">
-                    <ion-slide >
-                        <div *ngIf="myProduct">
+                <div *ngIf="myProduct">
                             <ion-card >
                                 <ion-card-header >
                                     <ion-card-title (click)="ViewDetails(event)">
@@ -60,9 +80,7 @@
                                 </ion-card-header>
                             </ion-card>
                         </div>
-                    </ion-slide>
-                </ion-slides>
-            </div> 
+                    </div> 
         </div>
     </section>
   </main>
