@@ -3,6 +3,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { NavController, ToastController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { ProductService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +22,7 @@ export class CartPage implements OnInit {
   total = 0;
   count = 1;
   myProduct = false;
-  constructor(private cartService: CartService,public navCtrl : NavController,public transact: TransactionService) { }
+  constructor(private router: Router,private cartService: CartService,public navCtrl : NavController,public transact: TransactionService, public data : ProductService) { }
 
   ngOnInit() {
    let items = this.cartService.getCart();
@@ -93,27 +95,50 @@ export class CartPage implements OnInit {
       orderNumber
       member
       Orders = []
-      placeOrder(){
+   
+
+      placeOrder(item){
         this.orderNumber = this.stringGen(11);
         console.log("clickedX",this.orderNumber);
-
+        this.data.data = item;
           for(var i = 0; i <  this.myArray.length; i++){
-            let items =  this.myArray[i];
-            console.log("inside-items",items);
+            let item =  this.myArray[i];
+            console.log("inside-items",item);
+               /// your order details
             let orderDetails ={
               total: this.total,
               orderNumber: this.orderNumber
             };
             console.log("inside-Order",orderDetails);
-             let userID = firebase.auth().currentUser.uid;
-             this.transact.memberTransact(userID,items,orderDetails);
+            //  let userID = firebase.auth().currentUser.uid;
+            //  this.transact.memberTransact(userID,item,orderDetails);
 
-             this.navCtrl.navigateRoot('/confirm-page',{
-                // "totalpay": this.total,
-                // "orderNum": this.orderNumber
-             });  
+            //  this.navCtrl.navigateRoot('/confirm-page',{
+            //     "totalpay": this.total,
+            //     "orderNum": this.orderNumber
+            //  });  
+      
          } 
+         this.router.navigateByUrl('/confirmation');
       }
+
+
+
+      /// pushes to db without orderNum
+      // placeOrder(item){
+      //   console.log("okokoko");
+      //   this.orderNumber = this.stringGen(11);
+      //   console.log("ser", this.orderNumber);
+      //   for(var i = 0; i < this.myArray.length; i++){
+      //      item = this.myArray[i];
+      //     let orderDetails = {
+      //       total : this.total,
+      //       orderNum: this.orderNumber
+      //     };
+      //     this.transact.addorder(item);
+      //   }
+      // }
+      
         //// generating Random string
       stringGen(len){
         var text = " ";

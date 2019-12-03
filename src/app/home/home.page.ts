@@ -54,7 +54,7 @@ export class HomePage {
 
 
   ngOnInit() {
-    this.getProducts();
+    this.getProduct();
     this.cart = this.cartService.getCart();
   }
 

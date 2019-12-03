@@ -21,6 +21,21 @@ export class TransactionService {
     this.itemReview = firebase.database().ref('product-review');
     this.fireRef = firebase.database().ref();
   }
+  ///////////////////////////
+  ////////////////////////////////
+  addorder(item) {
+    this.db.collection('Orders').doc().set({
+    name : item,
+    //orderDetails: orderDetails
+   })
+    .catch(err => {
+           console.error(err);
+  });
+}
+
+
+  /////////////////
+  ///////////////////
   
   //CERTAIN TRANSACTION
   viewTransact(transactId){

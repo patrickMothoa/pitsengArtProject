@@ -34,7 +34,6 @@ export class DetailsPage implements OnInit {
     public productService: ProductService, 
     public data : ProductService,
     public alertCtrl: AlertController,
-    public route : Router,
     private router: Router) { }
 
   ngOnInit() {
@@ -56,8 +55,7 @@ export class DetailsPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.Products.push(this.data.data)
-    
+    this.Products.push(this.data.data)  
   }
    ionViewDidLoad() {
     console.log('ionViewDidLoad ProductPage');
