@@ -1,8 +1,181 @@
 
-.login{
+// .spinner-container {
+//     width: 100%;
+//     text-align: center;
+//     padding: 10px;
+//   }
+//   .navigation_bar{
+//     display: flex;
+//   flex-direction: row;
+//   background-color: #FFAF65;
+//   margin: 50px;
+//   padding-top: 50px;
+//   padding: 20px;
+//   font-size: 1rem;
+//   color: white;
+//   }
+//   .avatar-image{
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     flex: 1;
+//     margin-right: 15%;
+//   }
+//  .logo{
+//    width: 10%;
+//  }
+// ion-footer{
+//   --ion-background-color:#A97E72;
+//   --ion-text-align:center;
+//   text-align: center;
+//   --ion-color: white;
+//   --ion-font-weight: lighter;
+//   font-size: 1.6rem;
+// }
+// .mainContainer{
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   width: 100%;
+//   height: 100%;
+//   justify-content: center;
+// }
+// .myProduct{
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   width: 100%;
+//   height: 100%;
+//   margin: 20px;
+// }
+// ion-card {
+//   width: 100%;
+//   height: 45vh;
+//   text-align: center;
+//   padding-left: 0%;
+//   padding-right: 0%;
+//   border-radius: 15px;
+//   box-shadow:rgb(235, 230, 230) ;
+//   background-color: rgba(245, 245, 245, 0.555);
+//   }
+//   .categories-block{
+//     display: flex;
+//     flex-direction:row;
+//     flex-wrap: wrap;
+//     width: 24%;
+//     justify-content: space-around;
+//     }
+//     .image{
+//       width: 100%;
+//       height: 35vh;
+//     }
+//     span{
+//       display: flex;
+//       flex-direction: column;
+//     }
+//     p{
+//       font-weight: bolder;
+//     }
+//     h2{
+//       font-size: 1.1rem;
+//       text-transform: capitalize;
+//     }
+//       /*MEDIA QUERY*/
+// @media only screen and (max-width : 640px) {
+// 	.navigation_bar {
+// 		position: absolute;
+// 	}
+// 	.logo{
+// 		display:inline-block;
+// 	}
+// 	nav ul, nav:active ul {
+// 		display: none;
+// 		position: absolute;
+// 		padding: 20px;
+// 		background: #fff;
+// 		border: 5px solid #444;
+// 		right: 20px;
+// 		top: 60px;
+// 		width: 50%;
+// 		border-radius: 4px 0 4px 4px;
+// 	}
+// 	nav li {
+// 		text-align: center;
+// 		width: 100%;
+// 		padding: 10px 0;
+// 		margin: 0;
+// 	}
+// 	nav:hover ul {
+//     display: block;
+//   }
+// }
+.main {
     display: flex;
-    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    animation-name: zoomIn;
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    transform: scale(.5);
+    
 }
-.md-social-btn .mbsc-ic {
-    float: left;
+.side-container {
+    flex-basis: 10%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
 }
+.content-wrapper {
+    flex-basis: 90%;
+    background: #f2f2ff;
+    display: flex;
+    flex-direction: column;
+}
+.navigation-bar {
+    flex-basis: 10%;
+    background: pink;
+}
+.container {
+    flex-basis: 90%;
+    overflow: auto;
+    .categories-block{
+            display: flex;
+            flex-direction:row;
+            flex-wrap: wrap;
+            width: 24%;
+            justify-content: space-around;
+            }
+            .image{
+                      width: 100%;
+                      height: 35vh;
+                    }
+                    span{
+                      display: flex;
+                      flex-direction: column;
+                    }
+                    p{
+                      font-weight: bolder;
+                    }
+                    h2{
+                      font-size: 1.1rem;
+                      text-transform: capitalize;
+                    }
+ }
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+
+
+
+
