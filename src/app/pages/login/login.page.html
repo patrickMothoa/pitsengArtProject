@@ -1,0 +1,13 @@
+<ion-content padding>
+    <div id="recaptcha-container"></div>
+    
+        <form class="form" style="padding: 50px;" [formGroup]="registrationForm">
+            <ion-label stacked>Phone Number</ion-label>
+            <ion-input formControlName="phoneNumber" type="text" [(ngModel)]="phoneNumber"></ion-input>
+          <ion-button id="sign-in-button" class="form-buttons" [disabled]="!registrationForm.valid"  (click)="addUser()">
+            Sign In
+          </ion-button>
+          </form>
+  
+  
+  </ion-content>

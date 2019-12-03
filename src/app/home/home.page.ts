@@ -77,14 +77,7 @@ export class HomePage {
   }
 
 
-  logOut(){
-    firebase.auth().signOut().then(()=> {
-      // Sign-out successful.
-      this.router.navigateByUrl('/login');
-    }).catch((error)=> {
-      // An error happened.
-    });
-  }
+
 
 
   ViewDetails(view) {
@@ -270,6 +263,16 @@ SearchProducts(ev: CustomEvent){
 
     await alert.present();
 
+}  
+
+logOut(){
+  firebase.auth().signOut().then(()=> {
+    // Sign-out successful.
+    this.router.navigateByUrl('/login');
+  }).catch((error)=> {
+    // An error happened.
+  });
+ 
 }
 
 }
