@@ -1,6 +1,14 @@
 <ion-header>
   <ion-toolbar>
      
+   <a href="login" (click) ="onLogin()" >Login</a>/<a href="register" (click) ="onRegister()">Register</a>
+    <ion-button (click)="getProducts('Vase')" slot="end">Vase</ion-button>
+    <ion-button (click)="getProducts('Bowls and Pots')" slot="end">Bowls and pots</ion-button>
+    <ion-button (click)="getProducts('Cups and Plates')" slot="end">Mugs and plates</ion-button>
+    <ion-button (click)="getProducts('Photo Frame')" slot="end">Photo frames</ion-button>
+    <ion-button (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
+    <ion-button (click)="getProducts('Decor Pallets')" slot="end">Lamps</ion-button>
+    <ion-button (click)="getProducts('Wall Deco')" slot="end">Wall decorations</ion-button>
       <ion-button (click)="openProfile()" slot="end">Profile</ion-button>
       <ion-button (click)="logOut()" slot="end">Logout</ion-button>
       <ion-buttons slot="end">
@@ -26,16 +34,14 @@
           </div>
          </ion-list>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content>
-
-
-  <!-- <div class="categories-block"  *ngFor="let event of Products" > -->
-      <div class="categories-block" *ngFor="let event of Products" >
+  <div class="categories-block"  *ngFor="let event of Products" >
       <ion-row no-padding class="categories-banner">
           <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
-              {{event.obj.categories }}<br>
+              {{event.categories }}<br>
           </ion-col>
       </ion-row>
       <ion-slides [options]="sliderConfig">
@@ -57,4 +63,6 @@
           </ion-slide>
       </ion-slides>
   </div>
+  
+  
 </ion-content>

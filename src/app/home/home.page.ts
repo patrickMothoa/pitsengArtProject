@@ -99,24 +99,44 @@ export class HomePage {
 
 
       // retriving from firebase.firestore
-  getProducts() {
+  getProducts(categories) {
         let obj = {id : '', obj : {}};
-        this.db.collection('Products').get().then(snapshot => {
-          this.Products = [];
-          if (snapshot.empty) {
-                  this.myProduct = false;
-                } else {
-                  this.myProduct = true;
-                  snapshot.forEach(doc => {
-                    obj.id = doc.id;
-                    obj.obj = doc.data();
-                    this.Products.push(obj);
-                    obj = {id : '', obj : {}};
-                  //  console.log("herererer", this.Products);
-                  });
-                  return this.Products;
-                }
-        });
+        if(categories) {
+          this.db.collection('Products').where('categories', '==', categories).get().then((snapshot) => {
+            this.Products = [];
+            if (snapshot.empty) {
+                    this.myProduct = false;
+                  } else {
+                    this.myProduct = true;
+                    snapshot.forEach(doc => {
+                      obj.id = doc.id;
+                      obj.obj = doc.data();
+                      this.Products.push(obj);
+                      obj = {id : '', obj : {}};
+                      console.log("herererer", this.Products);
+                    });
+                    return this.Products;
+              }
+          })
+        }else {
+          this.db.collection('Products').get().then(snapshot => {
+            this.Products = [];
+            if (snapshot.empty) {
+                    this.myProduct = false;
+                  } else {
+                    this.myProduct = true;
+                    snapshot.forEach(doc => {
+                      obj.id = doc.id;
+                      obj.obj = doc.data();
+                      this.Products.push(obj);
+                      obj = {id : '', obj : {}};
+                      console.log("herererer", this.Products);
+                    });
+                    return this.Products;
+                  }
+          });
+        }
+  
       }
 
   navDetails = []
@@ -126,6 +146,27 @@ export class HomePage {
   }
 
 ////// for searching
+
+getProduct(){
+  let obj = {id : '', obj : {}};
+  this.db.collection('Products').get().then(snapshot => {
+    this.Products = [];
+    if (snapshot.empty) {
+            this.myProduct = false;
+          } else {
+            this.myProduct = true;
+            snapshot.forEach(doc => {
+              obj.id = doc.id;
+              obj.obj = doc.data();
+              this.Products.push(obj);
+              obj = {id : '', obj : {}};
+              console.log("herererer", this.Products);
+            });
+            return this.Products;
+          }
+  });
+}
+
 SearchProducts(ev: CustomEvent){
   if(this.supplier === '') {
     this.autocompleteItemz = [];
@@ -133,7 +174,7 @@ SearchProducts(ev: CustomEvent){
   }
  this.autocompleteItemz = this.Products;
  console.log("ooo", this.autocompleteItemz );
-  this.getProducts();
+  this.getProduct();
 
   const val = ev.detail.value; 
   if (val.trim() !== '') {
