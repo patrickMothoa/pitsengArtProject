@@ -6,6 +6,10 @@ import * as firebase from 'firebase';
 export class AuthService {
 user: any;
 db = firebase.firestore();
+login 
 constructor( ) {
 }
+
+
+
 }

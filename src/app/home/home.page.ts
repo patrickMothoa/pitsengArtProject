@@ -3,10 +3,11 @@ import {NavController} from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { AuthService } from '../../app/services/auth.service';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AlertController } from '@ionic/angular';
-
+declare var window
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,14 @@ export class HomePage {
     large: ''
   };
 
+  phoneNumber = ''
+  password
+  registrationForm
+  smsSent
+  confirmationResult = ''
+  inputCode
+  public recaptchaVerifier: firebase.auth.RecaptchaVerifier
+
   Products = [];
   supplier
   myProduct = false;
@@ -48,9 +57,23 @@ export class HomePage {
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
 
-  constructor(public alertController: AlertController,private navCtrl:NavController,public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
+  constructor( public alertController: AlertController,
+    public authService: AuthService,
+    private navCtrl:NavController,
+    public data: ProductService,
+    private cartService: CartService,
+    private router: Router, 
+    public productService: ProductService) {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
+
+    this.smsSent = false
+
+      firebase.auth().languageCode = 'en';
+
+  // this.registrationForm = formBuilder.group({
+  //   phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])]
+  // })
   }
 
 
@@ -225,18 +248,50 @@ SearchProducts(ev: CustomEvent){
 
   }
 
-
- async showPrompt(){
+  async alert(){
     const alert = await this.alertController.create({
-      header: 'Register!',
+      header: 'Verfification code',
+      // subHeader: 'Enter verification code',
       inputs: [
         {
-          name: 'name1',
+          name: 'code',
+          type: 'text',
+          placeholder: 'Enter code'
+        }],
+      buttons: [{
+        text: 'Submit',
+        role: 'submit',
+        cssClass: 'secondary',
+        handler: (result) => {
+          console.log(result.code);
+          this.reg(result.code);
+          this.router.navigateByUrl('/home');
+        }
+      }]
+    });
+    await alert.present();
+  }
+
+  reg(code){
+    if(this.confirmationResult !== ''){
+      return this.authService.login(code, this.confirmationResult).then(result => {
+        console.log(result);
+      })
+    }
+  }
+
+ async getRegister(){
+    const alert = await this.alertController.create({
+      header: 'Register',
+      inputs: [
+        
+        {
+          name: 'name',
           type: 'text',
           placeholder: 'Full name'
         },
         {
-          name: 'name2',
+          name: 'phoneNumber',
           type: 'text',
           id: 'name2-id',
 
@@ -244,9 +299,8 @@ SearchProducts(ev: CustomEvent){
         },
        
         {
-          name: 'name4',
+          name: 'password',
           type: 'text',
-  
           placeholder: 'Password'
         },
        
@@ -260,16 +314,54 @@ SearchProducts(ev: CustomEvent){
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'SingUp',
-          handler: (name) => {
-            console.log('Confirm Ok', name);
+          text: 'SIGNUP',
+          handler: () => {
+            this.phoneNumber = this.registrationForm.get('phoneNumber').value
+            console.log(this.phoneNumber);
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+           size: 'invisible',
+           
+            });
+            
           }
+          
         }
+        
       ]
     });
-
     await alert.present();
+    // this.alert();
+  }}
 
-}
-
-}
+//       buttons: [
+//         {
+//           text: 'Cancel',
+//           role: 'cancel',
+//           cssClass: 'primary',
+//           handler: () => {
+//             console.log('Confirm Cancel');
+//           }
+//         }, {
+//           text: 'SingUp',
+//           handler: name => {
+//             this.phoneNumber = this.registrationForm.get('phoneNumber').value
+//             console.log(this.phoneNumber);
+//             window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+//            size: 'invisible',
+            
+//     });
+        
+//     console.log(window.recaptchaVerifier);
+//     let appVerifier = window.recaptchaVerifier
+//     return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
+//       if(result.success === true){
+//         console.log(result);
+//         this.confirmationResult = result.result
+//         console.log(this.confirmationResult);
+      
+//        this.alert();
+//       }
+    
+//   }]
+// });
+// }}
