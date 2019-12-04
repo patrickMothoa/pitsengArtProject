@@ -123,11 +123,12 @@
     
 }
 .side-container {
-    background: #D7E8D4;
+    // background: #D7E8D4;
     flex: 1;
     flex-direction: column;
     align-content: center;
 
+  
 }
 .content-wrapper {
     flex-basis: 90%;
@@ -144,15 +145,16 @@
 .container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     .categories-block{
             display: flex;
             flex-direction:row;
-            flex-wrap: wrap;
-            width: 100%;
+            
+            width: 20%;
             justify-content: space-around;
             }
             .image{
-                margin: 10px;
+                       width: 100%;
                       height: 35vh;
                     }
                     span{
