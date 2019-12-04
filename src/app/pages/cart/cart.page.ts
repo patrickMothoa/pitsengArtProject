@@ -60,6 +60,8 @@ export class CartPage implements OnInit {
    this.total =  this.myArray.reduce((a, b) => a + (b.count * b.price), 0);  
   }
 
+
+
      editProduct() {
       this.myProduct = false;
     }
@@ -70,6 +72,7 @@ export class CartPage implements OnInit {
       this.selectedItems.splice(index, 1);
       console.log(this.selectedItems);
       }
+
       this.total = this.selectedItems.reduce((a, b) => a + (b.count * b.price), 0);
       }
 
