@@ -77,6 +77,7 @@ console.log("momomo",this.total );
       this.selectedItems.splice(index, 1);
       console.log(this.selectedItems);
       }
+
       this.total = this.selectedItems.reduce((a, b) => a + (b.count * b.price), 0);
       }
 
