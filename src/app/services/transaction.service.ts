@@ -18,15 +18,13 @@ export class TransactionService {
     console.log("hello",this.transactNode );
     
     this.userTransact = firebase.database().ref('user-transact');
-    this.itemReview = firebase.database().ref('product-review');
+   // this.itemReview = firebase.database().ref('product-review');
     this.fireRef = firebase.database().ref();
   }
-  ///////////////////////////
-  ////////////////////////////////
+  /////////////////////////// IT PUSHES TO DB BUT NO ORDER DETAILS
   addorder(item) {
     this.db.collection('Orders').doc().set({
     name : item,
-    //orderDetails: orderDetails
    })
     .catch(err => {
            console.error(err);
@@ -58,7 +56,7 @@ export class TransactionService {
   	return this.transactNode.once('value');
   }
 
-
+    // TAKEN FROM OUR CART TS FILE
   memberTransact(userId, items,orderDetails){
     console.log("we inside Trans");
     

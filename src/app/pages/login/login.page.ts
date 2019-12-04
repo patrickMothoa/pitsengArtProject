@@ -27,13 +27,13 @@ export class LoginPage implements OnInit {
     
     ) {
       this.smsSent = false
-
+​
       firebase.auth().languageCode = 'en';
-
+​
   this.registrationForm = formBuilder.group({
     phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])]
   })
-
+​
   }
   ngOnInit() {
     // firebase.auth().onAuthStateChanged(res => {
@@ -90,7 +90,7 @@ export class LoginPage implements OnInit {
       }
     })
   }
-
+​
   async alert(){
     const alert = await this.alertController.create({
       header: 'Verfification code',
@@ -108,27 +108,28 @@ export class LoginPage implements OnInit {
         handler: (result) => {
           console.log(result.code);
           this.logins(result.code);
-          this.db.collection('admins').doc(firebase.auth().currentUser.uid).get().then(res =>{
-            if (res.exists){
-              this.route.navigateByUrl('/home')
+          this.db.collection('Users').doc(firebase.auth().currentUser.uid).get().then(res =>{
+            // if (res.exists){
+            //   this.route.navigateByUrl('/home')
              
-            }else{
-              this.route.navigateByUrl('/profile')
-            }
+            // }else{
+            //   this.route.navigateByUrl('/profile')
+            // }
+            this.route.navigateByUrl('/home')
           })
         }
       }]
     });
     await alert.present();
   }
-
+​
   login(){
     this.phoneNumber = this.registrationForm.get('phoneNumber').value
         console.log(this.phoneNumber)
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
-
+​
     firebase.auth().signInWithPhoneNumber(String(this.phoneNumber), appVerifier).then(confirmationResult => {
       window.confirmationResult = confirmationResult;
     //   this.db.collection('admins').doc(firebase.auth().currentUser.uid).get().then(res =>{
@@ -151,7 +152,7 @@ export class LoginPage implements OnInit {
     // // toast.present();
     //   ​this.route.navigateByUrl('/home')
     //   }
-   
+    this.route.navigateByUrl('/home')
       
     }).catch((error) => {
       console.log(error)

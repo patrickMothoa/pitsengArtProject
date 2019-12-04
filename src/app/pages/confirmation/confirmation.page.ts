@@ -16,7 +16,7 @@ export class ConfirmationPage implements OnInit {
   public orderNumber;
 
   Orders = [];
-
+  myArr =[]
   public cartItem: number = 0;
   
   MyObj = [];
@@ -46,6 +46,20 @@ export class ConfirmationPage implements OnInit {
 
   ngOnInit() {
 
+    this.db.collection('Orders').onSnapshot((res)=>{
+      this.myArr = [];
+      res.forEach((doc)=>{
+        this.myArr.push(doc.data());
+      })  
+  })
+ 
+    setTimeout(() => {
+      this.myArr.forEach((item)=>{
+        this.Orders.push(item.name)
+      })
+      console.log('My array ', this.Orders);
+    }, 1500);
+  }
     // let items = this.cartService.getCart();
     // let sss = this.cartService.CartList();
  
@@ -66,9 +80,11 @@ export class ConfirmationPage implements OnInit {
   //   }, 1500);
   // ///////////////////////////////////
 
-  //   this.totalpay = this.navParams.get("totalpay");
-  // 	this.orderNumber = this.navParams.get("orderNum");
+   // this.totalpay = this.navParams.get("totalpay");
+  //	this.orderNumber = this.navParams.get("orderNum");
   //   console.log(this.totalpay);
+
+  //   this.db.collection('cart').get().then(snapshot => {
   // 	this.storage.forEach((value:any, key:string) => {
   //     this.storage.get(key).then((val)=>{
   //         if(key == 'cartId'){
@@ -86,33 +102,8 @@ export class ConfirmationPage implements OnInit {
   //         }
   //     }) 
   //   })
-  this.shopList();
+  // })
+  //this.shopList();
   }
 
-  ionViewWillEnter(){
-  //  this.Orders.push(this.data.data)
-    
-  }
-          // retriving from firebase.firestore
-  shopList(){
-      // this.db.collection('cart').get().then(snapshot => {
-      // if (snapshot.empty) {
-      //     this.myProduct = false;
-      //   } else {
-      //     this.myProduct = true;
-      //       snapshot.forEach(doc => {
-      //       this.event.image= doc.data().image;
-      //       this.event.categories = doc.data().categories
-      //       this.event.name=doc.data().name
-      //       this.event.price=doc.data().price
-      //       this.event.productno=doc.data().productno
-      //       this.event.desc=doc.data().desc
-      //       this.event.small=doc.data().small
-      //       this.event.medium=doc.data().medium
-      //       this.event.large=doc.data().large   
-      //           })
-      //         }
-      //       })
-          }
 
-}

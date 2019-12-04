@@ -67,6 +67,10 @@ export class HomePage {
     
   }
 
+  openOrders(){
+    this.router.navigateByUrl('/orders');
+  }
+
   openCart() {
     this.router.navigateByUrl('/cart');
   }

@@ -9,8 +9,10 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./orders.page.scss'],
 })
 export class OrdersPage implements OnInit {
-
+  db = firebase.firestore();
   public item =[];
+  myArr = [];
+  myArray =[];
   public display;
   public postSort='recent';
   public userID;
@@ -19,6 +21,7 @@ export class OrdersPage implements OnInit {
   	  this.userID = firebase.auth().currentUser.uid;
   	this.orderHistory(this.userID, 'descending');
     this.userTransact = firebase.database().ref('user-transact');
+    this.userTransact = firebase.database().ref('Orders');
   }
 
   ionViewDidLoad() {
@@ -104,7 +107,19 @@ export class OrdersPage implements OnInit {
   // }
 
   ngOnInit() {
-    
+    this.db.collection('Orders').onSnapshot((res)=>{
+      this.myArr = [];
+      res.forEach((doc)=>{
+        this.myArr.push(doc.data());
+      })  
+  })
+ 
+    setTimeout(() => {
+      this.myArr.forEach((item)=>{
+        this.myArray.push(item.name)
+      })
+      console.log('My array ', this.myArray);
+    }, 1500);
   }
 
 }
