@@ -27,42 +27,49 @@ export class CartPage implements OnInit {
   ngOnInit() {
    let items = this.cartService.getCart();
    let sss = this.cartService.CartList();
-
    ///////////////////////////////////////////////////////////////
    ///////////////// working used this way
-   this.db.collection('cart').onSnapshot((res)=>{
-     this.myArr = [];
-     res.forEach((doc)=>{
-       this.myArr.push(doc.data());
-     })
-   })
+  // this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').onSnapshot((res)=> {
+    this.db.collection('cart').onSnapshot((res)=>{
+      this.myArr = [];
+      res.forEach((doc)=>{
+        this.myArr.push(doc.data());
+      })
+    })
+ 
+    setTimeout(() => {
+      this.myArr.forEach((item)=>{
+        this.myArray.push(item.name.obj)
+      })
+      console.log('My array ', this.myArray );
+    }, 1500);
+ /////
 
-   setTimeout(() => {
-     this.myArr.forEach((item)=>{
-       this.myArray.push(item.name.obj)
-     })
-     console.log('My array ', this.myArray);
-   }, 1500);
-
-   let selected = [];
-   console.log("mmm" );
-   for (let obj of items ) {
-    console.log("3333", obj );
-     if ( selected[obj.id]) {
-      console.log("kkeke",selected[obj.id] );
-       selected[obj.id].count++;
-     } else {
-       selected[obj.id] = {...obj, count: 1};
-       console.log("2ndkoko", selected[obj.id] = {...obj, count: 1} );
-     }
-   }
-   this.myArray = Object.keys( selected).map(key =>  selected[key]);
-   this.total =  this.myArray.reduce((a, b) => a + (b.count * b.price), 0);  
+let selected = [];
+let XXX = []
+for (let obj of items ) {
+ console.log("3333", obj );
+  if ( selected[obj.id]) {
+   console.log("kkeke",selected[obj.id] );
+    selected[obj.id].count++;
+  } else {
+    selected[obj.id] = {...obj, count: 1};
+    console.log("2ndkoko", selected[obj.id] = {...obj, count: 1} );
   }
+}
+XXX= Object.keys( selected).map(key =>  selected[key]);
+console.log("xxxx", this.myArray );
+this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);  
+console.log("momomo",this.total );
+/////
+
+  }
+
 
      editProduct() {
       this.myProduct = false;
     }
+
     onDeleteItem(i) {
       const index = this.selectedItems.indexOf(i);
       if (index > -1) {
@@ -105,13 +112,14 @@ export class CartPage implements OnInit {
             let item =  this.myArray[i];
             console.log("inside-items",item);
                /// your order details
+
             let orderDetails ={
               total: this.total,
               orderNumber: this.orderNumber
             };
             console.log("inside-Order",orderDetails);
-            //  let userID = firebase.auth().currentUser.uid;
-            //  this.transact.memberTransact(userID,item,orderDetails);
+             let userID = firebase.auth().currentUser.uid;
+             this.transact.memberTransact(userID,item,orderDetails);
 
             //  this.navCtrl.navigateRoot('/confirm-page',{
             //     "totalpay": this.total,
@@ -121,23 +129,6 @@ export class CartPage implements OnInit {
          } 
          this.router.navigateByUrl('/confirmation');
       }
-
-
-
-      /// pushes to db without orderNum
-      // placeOrder(item){
-      //   console.log("okokoko");
-      //   this.orderNumber = this.stringGen(11);
-      //   console.log("ser", this.orderNumber);
-      //   for(var i = 0; i < this.myArray.length; i++){
-      //      item = this.myArray[i];
-      //     let orderDetails = {
-      //       total : this.total,
-      //       orderNum: this.orderNumber
-      //     };
-      //     this.transact.addorder(item);
-      //   }
-      // }
       
         //// generating Random string
       stringGen(len){

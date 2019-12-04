@@ -48,7 +48,7 @@ export class CartService {
 
   ////// insert current userid after shopping
   addProduct(event) {
-      this.db.collection('cart').doc().set({
+    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
       name : event
      })
       .catch(err => {
@@ -67,32 +67,32 @@ export class CartService {
     }
     }
   
-  removeFromCart(event) {
-    this.db.collection('cart').doc(event.id).delete().then(() => {
-     console.log("we are here");
+  // removeFromCart(event) {
+  //   this.db.collection('cart').doc(event.id).delete().then(() => {
+  //    console.log("we are here");
      
-    })
-    .catch(err => {
-      console.error(err);
-   console.log("not inside");
+  //   })
+  //   .catch(err => {
+  //     console.error(err);
+  //  console.log("not inside");
    
-    });
-  }
+  //   });
+  // }
   
-  changeCartItemQuantity(item, quantity) {
-          this.db.collection('cart').doc(item.id).update({ quantity: quantity })
-        .then(() => {
-           console.log("teeet"); 
-        })
-        .catch(err => {
-              console.error(err);
-       });
-  }
+  // changeCartItemQuantity(item, quantity) {
+  //         this.db.collection('cart').doc(item.id).update({ quantity: quantity })
+  //       .then(() => {
+  //          console.log("teeet"); 
+  //       })
+  //       .catch(err => {
+  //             console.error(err);
+  //      });
+  // }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /// CODE TO BE USED FOR AUTHORIZING USER TO PROCESS
   // addToCart(item, cid) {
   //   return new Promise(resolve => {
-
   //     //// checkLoginSattus from AUTH
   //     this.authService.checkLoginStatus().then((user: any) => {
   //         if (user === false) {
@@ -105,7 +105,6 @@ export class CartService {
   //                 this.db.collection('users').doc(user).collection('cart').doc(item.id).set({
   //                     id: item.id,
   //                     quantity: 1,
-  //                     addedon: moment().format('MMMM Do YYYY, h:mm:ss a'),
   //                     name: item.name,
   //                     price: item.price,
   //                     category: item.category,

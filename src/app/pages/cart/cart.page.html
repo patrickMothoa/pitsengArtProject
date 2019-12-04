@@ -10,7 +10,7 @@
 <ion-content>               
   <ion-list>
       <ion-item *ngFor="let item of myArray " lines="inset">
-        {{item.count  }}x {{ item.productno }}- {{ item.name }} - {{ item.price | currency:'R':'symbol' }}
+        {{item.count  }}. <ion-thumbnail item-start> <img src="{{item.image}}"> </ion-thumbnail> {{ item.productno }}- {{ item.name }} - {{ item.price | currency:'R':'symbol' }}
           <ion-label slot="end" text-right>{{ (item.price * count) | currency:'R':'symbol' }}</ion-label>
       </ion-item>
       <ion-item>
