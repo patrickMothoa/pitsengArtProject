@@ -108,13 +108,14 @@ export class LoginPage implements OnInit {
         handler: (result) => {
           console.log(result.code);
           this.logins(result.code);
-          this.db.collection('admins').doc(firebase.auth().currentUser.uid).get().then(res =>{
-            if (res.exists){
-              this.route.navigateByUrl('/home')
+          this.db.collection('Users').doc(firebase.auth().currentUser.uid).get().then(res =>{
+            // if (res.exists){
+            //   this.route.navigateByUrl('/home')
              
-            }else{
-              this.route.navigateByUrl('/profile')
-            }
+            // }else{
+            //   this.route.navigateByUrl('/profile')
+            // }
+            this.route.navigateByUrl('/home')
           })
         }
       }]
