@@ -309,13 +309,7 @@ SearchProducts(ev: CustomEvent){
         }, {
           text: 'SIGNUP',
           handler: () => {
-            this.phoneNumber = this.registrationForm.get('phoneNumber').value
-            console.log(this.phoneNumber);
-            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-           size: 'invisible',
-           
-            });
-            
+            this.addUser();
           }
           
         }
@@ -325,6 +319,33 @@ SearchProducts(ev: CustomEvent){
     await alert.present();
 
 }  
+
+addUser(){
+  this.phoneNumber = this.registrationForm.get('phoneNumber').value
+  console.log(this.phoneNumber);
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+    size: 'invisible',
+    callback: (response) => {
+      console.log('checking here');
+    },
+    'expired-callback': () => {
+      
+    }
+  });
+  console.log(window.recaptchaVerifier);
+  let appVerifier = window.recaptchaVerifier
+  return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
+    if(result.success === true){
+      console.log(result);
+      this.confirmationResult = result.result
+      console.log(this.confirmationResult);
+    
+     this.alert();
+    
+    }
+  })
+}
+
 
 logOut(){
   firebase.auth().signOut().then(()=> {
