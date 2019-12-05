@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController} from '@ionic/angular';
+import {NavController,ModalController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -7,6 +7,8 @@ import { AuthService } from '../../app/services/auth.service';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AlertController } from '@ionic/angular';
+import { DetailsPage } from '../../app/pages/details/details.page';
+import { from } from 'rxjs';
 declare var window
 
 @Component({
@@ -62,7 +64,8 @@ export class HomePage {
     private navCtrl:NavController,
     public data: ProductService,
     private cartService: CartService,
-    private router: Router, 
+    private router: Router,
+    public modalCtrl: ModalController,
     public productService: ProductService) {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
@@ -110,9 +113,18 @@ export class HomePage {
   ViewDetails(view) {
     console.log("sds", view);
     this.data.data = view;
-    this.router.navigateByUrl('/details')
+    this.presentModal()
+    // this.router.navigateByUrl('/details')
   }
 
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: DetailsPage
+    });
+    return await modal.present();
+  
+}
+  
   productDetails(item){
     this.data.data = item;
     this.router.navigateByUrl('/details')

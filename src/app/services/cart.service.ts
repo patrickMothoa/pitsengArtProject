@@ -67,27 +67,27 @@ export class CartService {
     }
     }
   
-  // removeFromCart(event) {
-  //   this.db.collection('cart').doc(event.id).delete().then(() => {
-  //    console.log("we are here");
+  removeFromCart(event) {
+    this.db.collection('cart').doc(event.id).delete().then(() => {
+     console.log("we are here");
      
-  //   })
-  //   .catch(err => {
-  //     console.error(err);
-  //  console.log("not inside");
+    })
+    .catch(err => {
+      console.error(err);
+   console.log("not inside");
    
-  //   });
-  // }
+    });
+  }
   
-  // changeCartItemQuantity(item, quantity) {
-  //         this.db.collection('cart').doc(item.id).update({ quantity: quantity })
-  //       .then(() => {
-  //          console.log("teeet"); 
-  //       })
-  //       .catch(err => {
-  //             console.error(err);
-  //      });
-  // }
+  changeCartItemQuantity(item, quantity) {
+          this.db.collection('cart').doc(item.id).update({ quantity: quantity })
+        .then(() => {
+           console.log("teeet"); 
+        })
+        .catch(err => {
+              console.error(err);
+       });
+  }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /// CODE TO BE USED FOR AUTHORIZING USER TO PROCESS

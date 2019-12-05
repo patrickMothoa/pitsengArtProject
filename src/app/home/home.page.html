@@ -53,12 +53,13 @@
                         {{event.categories }}<br>
                     </ion-col>
                 </ion-row>
+
                 <div *ngIf="myProduct">
-                            <ion-card >
-                                <ion-card-header >
-                                    <ion-card-title (click)="ViewDetails(event)">
-                                      <img src="{{event.obj.image}}" alt="" height="300" width="300">
-                                    </ion-card-title>
+                        <ion-card >
+                            <ion-card-header >
+                                <ion-card-title (click)="ViewDetails(event)">
+                                    <img src="{{event.obj.image}}" alt="" height="300" width="300">
+                                </ion-card-title>
                                     <ion-card-content>
                                       {{event.obj.name}} <br>
                                       R{{event.obj.price}}<br> 
@@ -67,7 +68,7 @@
                                 </ion-card-header>
                             </ion-card>
                         </div>
-                    </div> 
+                </div> 
         </div>
     </section>
   </main>
@@ -76,4 +77,6 @@
         <ion-title color="light" size="small" >  @ 2019  Pitseng Arts and Crafts.  All right reserved. Privacy Policy</ion-title>
       </ion-toolbar>
   </ion-footer>
+
+
 </ion-content>
