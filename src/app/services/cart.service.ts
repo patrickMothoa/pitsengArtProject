@@ -32,7 +32,7 @@ export class CartService {
   //////////////////////////// above code add to cart but ddoesn't display inside
  
   CartList() {
-    this.db.collection('cart').get().then(snapshot => {
+    this.db.collection('Cart').get().then(snapshot => {
     this.cartList
     snapshot.forEach(doc => {
     this.cartList.push(doc.data());
@@ -46,7 +46,7 @@ export class CartService {
     return this.cartList; 
   }
 
-  ////// insert current userid after shopping
+  ////// insert current 
   addProduct(event) {
     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
       name : event

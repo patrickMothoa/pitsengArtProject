@@ -20,16 +20,6 @@ export class TransactionService {
 
     this.fireRef = firebase.database().ref();
   }
-  /////////////////////////// IT PUSHES TO DB BUT NO ORDER DETAILS
-//   addorder(item) {
-//     this.db.collection('Orders').doc().set({
-//     name : item,
-//    })
-//     .catch(err => {
-//            console.error(err);
-//   });
-// }
-
 
   /////////////////
   ////// insert current userid
@@ -67,33 +57,10 @@ export class TransactionService {
     // TAKEN FROM OUR CART TS FILE
   memberTransact(item,total,orderDetails){
     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').doc().set({
-      name : item,
+      // name : item,
       details: orderDetails,
-       total: total
+      obj: total,
      })
-        // //GET A KEY FOR A NEW POST
-        // let newPostKey = this.transactNode.push().key;
-        // console.log("goes", this.transactNode );
-        
-        // let d = new Date();
-        // let e = this.formatDate(d);
-        // //TRANSACT ENTRY
-        // let postData = {
-        //   uid: userId,
-        //   items: item,
-        //   details: orderDetails,
-        //   postKey: newPostKey,
-        //   dateTime: e
-        // };
-        // console.log("loged",postData );
-        // // WRITE THE NEW TRANSACT DATA SIMULTANEOUSLY IN THE TRANSACT LIST  AND USER TRANSACTION
-
-        // let updatePath = {};
-        // updatePath['/transact/' + newPostKey] = postData;
-        // updatePath['/user-transact/' + userId + "/" + newPostKey] = postData;
-
-        // //UPDATE BOTH TABLES SIMULTANEOUSLY
-        // return this.fireRef.update(updatePath);
       }
 
 

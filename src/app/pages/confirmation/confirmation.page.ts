@@ -16,7 +16,7 @@ export class ConfirmationPage implements OnInit {
   public orderNumber;
 
   Orders = [];
-  myArr =[]
+  conArray =[]
   public cartItem: number = 0;
   
   MyObj = [];
@@ -46,64 +46,45 @@ export class ConfirmationPage implements OnInit {
 
   ngOnInit() {
 
-    this.db.collection('Orders').onSnapshot((res)=>{
-      this.myArr = [];
+    let  obj = {
+      details : {orderNumber : 0, total : 0},
+      obj : {
+        categories : "", price : "", productNumber : "", quantity : 0,name : ""
+      }
+    }
+
+
+    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
+      this.conArray = [];
       res.forEach((doc)=>{
-        this.myArr.push(doc.data());
+
+        obj.details.orderNumber = doc.data().details.orderNumber;
+        obj.details.total = doc.data().details.total;
+        obj.obj.categories = doc.data().obj.categories;
+        obj.obj.price = doc.data().obj.price;
+        obj.obj.productNumber = doc.data().obj.productNumber;
+        obj.obj.quantity = doc.data().obj.quantity;
+        obj.obj.name = doc.data().obj.name;
+
+        this.conArray.push(obj);
+        obj = {
+          details : {orderNumber : 0, total : 0},
+          obj : {
+            categories : "", price : "", productNumber : "", quantity : 0, name : ""
+          }
+        }
+         console.log('My array ', this.conArray);
       })  
   })
  
     setTimeout(() => {
-      this.myArr.forEach((item)=>{
-        this.Orders.push(item.name)
+      this.conArray.forEach((item)=>{
+        this.Orders.push(item)
       })
-      console.log('My array ', this.Orders);
+      // console.log('My array ', this.Orders);
     }, 1500);
   }
-    // let items = this.cartService.getCart();
-    // let sss = this.cartService.CartList();
- 
-    ///////////////////////////////////////////////////////////////
-    ///////////////// working used this way
-  //   this.db.collection('cart').onSnapshot((res)=>{
-  //     this.myArr = [];
-  //     res.forEach((doc)=>{
-  //       this.myArr.push(doc.data());
-  //     })
-  //   })
- 
-  //   setTimeout(() => {
-  //     this.myArr.forEach((item)=>{
-  //       this.myArray.push(item.name.obj)
-  //     })
-  //     console.log('My array ', this.myArray);
-  //   }, 1500);
-  // ///////////////////////////////////
-
-   // this.totalpay = this.navParams.get("totalpay");
-  //	this.orderNumber = this.navParams.get("orderNum");
-  //   console.log(this.totalpay);
-
-  //   this.db.collection('cart').get().then(snapshot => {
-  // 	this.storage.forEach((value:any, key:string) => {
-  //     this.storage.get(key).then((val)=>{
-  //         if(key == 'cartId'){
-  //            this.cartItem = val.id;
-  //         }else{
-  //            this.Orders.push({
-  //             image:val.image,
-  //             item:val.name,
-  //             price:val.price,
-  //             desc:val.desc,
-  //             size: val.size, 
-  //             qty: val.quantity, 
-  //             keyname:key
-  //           }); 
-  //         }
-  //     }) 
-  //   })
-  // })
-  //this.shopList();
-  }
+  
+}
 
 
