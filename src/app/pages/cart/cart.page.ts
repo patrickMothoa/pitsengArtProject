@@ -29,8 +29,7 @@ export class CartPage implements OnInit {
    let sss = this.cartService.CartList();
    ///////////////////////////////////////////////////////////////
    ///////////////// working used this way
-  // this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').onSnapshot((res)=> {
-    this.db.collection('cart').onSnapshot((res)=>{
+  this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').onSnapshot((res)=> {
       this.myArr = [];
       res.forEach((doc)=>{
         this.myArr.push(doc.data());
@@ -50,7 +49,7 @@ let XXX = []
 for (let obj of items ) {
  console.log("3333", obj );
   if ( selected[obj.id]) {
-   console.log("kkeke",selected[obj.id] );
+   console.log("kkeke",selected[obj.id]);
     selected[obj.id].count++;
   } else {
     selected[obj.id] = {...obj, count: 1};
@@ -58,9 +57,9 @@ for (let obj of items ) {
   }
 }
 XXX= Object.keys( selected).map(key =>  selected[key]);
-console.log("xxxx", this.myArray );
+   console.log("xxxx", this.myArray );
 this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);  
-console.log("momomo",this.total );
+   console.log("momomo",this.total );
 /////
 
   }
@@ -104,7 +103,6 @@ console.log("momomo",this.total );
       member
       Orders = []
    
-
       placeOrder(item){
         this.orderNumber = this.stringGen(11);
         console.log("clickedX",this.orderNumber);
@@ -112,8 +110,8 @@ console.log("momomo",this.total );
           for(var i = 0; i <  this.myArray.length; i++){
             let item =  this.myArray[i];
             console.log("inside-items",item);
-               /// your order details
 
+               /// your order details
             let orderDetails ={
               total: this.total,
               orderNumber: this.orderNumber
@@ -121,15 +119,35 @@ console.log("momomo",this.total );
             console.log("inside-Order",orderDetails);
              let userID = firebase.auth().currentUser.uid;
              this.transact.memberTransact(userID,item,orderDetails);
-
-            //  this.navCtrl.navigateRoot('/confirm-page',{
-            //     "totalpay": this.total,
-            //     "orderNum": this.orderNumber
-            //  });  
-      
          } 
          this.router.navigateByUrl('/confirmation');
       }
+
+
+    //   placeOrder(item){
+
+    //     if (firebase.auth().currentUser.uid){
+    //       this.orderNumber = this.stringGen(11);
+    //       console.log("clickedX",this.orderNumber);
+    //       this.data.data = item;
+    //         for(var i = 0; i <  this.myArray.length; i++){
+    //           let item =  this.myArray[i];
+    //           console.log("inside-items",item);
+  
+    //              /// your order details
+    //           let orderDetails ={
+    //             total: this.total,
+    //             orderNumber: this.orderNumber
+    //           };
+    //           console.log("inside-Order",orderDetails);
+    //            let userID = firebase.auth().currentUser.uid;
+    //            this.transact.memberTransact(userID,item,orderDetails);
+    //        } 
+    //        this.router.navigateByUrl('/confirmation'); 
+    //     }else{
+    //       this.router.navigateByUrl('/login'); 
+    //     }
+    // }
       
         //// generating Random string
       stringGen(len){

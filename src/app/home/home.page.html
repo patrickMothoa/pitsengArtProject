@@ -22,8 +22,8 @@
     <section class="content-wrapper">
         <nav class="navigation-bar">
             <!-- attempting search from here  -->
-           
-                <ion-searchbar placeholder="Search Products"  [(ngModel)]='myDest' (ionChange)='SearchProducts($event);' value="" style='min-width: 200px;'></ion-searchbar> 
+           <div>
+                <ion-searchbar placeholder="Search Products"  [(ngModel)]='myDest' (ionChange)='SearchProducts($event);' value="" ></ion-searchbar> 
                 <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon>
                 <ion-list  [hidden]="autocompleteItemz.length == 0" >
                   <div *ngIf="autocompleteItemz.length > 0">
@@ -35,7 +35,9 @@
                 </ion-item>
                 </div>
                </ion-list>
-               <ion-button fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
+            </div>
+
+          <ion-button fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
           <ion-button fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
           <ion-button fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
           <ion-buttons slot="end">
