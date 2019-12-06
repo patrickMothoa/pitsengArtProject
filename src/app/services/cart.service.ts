@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { AuthService } from './auth.service';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-
+  private cartItemCount = new BehaviorSubject(0);
   db = firebase.firestore();
 
   event = {
@@ -28,34 +28,41 @@ export class CartService {
   cart = [];
   cartList =  [];
   constructor(public authService: AuthService) { }
-
-  //////////////////////////// above code add to cart but ddoesn't display inside
  
   CartList() {
-    this.db.collection('Cart').get().then(snapshot => {
-    this.cartList
+    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').get().then(snapshot => {
+    this.cart
     snapshot.forEach(doc => {
-    this.cartList.push(doc.data());
+    this.cart.push(doc.data());
   });
-      return this.cartList;   
+      return this.cart;   
 });
-    console.log("My cart",this.cartList);
+    console.log("My cart",this.cart);
 }
 
-  getCart() {
+  getCartX() {
     return this.cartList; 
   }
 
   ////// insert current 
-  addProduct(event) {
+   addProduct(event) {
     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
-      name : event
+       quantity : event += 1
+     // name : event
      })
       .catch(err => {
              console.error(err);
     });
+    this.cartItemCount.next(this.cartItemCount.value + 1);
   }
-  
+  // addProduct(event) {
+  //   this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
+  //     name : event
+  //    })
+  //     .catch(err => {
+  //            console.error(err);
+  //   });
+  // }
   
   
   deleteFromCart(i) {
@@ -88,6 +95,57 @@ export class CartService {
   //             console.error(err);
   //      });
   // }
+
+  getCart() {
+    return this.cart;
+  }
+ 
+  getCartItemCount() {
+    return this.cartItemCount;
+  }
+  // addProductx(event) {
+
+  //   this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
+  //     quantity : event += 1
+  //    })
+  //     .catch(err => {
+  //            console.error(err);
+  //   });
+
+  //   let added = false;
+  //   for (let p of this.cart) {
+  //     if (p.id === event.id) {
+  //       p.amount += 1;
+  //       added = true;
+  //       break;
+  //     }
+  //   }
+  //   if (!added) {
+  //     this.cart.push(event);
+  //   }
+  //   this.cartItemCount.next(this.cartItemCount.value + 1);
+  // }
+ 
+  decreaseProduct(event) {
+    for (let [index, p] of this.cart.entries()) {
+      if (p.id === event.id) {
+        p.amount -= 1;
+        if (p.amount == 0) {
+          this.cart.splice(index, 1);
+        }
+      }
+    }
+    this.cartItemCount.next(this.cartItemCount.value - 1);
+  }
+ 
+  removeProduct(event) {
+    for (let [index, p] of this.cart.entries()) {
+      if (p.id === event.id) {
+        this.cartItemCount.next(this.cartItemCount.value - p.amount);
+        this.cart.splice(index, 1);
+      }
+    }
+  }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /// CODE TO BE USED FOR AUTHORIZING USER TO PROCESS

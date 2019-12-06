@@ -5,8 +5,8 @@
     <div class="side-container">
         
         <aside class="side-container">
-            <button (click)="showLogin()">Login / </button>
-            <button  (click)="goRegister()">Register</button>
+            <ion-button (click)="showLogin()">Login </ion-button>
+            <ion-button  (click)="goRegister()">Register</ion-button>
             <ion-button fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
             <ion-button fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls and pots</ion-button>
             <ion-button fill="clear" (click)="getProducts('Cups and Plates')" slot="end">Mugs and plates</ion-button>
@@ -42,7 +42,8 @@
           <ion-button fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
           <ion-buttons slot="end">
         <ion-button (click)="openCart()">
-            <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+            <!-- <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge> -->
+            <div class="cart-length">{{ cartItemCount | async }}</div>
             <ion-icon slot="icon-only" name="cart"></ion-icon>
         </ion-button>
     </ion-buttons>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
-import { NavController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
+import { ConfirmationPage } from '../confirmation/confirmation.page';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CartPage implements OnInit {
   total = 0;
   count = 1;
   myProduct = false;
-  constructor(private router: Router,private cartService: CartService,public navCtrl : NavController,public transact: TransactionService, public data : ProductService) { }
+  constructor(public modalController: ModalController,private router: Router,private cartService: CartService,public navCtrl : NavController,public transact: TransactionService, public data : ProductService) { }
 
   ngOnInit() {
    let items = this.cartService.getCart();
@@ -65,6 +66,24 @@ this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);
   }
 
 
+  async viewModal(){
+    const modal = await this.modalController.create({
+      component: ConfirmationPage
+    });
+    return  modal.present();
+  }
+  
+  async SuccessModal() {
+    const modal = await this.modalController.create({
+      component: ConfirmationPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+
+  //////////////////////////
+
+
      editProduct() {
       this.myProduct = false;
     }
@@ -80,6 +99,22 @@ this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);
       this.total = this.selectedItems.reduce((a, b) => a + (b.count * b.price), 0);
       }
 
+
+      // getCart() {
+      //   this.itemService.getCart().subscribe(
+      //     res => {
+      //       if (res === false) {
+      //       } else if (res === 'login') {
+      //       } else {
+      //         this.cart = res;
+      //         console.log(res);
+      //       }
+      //     },
+      //     err => {
+      //       console.error(err);
+      //     }
+      //   );
+      // }
 
       // increaseQuantity(item) {
       //   let quantity = item.quantity;
@@ -120,11 +155,20 @@ this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);
              let userID = firebase.auth().currentUser.uid;
              this.transact.memberTransact(userID,item,orderDetails);
          } 
-         this.router.navigateByUrl('/confirmation');
+        // this.router.navigateByUrl('/confirmation');
+        this.SuccessModal();
       }
 
 
-    //   placeOrder(item){
+    //    placeOrder(item){
+
+    //   // if (uid === false) {
+    //   //   console.log("login page");
+    //   // } else if (uid === 'login') {
+    //   // } else {
+    //   //   this.cart = uid;
+    //   //   console.log(uid);
+    //   // }
 
     //     if (firebase.auth().currentUser.uid){
     //       this.orderNumber = this.stringGen(11);
@@ -157,6 +201,8 @@ this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);
             text += charset.charAt(Math.floor(Math.random() * charset.length));
         return text;
       }
+
+      //////////////
 
 
 }

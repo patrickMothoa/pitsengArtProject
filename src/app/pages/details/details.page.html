@@ -1,9 +1,19 @@
+
+<div class="closeButton" >
+    <div >
+       <ion-button fill="clear"  color="tertiary"  float="right"	 (click)="dismiss()" slot="end">
+         <ion-icon slot="icon-only" name="close"></ion-icon>
+         </ion-button>
+    </div>
+   
+  </div>
 <ion-header>
   <ion-toolbar>
     <ion-title>details</ion-title>
   </ion-toolbar>
   <ion-button (click)="openCart()">
-    <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+    <!-- <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge> -->
+    <div class="cart-length">{{ cartItemCount | async }}</div>
     <ion-icon slot="icon-only" name="cart"></ion-icon>
 </ion-button>
 </ion-header>

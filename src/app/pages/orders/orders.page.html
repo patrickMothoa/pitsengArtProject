@@ -16,11 +16,11 @@
           <ion-thumbnail item-start>
             <img src="{{li.obj.image}}">
           </ion-thumbnail>
-           <p>Your order confirmation number is  <span class="ornum">{{li.details.orderNumber}}</span> </p>
-           <p>Name : {{li.obj.name}}</p>
-           <p> R {{li.obj.price}} </p>
-             <p>Quantity: {{li.obj.quantity}}</p>
-          <h6 class="order-date">{{li.datetime}}</h6>
+          <span class="ornum"><p>Your order confirmation number is {{li.details.orderNumber}} </p></span>
+          <span class="ornum"><p>Name : {{li.obj.name}}</p></span>
+          <span class="ornum"> <p> R {{li.obj.price}} </p></span>
+          <span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p></span>
+          <span class="ornum"> <h6 class="order-date">{{li.datetime}}</h6></span>
         </ion-item>
       </ion-card>
       
