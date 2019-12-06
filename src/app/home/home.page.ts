@@ -3,7 +3,6 @@ import {NavController,ModalController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { AuthService } from '../../app/services/auth.service';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AlertController } from '@ionic/angular';
@@ -32,14 +31,6 @@ export class HomePage {
     large: ''
   };
 
-  phoneNumber = ''
-  password
-  registrationForm
-  smsSent
-  confirmationResult = ''
-  inputCode
-  public recaptchaVerifier: firebase.auth.RecaptchaVerifier
-
   Products = [];
   supplier
   myProduct = false;
@@ -59,24 +50,9 @@ export class HomePage {
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
 
-  constructor( public alertController: AlertController,
-    public authService: AuthService,
-    private navCtrl:NavController,
-    public data: ProductService,
-    private cartService: CartService,
-    private router: Router,
-    public modalCtrl: ModalController,
-    public productService: ProductService) {
+  constructor(public modalCtrl: ModalController,public alertController: AlertController,private navCtrl:NavController,public data: ProductService,private cartService: CartService,private router: Router, public productService: ProductService) {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
-
-    this.smsSent = false
-
-      firebase.auth().languageCode = 'en';
-
-  // this.registrationForm = formBuilder.group({
-  //   phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])]
-  // })
   }
 
 
@@ -91,10 +67,6 @@ export class HomePage {
     this.cartService.addProduct(event);
     console.log("pushing to Cart",event);
     
-  }
-
-  openOrders(){
-    this.router.navigateByUrl('/orders');
   }
 
   openCart() {
@@ -130,13 +102,6 @@ export class HomePage {
     this.router.navigateByUrl('/details')
   }
 
-  goRegister(){
-    this.router.navigateByUrl('/register')
-  }
-
-  showLogin(){
-    this.router.navigateByUrl('/login')
-  }
 
       // retriving from firebase.firestore
   getProducts(categories) {
@@ -224,164 +189,92 @@ SearchProducts(ev: CustomEvent){
   }
 }
 
-  ////// TRYING TO REGISTER A USER WITH A NUMBER AND RECEIVE OTP ONLY ON REGISTRATION SO THAT ON LOGIN YOU JUST LOGIN /////
   
+  async showLogin(){
+    const alert = await this.alertController.create({
+      header: 'LOGIN',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Phone Number'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+
+          placeholder: 'Password'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'SIGN-IN',
+          handler: (name) => {
+            console.log('Confirm Ok', name);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
+
+
+ async showPrompt(){
+    const alert = await this.alertController.create({
+      header: 'Register!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Full name'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+
+          placeholder: 'Phone Number'
+        },
+       
+        {
+          name: 'name4',
+          type: 'text',
   
-//   async showLogin(){
-//     const alert = await this.alertController.create({
-//       header: 'LOGIN',
-//       inputs: [
-//         {
-//           name: 'name1',
-//           type: 'text',
-//           placeholder: 'Phone Number'
-//         },
-//         {
-//           name: 'name2',
-//           type: 'text',
-//           id: 'name2-id',
-
-//           placeholder: 'Password'
-//         },
+          placeholder: 'Password'
+        },
        
-//       ],
-//       buttons: [
-//         {
-//           text: 'Cancel',
-//           role: 'cancel',
-//           cssClass: 'secondary',
-//           handler: () => {
-//             console.log('Confirm Cancel');
-//           }
-//         }, {
-//           text: 'SIGN-IN',
-//           handler: (name) => {
-//             console.log('Confirm Ok', name);
-//           }
-//         }
-//       ]
-//     });
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'SingUp',
+          handler: (name) => {
+            console.log('Confirm Ok', name);
+          }
+        }
+      ]
+    });
 
-//     await alert.present();
+    await alert.present();
 
-//   }
-
-//   async alert(){
-//     const alert = await this.alertController.create({
-//       header: 'Verfification code',
-//       // subHeader: 'Enter verification code',
-//       inputs: [
-//         {
-//           name: 'code',
-//           type: 'text',
-//           placeholder: 'Enter code'
-//         }],
-//       buttons: [{
-//         text: 'Submit',
-//         role: 'submit',
-//         cssClass: 'secondary',
-//         handler: (result) => {
-//           console.log(result.code);
-//           this.reg(result.code);
-//           this.db.collection('admins').doc(firebase.auth().currentUser.uid).get().then(res =>{
-//               this.router.navigateByUrl('/home')
-//           })
-//         }
-//       }]
-//     });
-//     await alert.present();
-//   }
-
-//   reg(code){
-//     if(this.confirmationResult !== ''){
-//       return this.authService.login(code, this.confirmationResult).then(result => {
-//         console.log(result);
-//       })
-//     }
-//   }
-
-//  async getRegister(){
-//     const alert = await this.alertController.create({
-//       header: 'Register',
-//       inputs: [
-        
-//         {
-//           name: 'name',
-//           type: 'text',
-//           placeholder: 'Full name'
-//         },
-//         {
-//           name: 'phoneNumber',
-//           type: 'text',
-//           id: 'name2-id',
-
-//           placeholder: 'Phone Number'
-//         },
-       
-//         {
-//           name: 'password',
-//           type: 'text',
-//           placeholder: 'Password'
-//         },
-       
-//       ],
-//       buttons: [
-//         {
-//           text: 'Cancel',
-//           role: 'cancel',
-//           cssClass: 'secondary',
-//           handler: () => {
-//             console.log('Confirm Cancel');
-//           }
-//         }, {
-//           text: 'SIGNUP',
-//           handler: () => {
-//             this.addUser();
-//           }
-          
-//         }
-        
-//       ]
-//     });
-//     await alert.present();
-
-// }  
-
-// addUser(){
-
-//   let appVerifier = window.recaptchaVerifier
-//   this.authService.requestLogin(this.phoneNumber, appVerifier)
-
-//   this.phoneNumber = this.registrationForm.get('phoneNumber').value
-
-//   console.log(this.phoneNumber);
-
-//   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-//     size: 'invisible',
-//     callback: (response) => {
-//       console.log('checking here');
-//     },
-//     'expired-callback': () => {
-      
-//     }
-//   });
-//   console.log(window.recaptchaVerifier);
-
-
-
-//   return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
-//     if(result.success === true){
-//       console.log(result);
-//       this.confirmationResult = result.result
-//       console.log(this.confirmationResult);
-    
-//      this.alert();
-    
-//     }
-//   })
-
-// }
-///// REGISTRATION ENDS HERE //////
+}  
 
 logOut(){
   firebase.auth().signOut().then(()=> {
