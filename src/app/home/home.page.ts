@@ -3,7 +3,6 @@ import {NavController, ModalController} from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { AuthService } from '../../app/services/auth.service';
 import { ProductService } from '../services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AlertController } from '@ionic/angular';
@@ -34,14 +33,6 @@ export class HomePage {
     large: ''
   };
 
-  phoneNumber = ''
-  password
-  registrationForm
-  smsSent
-  confirmationResult = ''
-  inputCode
-  public recaptchaVerifier: firebase.auth.RecaptchaVerifier
-
   Products = [];
   supplier
   myProduct = false;
@@ -62,7 +53,7 @@ export class HomePage {
   public allItems: Array<{ title: string; icon: string }> = [];
 
   constructor( public alertController: AlertController,
-    public authService: AuthService,
+    // public authService: AuthService,
     private navCtrl:NavController,
     public data: ProductService,
     private cartService: CartService,
@@ -72,7 +63,7 @@ export class HomePage {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
 
-    this.smsSent = false
+  //  this.smsSent = false
     firebase.auth().languageCode = 'en';
 
 
@@ -135,13 +126,6 @@ async createModal() {
     this.router.navigateByUrl('/details')
   }
 
-  goRegister(){
-    this.router.navigateByUrl('/register')
-  }
-
-  showLogin(){
-    this.router.navigateByUrl('/login')
-  }
 
       // retriving from firebase.firestore
   getProducts(categories) {
