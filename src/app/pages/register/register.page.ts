@@ -12,12 +12,11 @@ import { Router } from '@angular/router';
 })
 export class RegisterPage implements OnInit {
 
+  db = firebase.firestore();
   validations_form: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
 
-  db = firebase.firestore();
- 
   validation_messages = {
   
    'email': [
@@ -56,10 +55,11 @@ export class RegisterPage implements OnInit {
     // this.authService.registerUser(value)
     firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
      .then(res => {
-       this.db.collection("UserProfile").doc(firebase.auth().currentUser.uid).set({
-         email : value.email,
+
+      this.db.collection("UserProfile").doc(firebase.auth().currentUser.uid).set({
+         email :value.email,
          uid : firebase.auth().currentUser.uid
-       })
+      })
        console.log(res);
        this.errorMessage = "";
        this.successMessage = "Your account has been created. Please log in.";

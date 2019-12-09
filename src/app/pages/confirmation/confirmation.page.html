@@ -1,10 +1,12 @@
 <ion-header>
-
-  <!-- <ion-navbar>
-    <ion-title class="message">
-    	<h4><ion-icon name="checkmark-circle" class="navicon"></ion-icon>Order Successful</h4>
-    </ion-title>
-  </ion-navbar> -->
+		<div class="closeButton" >
+				<div >
+				   <ion-button fill="clear"  color="tertiary"  float="right"	 (click)="dismiss()" slot="end">
+					 <ion-icon slot="icon-only" name="close"></ion-icon>
+					 </ion-button>
+				</div>
+			   
+			  </div>
 </ion-header>
 
 
@@ -13,32 +15,32 @@
 	<div class="message"> 
 		<h5>Thank you for Shopping with PitsengArt!</h5>
 		<p>You will receive your order after your payments.</p>
-		<!-- <p>Your order confirmation number is  <span class="ornum">{{orderNumber}}</span> </p> -->
 	</div>
 	<div>
    		<ion-list >
 		  <ion-item class="review-item" *ngFor="let li of conArray">
-			<p>Your order confirmation number is  <span class="ornum">{{li.details.orderNumber}}</span> </p> |
-			<p>Name : {{li.obj.name}}</p>
-			<p> R {{li.obj.price}} </p> |
-		    <p>Quantity: {{li.obj.quantity}}</p> |
+			<span class="ornum"><p>Your order confirmation number is  {{li.details.orderNumber}}</p> </span> 
+			<span class="ornum"> <p>Name : {{li.obj.name}}</p> </span> 
+			<span class="ornum"> <p> R {{li.obj.price}} </p> </span> 
+			<span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p> </span> 
+			<h5> Total: {{li.details.total}}</h5>
 		  </ion-item>
 		</ion-list>
    </div>
 
-   <div class="total">
+   <!-- <div class="total">
     <h4 >Total:</h4>
-	<!-- <h5 > {{totalpay.toFixed(2)}}</h5> -->
-	<h5 > {{totalpay.toFixed(2)}}</h5>
-  </div >
-
-	<ion-label>Banking Details </ion-label>
+	<h5 > {{li.details.total}}</h5>
+  </div > -->
+  
+  <ion-label>Banking Details. </ion-label>
+  <ion-card class="bill-info">
 	<p>Account Holder : Mr Pitseng</p>
 	<p>Account Number : 1234567891011</p>
 	<p>Bank Name : ABSA</p>
 	<p>Branch Name : Soweto</p>
 	<p>Branch Code : 23055</p>
-
+  </ion-card>
   </ion-card>
 	
 </ion-content>

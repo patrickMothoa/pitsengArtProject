@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams, ModalController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
@@ -35,7 +35,7 @@ export class ConfirmationPage implements OnInit {
   storage;
 
 
-  constructor(public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
+  constructor( public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
 
   }
 
@@ -83,6 +83,14 @@ export class ConfirmationPage implements OnInit {
       })
       // console.log('My array ', this.Orders);
     }, 1500);
+  }
+
+  dismiss() {
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+      'dismissed': true
+    });
   }
   
 }

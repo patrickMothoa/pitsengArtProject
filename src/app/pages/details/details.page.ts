@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 
 
@@ -34,7 +34,16 @@ export class DetailsPage implements OnInit {
     public productService: ProductService, 
     public data : ProductService,
     public alertCtrl: AlertController,
-    private router: Router) { }
+    private router: Router,
+    public modalController: ModalController) { }
+
+    dismiss() {
+      // using the injected ModalController this page
+      // can "dismiss" itself and optionally pass back data
+      this.modalController.dismiss({
+        'dismissed': true
+      });
+    }
 
   ngOnInit() {
     this.getProducts();
@@ -51,7 +60,8 @@ export class DetailsPage implements OnInit {
   }
 
   openCart() {
-    this.router.navigate(['cart']);
+   // this.router.navigate(['cart']);
+   this.router.navigateByUrl('/trolley');
   }
 
   ionViewWillEnter(){
