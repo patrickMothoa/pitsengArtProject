@@ -9,6 +9,8 @@ export class CartService {
 
   db = firebase.firestore();
 
+  cart = [];
+
   event = {
     image: '',
     categories:'',
@@ -25,7 +27,7 @@ export class CartService {
     uid: '',
   }
 
-  cart = [];
+ 
   cartList =  [];
   constructor(public authService: AuthService) { }
 

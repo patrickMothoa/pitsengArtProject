@@ -44,14 +44,14 @@
           <ion-button fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
           <ion-buttons slot="end">
         <ion-button (click)="openCart()">
-            <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+            <ion-badge *ngIf="cNumber > 0">{{ cNumber }}</ion-badge>
             <ion-icon slot="icon-only" name="cart"></ion-icon>
         </ion-button>
     </ion-buttons>
         </nav>
           
         <div class="container">
-            <div class="categories-block"  *ngFor="let event of Products" >
+            <div class="categories-block"  *ngFor="let event of Products; let i = index"  >
                 <ion-row no-padding class="categories-banner">
                     <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
                         {{event.categories }}<br>
@@ -67,7 +67,7 @@
                                     <ion-card-content>
                                       {{event.obj.name}} <br>
                                       R{{event.obj.price}}<br> 
-                                      <ion-button (click)="addToCart(event, cid)" slot="end">Add to Cart </ion-button>
+                                      <ion-button (click)="addToCart(event, event.id, i)" slot="end">Add to Cart </ion-button>
                                     </ion-card-content>
                                 </ion-card-header>
                             </ion-card>

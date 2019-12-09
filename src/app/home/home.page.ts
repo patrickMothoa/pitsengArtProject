@@ -45,7 +45,13 @@ export class HomePage {
 
   getPro = [];
   cart = [];
+  cNumber = 0;
+  temp = [];
   xxx = [];
+
+  id = '';
+  counter = 0;
+  index = 0;
 
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
@@ -63,9 +69,59 @@ export class HomePage {
 
 
    /// taking values db to cart
-  addToCart(event) {
-    this.cartService.addProduct(event);
-    console.log("pushing to Cart",event);
+  addToCart(event, id, index) {
+
+
+
+
+    // let obj = {
+    //   categories : '',
+    //   desc : '',
+    //   image : '',
+    //   items : '',
+    //   lastcreated : '',
+    //   name : '',
+    //   price : '',
+    //   productno : '',
+    //   quantity : '',
+    //   id : '',
+    //   size : ["small", "medium", "large"]
+    // }
+
+    // obj.categories = event.obj.categories
+    // obj.desc = event.obj.desc
+    // obj.image = event.obj.image
+    // obj.items = event.obj.items
+    // obj.lastcreated = event.obj.lastcreated
+    // obj.name = event.obj.name
+    // obj.price = event.obj.price
+    // obj.productno = event.obj.productno
+    // obj.quantity = event.obj.quantity
+    // obj.id =  id
+
+
+    // this.temp.push(obj)
+  
+
+    // this.temp.forEach(data => {
+    //   if(data.id === id){
+    //     data.price += data.price;
+    //     this.cartService.cart = data;
+    //   }
+    // })
+   
+
+if(firebase.auth().currentUser){
+  this.cNumber += 1;
+  this.cartService.cart.push(event);
+  this.db.collection("Users").doc(firebase.auth().currentUser.uid).collection("Cart").doc().set({event})
+  // this.cart.push(event);
+  // this.cartService.addProduct(event);
+  console.log("pushing to Cart", event);
+}else{
+  this.router.navigateByUrl('/login')
+}
+    
     
   }
 

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { AuthService } from '../../services/auth.service';
 import { NavController } from '@ionic/angular';
 import * as firebase from 'firebase'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +15,11 @@ export class RegisterPage implements OnInit {
   validations_form: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+
+  db = firebase.firestore();
  
   validation_messages = {
+  
    'email': [
      { type: 'required', message: 'Email is required.' },
      { type: 'pattern', message: 'Enter a valid email.' }
@@ -29,7 +33,9 @@ export class RegisterPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
+
   ) {}
  
   ngOnInit(){
@@ -50,9 +56,14 @@ export class RegisterPage implements OnInit {
     // this.authService.registerUser(value)
     firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
      .then(res => {
+       this.db.collection("UserProfile").doc(firebase.auth().currentUser.uid).set({
+         email : value.email,
+         uid : firebase.auth().currentUser.uid
+       })
        console.log(res);
        this.errorMessage = "";
        this.successMessage = "Your account has been created. Please log in.";
+       this.router.navigateByUrl('/')
      }, err => {
        console.log(err);
        this.errorMessage = err.message;

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ProfilePage implements OnInit {
   db = firebase.firestore();
   storage = firebase.storage().ref();
+  uid
   profile = {
     image: '',
     name: '',
@@ -31,7 +32,10 @@ export class ProfilePage implements OnInit {
     uid: '',
     // phoneNumber: '',
   }
-  constructor(public router: Router,public alertCtrl: AlertController) { }
+  constructor(public router: Router,public alertCtrl: AlertController) {
+    this.uid = firebase.auth().currentUser.uid;
+
+   }
 
   ngOnInit() {
     firebase.auth().onAuthStateChanged(admins => {
@@ -103,7 +107,7 @@ this.router.navigateByUrl('/orders');
         
       } else {
         this.profile.uid =  this.Users.uid;
-        this.db.collection('admins').doc(this.profile.name).set(this.profile).then(res => 
+        this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => 
           {
           console.log('Profile created');
           this.getProfile();
