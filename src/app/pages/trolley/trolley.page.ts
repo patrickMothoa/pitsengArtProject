@@ -16,11 +16,16 @@ export class TrolleyPage implements OnInit {
   cart = [];
   myArr = [];
 
-  constructor(public modalController: ModalController,private cartService: CartService, private alertCtrl: AlertController, public data : ProductService,public transact: TransactionService) { }
+  constructor(public modalController: ModalController,private cartService: CartService, private alertCtrl: AlertController, public data : ProductService,public transact: TransactionService) {
+
+    this.getDate();
+    console.log("TimeDate",  this.getDate());
+    
+
+   }
  
   ngOnInit() {
     this.cart = this.cartService.getCart();
-
   //////////// working used this way
   this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').onSnapshot((res)=> {
     this.myArr = [];
@@ -32,6 +37,7 @@ export class TrolleyPage implements OnInit {
   })
 
   setTimeout(() => {
+    this.cart = [];
     this.myArr.forEach((item)=>{
 ///////////// this.cart.push(item.name.obj)
       this.cart.push(item.name.obj);
@@ -63,9 +69,10 @@ export class TrolleyPage implements OnInit {
   orderNumber
   member
   Orders = []
-
+  orderdate
   placeOrder(){
     this.orderNumber = this.stringGen(11);
+
     console.log("clickedX",this.orderNumber);
     this.data.data
       for(var i = 0; i <  this.cart.length; i++){
@@ -74,13 +81,19 @@ export class TrolleyPage implements OnInit {
      /////////// your order details
         let orderDetails ={
           total: this.getTotal(),
-          orderNumber: this.orderNumber
+          orderNumber: this.orderNumber,
+        //  orderdate : this.getDate()
         };
         console.log("inside-Order",orderDetails);
          let userID = firebase.auth().currentUser.uid;
          this.transact.memberTransact(userID,item,orderDetails);
      } 
     this.SuccessModal();
+  }
+
+  getDate(){
+    const date = new Date();
+    this.orderdate = date.toDateString();
   }
   
 /////// generating Random string
