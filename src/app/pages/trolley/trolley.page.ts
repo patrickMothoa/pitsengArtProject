@@ -27,15 +27,17 @@ export class TrolleyPage implements OnInit {
     res.forEach((doc)=>{
       this.myArr.push(doc.data());
     })
+    console.log("vvv");
+    
   })
 
   setTimeout(() => {
+    this.cart = [];
     this.myArr.forEach((item)=>{
-      this.cart.push(item.name.obj)
+      this.cart.push(item.name.obj);
     })
     console.log('My array ', this.cart );
   }, 1500);
-/////
   }
  
   decreaseCartItem(event) {
@@ -62,10 +64,10 @@ export class TrolleyPage implements OnInit {
   member
   Orders = []
 
-  placeOrder(item){
+  placeOrder(){
     this.orderNumber = this.stringGen(11);
     console.log("clickedX",this.orderNumber);
-    this.data.data = item;
+    this.data.data
       for(var i = 0; i <  this.cart.length; i++){
         let item =  this.cart[i];
         console.log("inside-items",item);

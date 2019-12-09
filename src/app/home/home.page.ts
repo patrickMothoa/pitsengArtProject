@@ -99,15 +99,20 @@ async createModal() {
 }
    /// taking values db to cart import
   addToCart(event) {
-    this.cartService.addProduct(event);
-    console.log("pushing to Cart",event);
     
+    if(firebase.auth().currentUser){
+      this.cartService.addProduct(event);
+      console.log("pushing to Cart",event);
+    }else{
+      this.router.navigateByUrl('/login')
+    }
   }
+  
   openCart() {
    // this.router.navigateByUrl('/cart');
    this.router.navigateByUrl('/trolley');
   }
-  /////////// 
+ 
   openOrders(){
     this.router.navigateByUrl('/orders');
   }
@@ -123,9 +128,8 @@ async createModal() {
 
   productDetails(item){
     this.data.data = item;
-    this.router.navigateByUrl('/details')
+    this.router.navigateByUrl('/details');
   }
-
 
       // retriving from firebase.firestore
   getProducts(categories) {
