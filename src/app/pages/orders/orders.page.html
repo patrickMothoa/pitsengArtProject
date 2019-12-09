@@ -5,23 +5,19 @@
 </ion-header>
 
 <ion-content padding>
-	<ion-label>Products Ordered: </ion-label>
+	<ion-label>Order List </ion-label>
     <div *ngIf="display">
       <h5  class="empty-cart"><ion-icon name="cart" class="navicon"></ion-icon>Order History is empty</h5>
     </div>
         
 	<ion-list >
       <ion-card  *ngFor="let li of conArray">
-        <ion-item class="cart-item" >
-          <ion-thumbnail item-start>
-            <img src="{{li.obj.image}}">
-          </ion-thumbnail>
-          <span class="ornum"><p>Your order confirmation number is {{li.details.orderNumber}} </p></span>
-          <span class="ornum"><p>Name : {{li.obj.name}}</p></span>
-          <span class="ornum"> <p> R {{li.obj.price}} </p></span>
-          <span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p></span>
+        <ion-item class="cart-item" (click)="ViewDetails(li)">
+          <span class="ornum"><p>Order Number : {{li.details.orderNumber}} </p></span>
           <span class="ornum"> <h6 class="order-date">{{li.datetime}}</h6></span>
+          <span class="ornum"><p> Total: {{li.details.total}}</p></span>
         </ion-item>
+        <!-- <ion-button (click)="deleteItem(li)">remove</ion-button> -->
       </ion-card>
       
 	</ion-list>

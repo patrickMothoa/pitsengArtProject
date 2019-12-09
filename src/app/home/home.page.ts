@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {NavController, ModalController} from '@ionic/angular';
+import {NavController, ModalController, PopoverController} from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -8,6 +8,9 @@ import { CartService } from 'src/app/services/cart.service';
 import { AlertController } from '@ionic/angular';
 import { DetailsPage } from '../pages/details/details.page';
 import { BehaviorSubject } from 'rxjs';
+import { PopoverComponent } from '../components/popover/popover.component';
+import { log } from 'util';
+import { LoginPage } from '../pages/login/login.page';
 declare var window
 
 @Component({
@@ -44,7 +47,7 @@ export class HomePage {
   };
   autocompleteItemz: any;
   autocompletez:any;
-
+public  isLogin = false;
   getPro = [];
   cart = [];
   xxx = [];
@@ -52,7 +55,7 @@ export class HomePage {
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
 
-  constructor( public alertController: AlertController,
+  constructor( public alertController: AlertController,public popoverController: PopoverController,
     // public authService: AuthService,
     private navCtrl:NavController,
     public data: ProductService,
@@ -69,7 +72,21 @@ export class HomePage {
 
   }
 
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component:PopoverComponent,
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
 
+  showLogin(){
+    this.router.navigateByUrl('/login');
+  }
+  goRegister(){
+    this.router.navigateByUrl('/register');
+  }
   ngOnInit() {
     this.getProduct();
     this.cart = this.cartService.getCart();
@@ -97,17 +114,29 @@ async createModal() {
   });
   return await modal.present();
 }
+async createModalLogin() {
+  const modal = await this.modalController.create({
+    component: LoginPage,
+    cssClass: 'my-custom-modal-css'
+  });
+  return await modal.present();
+}
    /// taking values db to cart import
   addToCart(event) {
-    this.cartService.addProduct(event);
-    console.log("pushing to Cart",event);
     
+    if(firebase.auth().currentUser){
+      this.cartService.addProduct(event);
+      console.log("pushing to Cart",event);
+    }else{
+      this.createModalLogin();
+    }
   }
+  
   openCart() {
    // this.router.navigateByUrl('/cart');
    this.router.navigateByUrl('/trolley');
   }
-  /////////// 
+ 
   openOrders(){
     this.router.navigateByUrl('/orders');
   }
@@ -123,9 +152,8 @@ async createModal() {
 
   productDetails(item){
     this.data.data = item;
-    this.router.navigateByUrl('/details')
+    this.router.navigateByUrl('/details');
   }
-
 
       // retriving from firebase.firestore
   getProducts(categories) {
