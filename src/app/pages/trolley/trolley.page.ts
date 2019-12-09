@@ -37,6 +37,7 @@ export class TrolleyPage implements OnInit {
   })
 
   setTimeout(() => {
+    this.cart = [];
     this.myArr.forEach((item)=>{
 ///////////// this.cart.push(item.name.obj)
       this.cart.push(item.name.obj);
