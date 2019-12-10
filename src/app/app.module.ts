@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './../app/services/auth.service';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
+
 import * as firebase from 'firebase';
 import { DetailsPageModule } from './pages/details/details.module';
 import { ConfirmationPageModule } from './pages/confirmation/confirmation.module';

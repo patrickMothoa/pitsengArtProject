@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { NavController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase'
 import { LoginPage } from '../login/login.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +17,9 @@ export class RegisterPage implements OnInit {
   validations_form: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
- 
+
   validation_messages = {
+  
    'email': [
      { type: 'required', message: 'Email is required.' },
      { type: 'pattern', message: 'Enter a valid email.' }
@@ -32,7 +34,9 @@ export class RegisterPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private router: Router
+
   ) {}
  
   ngOnInit(){
@@ -61,6 +65,7 @@ export class RegisterPage implements OnInit {
        console.log(res);
        this.errorMessage = "";
        this.successMessage = "Your account has been created. Please log in.";
+       this.router.navigateByUrl('/')
      }, err => {
        console.log(err);
        this.errorMessage = err.message;

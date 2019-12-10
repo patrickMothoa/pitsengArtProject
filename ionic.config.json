@@ -1,5 +1,7 @@
 {
   "name": "pitsengArtProject",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

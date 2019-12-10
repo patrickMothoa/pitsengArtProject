@@ -51,7 +51,13 @@ export class HomePage {
 public  isLogin = false;
   getPro = [];
   cart = [];
+  cNumber = 0;
+  temp = [];
   xxx = [];
+
+  id = '';
+  counter = 0;
+  index = 0;
 
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
