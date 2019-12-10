@@ -82,10 +82,23 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+        <div class="info" >
+          <ion-card  *ngFor = "let admin of Info">
+            <ion-item>
+                 Telephone {{admin.phoneNumber}}  |
+                 Physical Address {{admin.address}} |
+                 Email Address {{admin.email}} |
+            </ion-item>
+          </ion-card>
+        </div>
+    </section>
+  </main>
+  <ion-footer>
+      <ion-toolbar>
+        <ion-title color="light" size="small" >  @ 2019  Pitseng Arts and Crafts.  All right reserved. Privacy Policy</ion-title>
+      </ion-toolbar>
+  </ion-footer>
 </ion-content>
 <!-- <ion-footer>
   <ion-toolbar>

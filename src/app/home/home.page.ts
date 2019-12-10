@@ -97,6 +97,7 @@ public  isLogin = false;
     this.createModalRegister();
   }
   ngOnInit() {
+    this.adminInfo();
     this.getProduct();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
@@ -274,6 +275,21 @@ logOut(){
     // An error happened.
   });
 }
-
+Info = []
+adminInfo(){
+this.db.collection('admins').get().then(snapshot => {
+ this.Info = [];
+ if (snapshot.empty) {
+         this.myProduct = false;
+       } else {
+         this.myProduct = true;
+         snapshot.forEach(doc => {
+           this.Info.push(doc.data());
+           console.log("admin", this.Info);
+         });
+         return this.Products;
+       }
+})
+}
 
 }

@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import { ConfirmationPage } from '../confirmation/confirmation.page';
 import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-trolley',
@@ -12,14 +13,13 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./trolley.page.scss'],
 })
 export class TrolleyPage implements OnInit {
+  private cartItemCount = new BehaviorSubject(0);
   db = firebase.firestore();
   cart = [];
   myArr = [];
 
   constructor(public modalController: ModalController,private cartService: CartService, private alertCtrl: AlertController, public data : ProductService,public transact: TransactionService) {
 
-    this.getDate();
-    console.log("TimeDate",  this.getDate());
     
 
    }
@@ -39,27 +39,52 @@ export class TrolleyPage implements OnInit {
   setTimeout(() => {
     this.cart = [];
     this.myArr.forEach((item)=>{
-///////////// this.cart.push(item.name.obj)
       this.cart.push(item.name.obj);
     })
     console.log('My array ', this.cart );
   }, 1500);
   }
  
-  decreaseCartItem(event) {
-    this.cartService.decreaseProduct(event);
-    console.log("dec");
-    
+  decreaseCartItem(p) {
+    // this.cartService.decreaseProduct(p);
+     console.log("dec");
+     for (let [index, p] of this.cart.entries()) {
+      if (this.cart) {
+        p.quantity -= 1;
+        if (p.quantity == 0) {
+          this.cart.splice(index, 1);
+        }
+      }
+    }
   }
  
-  increaseCartItem(event) {
-    this.cartService.addProduct(event);
+  increaseCartItem(p) {
+    //this.cartService.addProduct(p);
     console.log("inc");
+    let added = false;
+    for (let p of this.cart) {
+      if (this.cart) {
+        p.quantity += 1;
+        added = true;
+        break;
+      }
+    }
+    if (!added) {
+      this.cart.push(this.cart);
+    }
+    this.cartItemCount.next(this.cartItemCount.value + 1);
+
   }
  
-  removeCartItem(event) {
-    this.cartService.removeProduct(event);
+  removeCartItem(p) {
+    // this.cartService.removeProduct(p);
     console.log("del");
+    for (let [index, p] of this.cart.entries()) {
+      if (this.cart) {
+        this.cartItemCount.next(this.cartItemCount.value - p.quantity);
+        this.cart.splice(index, 1);
+      }
+    }
   }
  
   getTotal() {
@@ -69,11 +94,15 @@ export class TrolleyPage implements OnInit {
   orderNumber
   member
   Orders = []
-  orderdate
+  orderdate 
   placeOrder(){
     this.orderNumber = this.stringGen(11);
-
+    ///// creating date
+    const date = new Date();
+    this.orderdate = date.toDateString();
+    ///////
     console.log("clickedX",this.orderNumber);
+    console.log("sHOW dATE", this.orderdate);
     this.data.data
       for(var i = 0; i <  this.cart.length; i++){
         let item =  this.cart[i];
@@ -82,7 +111,7 @@ export class TrolleyPage implements OnInit {
         let orderDetails ={
           total: this.getTotal(),
           orderNumber: this.orderNumber,
-        //  orderdate : this.getDate()
+          orderdate : this.orderdate
         };
         console.log("inside-Order",orderDetails);
          let userID = firebase.auth().currentUser.uid;
@@ -91,10 +120,6 @@ export class TrolleyPage implements OnInit {
     this.SuccessModal();
   }
 
-  getDate(){
-    const date = new Date();
-    this.orderdate = date.toDateString();
-  }
   
 /////// generating Random string
   stringGen(len){
