@@ -1,3 +1,4 @@
+
 <ion-content>
   <div class="container">
   <div class="content">
@@ -19,7 +20,6 @@
                   <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" >
                 </div>
           <div class="navBarItems">
-
               
             <div>
               <ion-searchbar  placeholder="Search Products" [(ngModel)]='myDest' (ionChange)='SearchProducts($event);'
@@ -48,9 +48,7 @@
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
               </ion-button>
-
               <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
-
         
             </div>
           </div>
@@ -66,11 +64,11 @@
             <div class="myProduct" *ngIf="myProduct">
               <ion-card no-padding >
                
-                  <ion-title (click)="ViewDetails(event)">
-                    <img no-padding src="{{event.obj.image}}" alt="" height="300" width="300">
+                  <ion-title no-padding (click)="ViewDetails(event)">
+                    <img no-padding src="{{event.obj.image}}" alt="" height="350" width="300">
                   </ion-title>
                    <div >
-                      <ion-label color="medium" class="name" > {{event.obj.name}}</ion-label> 
+                      <ion-label padding color="medium" class="name" > {{event.obj.name}}</ion-label> 
                    </div>
                      <div >
                         <ion-label class="price" >R{{event.obj.price}}</ion-label>
@@ -82,23 +80,19 @@
             </div>
           </div>
         </div>
-
-        <div class="info" >
-          <ion-card  *ngFor = "let admin of Info">
-            <ion-item>
-                 Telephone {{admin.phoneNumber}}  |
-                 Physical Address {{admin.address}} |
-                 Email Address {{admin.email}} |
-            </ion-item>
-          </ion-card>
-        </div>
-    </section>
-  </main>
-  <ion-footer>
-      <ion-toolbar>
-        <ion-title color="light" size="small" >  @ 2019  Pitseng Arts and Crafts.  All right reserved. Privacy Policy</ion-title>
-      </ion-toolbar>
-  </ion-footer>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="info" >
+  <ion-card  *ngFor = "let admin of Info">
+    <ion-item>
+         Telephone {{admin.phoneNumber}}  |
+         Physical Address {{admin.address}} |
+         Email Address {{admin.email}} |
+    </ion-item>
+  </ion-card>
+</div>
 </ion-content>
 <!-- <ion-footer>
   <ion-toolbar>
