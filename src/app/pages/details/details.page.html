@@ -25,14 +25,19 @@
                 <img src="{{p.obj.image}}" alt="">
           </div>
           <div class="name">
-              <p class="single-desc" >{{p.obj.categories}}</p>
+              <p class="single-desc" >{{p.obj.name}}</p>
+              <p class="single-price" > {{p.obj.productCode}}</p>
               <p class="single-price" > {{p.obj.price}}</p>
           </div>
           <div class="desc">
               <p class="single-desc" >{{p.obj.desc}}</p>
-              <p class="single-price" > {{p.obj.productno}}</p>
-              <p class="single-price" > {{p.obj.items}}</p>
           </div>
+          <ion-item>
+            <ion-label color="medium" position="floating">Size</ion-label>
+            <ion-select multiple="true" [(ngModel)]="event.size">
+              <ion-select-option *ngFor="let s of size">{{s}}</ion-select-option>
+            </ion-select>
+          </ion-item>
           <ion-button (click)="addToCart( p )" slot="end">Add to Cart </ion-button>
         </div>
         </div>
