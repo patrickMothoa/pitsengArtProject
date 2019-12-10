@@ -107,31 +107,44 @@ ion-label{
   justify-content: space-around;
   height: 100%;
   width: 100%;
+  // margin-top: 20px;
   flex-wrap: wrap;
   // border: solid red;
 }
 ion-card{
   width: 100%;
-  // min-height: 45vh;
-  justify-content: space-between;
+  // max-height: 100%;
   
-  
+  margin-top: 10%;
+  // margin-bottom: 15%;
+
   border-radius: 15px;
   box-shadow: rgb(235, 230, 230);
-  background-color: rgba(245, 245, 245, 0.555);
+  background-color: rgba(245, 245, 245, 0.363);
+}
+.myProduct{
+  // border: solid red;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+padding-bottom: 10%;
+  padding: 0%;
+  // display: flex;
+  // flex-direction: row; 
+  // justify-content: space-between;
 }
 ion-card:hover {
   background-color: rgba(211, 208, 206, 0.212);
 }
 .categories-block{
   width: 20%;
-
   height: 45vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 12px;padding-top: 16px;
+    margin: 12px;
+    // padding: 16px;
     // justify-content: center;
     // border: solid orange;
     // margin: 16px;
@@ -161,7 +174,7 @@ ion-button{
   // border: solid red;
 }
 .categories{
-  height: 10.4%;
+  height: 10.5%;
   // border:  solid black ;
   border-bottom: 0.5px solid #7070707e;
 }

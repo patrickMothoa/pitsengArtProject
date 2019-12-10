@@ -16,7 +16,8 @@ import { OrderdetailsPageModule } from './pages/orderdetails/orderdetails.module
   import { from } from 'rxjs';
 import { popoverController } from '@ionic/core';
 import { PopoverComponent } from './components/popover/popover.component';
-import { LoginPageModule } from './pages/login/login.module';
+import { LoginPageModule } from './pages/login/login.module';   
+import { RegisterPageModule } from './pages/register/register.module';
 
 
 const firebaseConfig = {
@@ -36,7 +37,7 @@ firebase.initializeApp(firebaseConfig);
   declarations: [AppComponent,PopoverComponent ],
   entryComponents: [PopoverComponent],
   imports: [BrowserModule,FormsModule,HttpClientModule, ReactiveFormsModule, IonicModule.forRoot(),
-     AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule, LoginPageModule],
+     AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule, LoginPageModule,RegisterPageModule],
   providers: [
     StatusBar,
     AuthService ,

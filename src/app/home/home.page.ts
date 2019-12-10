@@ -11,6 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 import { PopoverComponent } from '../components/popover/popover.component';
 import { log } from 'util';
 import { LoginPage } from '../pages/login/login.page';
+import { RegisterPage } from '../pages/register/register.page';
 declare var window
 
 @Component({
@@ -82,10 +83,12 @@ public  isLogin = false;
   }
 
   showLogin(){
-    this.router.navigateByUrl('/login');
+    // this.router.navigateByUrl('/login');
+    this.createModalLogin();
   }
   goRegister(){
-    this.router.navigateByUrl('/register');
+    // this.router.navigateByUrl('/register');
+    this.createModalRegister();
   }
   ngOnInit() {
     this.getProduct();
@@ -107,6 +110,7 @@ ViewDetails(view) {
   this.createModal();
 }
 
+
 async createModal() {
   const modal = await this.modalController.create({
     component: DetailsPage,
@@ -114,6 +118,14 @@ async createModal() {
   });
   return await modal.present();
 }
+// function createModal() {
+//   controller.create({
+//     component: 'modal-content'
+//   }).then(modal => {
+//     modal.present();
+//     currentModal = modal;
+//   });
+// }
 async createModalLogin() {
   const modal = await this.modalController.create({
     component: LoginPage,
@@ -121,6 +133,14 @@ async createModalLogin() {
   });
   return await modal.present();
 }
+async createModalRegister() {
+  const modal = await this.modalController.create({
+    component: RegisterPage,
+    cssClass: 'my-custom-modal-css'
+  });
+  return await modal.present();
+}
+
    /// taking values db to cart import
   addToCart(event) {
     
@@ -243,7 +263,7 @@ SearchProducts(ev: CustomEvent){
 logOut(){
   firebase.auth().signOut().then(()=> {
     // Sign-out successful.
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/home');
   }).catch((error)=> {
     // An error happened.
   });

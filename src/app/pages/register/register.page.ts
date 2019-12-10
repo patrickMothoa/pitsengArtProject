@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase'
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public modalController: ModalController
   ) {}
  
   ngOnInit(){
@@ -67,8 +69,31 @@ export class RegisterPage implements OnInit {
   }
 
   goLoginPage(){
-    this.navCtrl.navigateBack('');
+    // this.navCtrl.navigateBack('');
+    this.createModalLogin();
+    
   }
+  
+  async createModalLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  async createModalRegister() {
+    const modal = await this.modalController.create({
+      component: RegisterPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  dismiss() {
+   console .log("gfgf")
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+
  
- 
+}
 }
