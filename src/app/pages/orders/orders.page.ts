@@ -73,7 +73,7 @@ async  deleteItem(li){
   ngOnInit() {
     ///
     let  obj = {
-      details : {orderNumber : 0, total : 0},
+      details : {orderNumber : 0, total : 0, orderdate : ""},
       obj : {
         categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
       }
@@ -86,9 +86,10 @@ async  deleteItem(li){
 
         obj.details.orderNumber = doc.data().details.orderNumber;
         obj.details.total = doc.data().details.total;
+        obj.details.orderdate = doc.data().details.orderdate;
         this.conArray.push(obj);
         obj = {
-          details : {orderNumber : 0, total : 0},
+          details : {orderNumber : 0, total : 0, orderdate : ""},
           obj : {
             categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
           }

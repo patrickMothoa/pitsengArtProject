@@ -47,7 +47,7 @@ export class ConfirmationPage implements OnInit {
   ngOnInit() {
 
     let  obj = {
-      details : {orderNumber : 0, total : 0},
+      details : {orderNumber : 0, total : 0, orderdate : ""},
       obj : {
         categories : "", price : "", productNumber : "", quantity : 0,name : ""
       }
@@ -60,6 +60,7 @@ export class ConfirmationPage implements OnInit {
 
         obj.details.orderNumber = doc.data().details.orderNumber;
         obj.details.total = doc.data().details.total;
+        obj.details.orderdate = doc.data().details.orderdate;
         obj.obj.categories = doc.data().obj.categories;
         obj.obj.price = doc.data().obj.price;
         obj.obj.productNumber = doc.data().obj.productNumber;
@@ -68,7 +69,7 @@ export class ConfirmationPage implements OnInit {
 
         this.conArray.push(obj);
         obj = {
-          details : {orderNumber : 0, total : 0},
+          details : {orderNumber : 0, total : 0, orderdate : ""},
           obj : {
             categories : "", price : "", productNumber : "", quantity : 0, name : ""
           }

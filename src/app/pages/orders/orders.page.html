@@ -13,11 +13,12 @@
 	<ion-list >
       <ion-card  *ngFor="let li of conArray">
         <ion-item class="cart-item" (click)="ViewDetails(li)">
-          <span class="ornum"><p>Order Number : {{li.details.orderNumber}} </p></span>
-          <span class="ornum"> <h6 class="order-date">{{li.datetime}}</h6></span>
-          <span class="ornum"><p> Total: {{li.details.total}}</p></span>
+          <span class="ornum"><p>Order Number : {{li.details.orderNumber}} | </p></span>
+          <span class="ornum"> <p> Date : {{li.details.orderdate}}</p> </span> 
         </ion-item>
-        <!-- <ion-button (click)="deleteItem(li)">remove</ion-button> -->
+        <!-- <ion-button (click)="deleteItem(li)">remove</ion-button>
+       
+        -->
       </ion-card>  
 	</ion-list>
 </ion-content>

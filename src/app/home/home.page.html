@@ -72,6 +72,16 @@
                         </div>
                     </div> 
         </div>
+
+        <div class="info" >
+          <ion-card  *ngFor = "let admin of Info">
+            <ion-item>
+                 Telephone {{admin.phoneNumber}}  |
+                 Physical Address {{admin.address}} |
+                 Email Address {{admin.email}} |
+            </ion-item>
+          </ion-card>
+        </div>
     </section>
   </main>
   <ion-footer>

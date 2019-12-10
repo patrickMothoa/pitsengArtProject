@@ -20,6 +20,7 @@
    		<ion-list >
 		  <ion-item class="review-item" *ngFor="let li of conArray">
 			<span class="ornum"><p>Your order confirmation number is  {{li.details.orderNumber}}</p> </span> 
+			<span class="ornum"> <p>Date : {{li.details.orderdate}}</p> </span> 
 			<span class="ornum"> <p>Name : {{li.obj.name}}</p> </span> 
 			<span class="ornum"> <p> R {{li.obj.price}} </p> </span> 
 			<span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p> </span> 
@@ -28,10 +29,6 @@
 		</ion-list>
    </div>
 
-   <!-- <div class="total">
-    <h4 >Total:</h4>
-	<h5 > {{li.details.total}}</h5>
-  </div > -->
   
   <ion-label>Banking Details. </ion-label>
   <ion-card class="bill-info">
