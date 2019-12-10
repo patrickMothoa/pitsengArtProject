@@ -1,45 +1,70 @@
-
-<div class="closeButton" >
-    <div >
-       <ion-button fill="clear"  color="tertiary"  float="right"	 (click)="dismiss()" slot="end">
-         <ion-icon slot="icon-only" name="close"></ion-icon>
-         </ion-button>
-    </div>
-   
+<div class="closeButton" align="right">
+  <div>
+    <ion-button fill="clear" color="medium" (click)="dismiss()" slot="end">
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
   </div>
-<ion-header>
+
+</div>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>details</ion-title>
   </ion-toolbar>
   <ion-button (click)="openCart()">
-    <!-- <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge> -->
+    <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
     <div class="cart-length">{{ cartItemCount | async }}</div>
     <ion-icon slot="icon-only" name="cart"></ion-icon>
 </ion-button>
-</ion-header>
+</ion-header> -->
 
- <ion-content padding>
-    <div class="display">
-        <div class ="info" *ngFor="let p of Products" > 
-            <div class="d-image">
-                <img src="{{p.obj.image}}" alt="">
+<ion-content>
+  <div class="display">
+    <div class="itemsDetails" *ngFor="let p of Products">
+      <div class="image">
+        <img src="{{p.obj.image}}" alt="">
+      </div>
+      <div class="info">
+        <div class="name">
+          <ion-title no-padding class="prodName">{{p.obj.name}}</ion-title>
+          <p class="prodCode">code:&nbsp; {{p.obj.productno}}</p>
+          <!-- <ion-title>{{p.obj.categories}}</ion-title> -->
+        </div>
+        <div class="price">
+          <ion-label class="prodPrice"> R &nbsp;{{p.obj.price}}</ion-label>
+        </div>
+        <div class="desc">
+          <p class="desc">{{p.obj.desc}}</p>
+        </div>
+        <div class="size">
+            <div class="sizeContainer">
+              <ion-item class="radioBttns" lines="none">
+                <ion-checkbox color="danger" [(ngModel)]="event.small"> </ion-checkbox>
+                <ion-label padding>S</ion-label>
+              </ion-item>
+              <ion-item lines="none" class="radioBttns">
+                <ion-checkbox color="danger" [(ngModel)]="event.medium"> </ion-checkbox>
+                <ion-label padding>M</ion-label>
+              </ion-item>
+              <ion-item lines="none" class="radioBttns">
+                <ion-checkbox color="danger" [(ngModel)]="event.large"> </ion-checkbox>
+                <ion-label padding>L</ion-label>
+              </ion-item>
+              
+            </div>
+          <div class="ItemNo">
+            <p> {{p.obj.items}}</p>
           </div>
-          <div class="name">
-              <p class="single-desc" >{{p.obj.name}}</p>
-              <p class="single-price" > {{p.obj.productCode}}</p>
-              <p class="single-price" > {{p.obj.price}}</p>
-          </div>
-          <div class="desc">
-              <p class="single-desc" >{{p.obj.desc}}</p>
-          </div>
-          <ion-item>
-            <ion-label color="medium" position="floating">Size</ion-label>
-            <ion-select multiple="true" [(ngModel)]="event.size">
-              <ion-select-option *ngFor="let s of size">{{s}}</ion-select-option>
-            </ion-select>
-          </ion-item>
+        </div>
+        <br>
+        <div class="qty">
+            <ion-label>Quantity</ion-label> <br>
+                <ion-input  type="number" min="1" max="1000000" [(ngModel)]="event.quantity"></ion-input>
+      
+        </div>
+        <div>
           <ion-button (click)="addToCart( p )" slot="end">Add to Cart </ion-button>
         </div>
-        </div>
-
+      </div>
+    </div>
+  </div>
 </ion-content>

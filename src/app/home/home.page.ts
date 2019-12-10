@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {NavController, ModalController} from '@ionic/angular';
+import {NavController, ModalController, PopoverController} from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -8,6 +8,10 @@ import { CartService } from 'src/app/services/cart.service';
 import { AlertController } from '@ionic/angular';
 import { DetailsPage } from '../pages/details/details.page';
 import { BehaviorSubject } from 'rxjs';
+import { PopoverComponent } from '../components/popover/popover.component';
+import { log } from 'util';
+import { LoginPage } from '../pages/login/login.page';
+import { RegisterPage } from '../pages/register/register.page';
 declare var window
 
 @Component({
@@ -44,15 +48,21 @@ export class HomePage {
   };
   autocompleteItemz: any;
   autocompletez:any;
-
+public  isLogin = false;
   getPro = [];
   cart = [];
+  cNumber = 0;
+  temp = [];
   xxx = [];
+
+  id = '';
+  counter = 0;
+  index = 0;
 
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
 
-  constructor( public alertController: AlertController,
+  constructor( public alertController: AlertController,public popoverController: PopoverController,
     // public authService: AuthService,
     private navCtrl:NavController,
     public data: ProductService,
@@ -69,7 +79,23 @@ export class HomePage {
 
   }
 
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component:PopoverComponent,
+      event: ev,
+      translucent: true
+    });
+    return await popover.present();
+  }
 
+  showLogin(){
+    // this.router.navigateByUrl('/login');
+    this.createModalLogin();
+  }
+  goRegister(){
+    // this.router.navigateByUrl('/register');
+    this.createModalRegister();
+  }
   ngOnInit() {
     this.adminInfo();
     this.getProduct();
@@ -91,6 +117,7 @@ ViewDetails(view) {
   this.createModal();
 }
 
+
 async createModal() {
   const modal = await this.modalController.create({
     component: DetailsPage,
@@ -98,6 +125,29 @@ async createModal() {
   });
   return await modal.present();
 }
+// function createModal() {
+//   controller.create({
+//     component: 'modal-content'
+//   }).then(modal => {
+//     modal.present();
+//     currentModal = modal;
+//   });
+// }
+async createModalLogin() {
+  const modal = await this.modalController.create({
+    component: LoginPage,
+    cssClass: 'my-custom-modal-css'
+  });
+  return await modal.present();
+}
+async createModalRegister() {
+  const modal = await this.modalController.create({
+    component: RegisterPage,
+    cssClass: 'my-custom-modal-css'
+  });
+  return await modal.present();
+}
+
    /// taking values db to cart import
   addToCart(event) {
     
@@ -105,7 +155,7 @@ async createModal() {
       this.cartService.addProduct(event);
       console.log("pushing to Cart",event);
     }else{
-      this.router.navigateByUrl('/login')
+      this.createModalLogin();
     }
   }
   
@@ -220,7 +270,7 @@ SearchProducts(ev: CustomEvent){
 logOut(){
   firebase.auth().signOut().then(()=> {
     // Sign-out successful.
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/home');
   }).catch((error)=> {
     // An error happened.
   });

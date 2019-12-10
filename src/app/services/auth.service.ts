@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import Swal from 'sweetalert2'
 import { AlertController } from '@ionic/angular';
 declare var window
 @Injectable({
@@ -27,6 +28,7 @@ export class AuthService {
        err => reject(err))
    })
   }
+
  
   logoutUser(){
     return new Promise((resolve, reject) => {
@@ -45,6 +47,31 @@ export class AuthService {
   userDetails(){
     return firebase.auth().currentUser;
   }
+
+  loader(){
+    let timerInterval
+   Swal.fire({
+    title: 'Loading',
+    html: 'Please wait, still loading',
+    timer: 3000,
+    onBeforeOpen: () => {
+      Swal.showLoading()
+   
+    },
+    onClose: () => {
+      clearInterval(timerInterval)
+    }
+   }).then((result) => {
+    if (
+      // Read more about handling dismissals
+      result.dismiss === Swal.DismissReason.timer
+    ) {
+      console.log('I was closed by the timer')
+    }
+   })
+   
+    }
+  
 }
 
 

@@ -9,10 +9,18 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './../app/services/auth.service';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
+
 import * as firebase from 'firebase';
 import { DetailsPageModule } from './pages/details/details.module';
 import { ConfirmationPageModule } from './pages/confirmation/confirmation.module';
 import { OrderdetailsPageModule } from './pages/orderdetails/orderdetails.module';
+  import { from } from 'rxjs';
+import { popoverController } from '@ionic/core';
+import { PopoverComponent } from './components/popover/popover.component';
+import { LoginPageModule } from './pages/login/login.module';   
+import { RegisterPageModule } from './pages/register/register.module';
 
 
 const firebaseConfig = {
@@ -29,14 +37,15 @@ firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule,FormsModule,HttpClientModule, ReactiveFormsModule, IonicModule.forRoot(), AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule ],
+  declarations: [AppComponent,PopoverComponent ],
+  entryComponents: [PopoverComponent],
+  imports: [BrowserModule,FormsModule,HttpClientModule, ReactiveFormsModule, IonicModule.forRoot(),
+     AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule, LoginPageModule,RegisterPageModule],
   providers: [
     StatusBar,
     AuthService ,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
   ],
   bootstrap: [AppComponent]
 })

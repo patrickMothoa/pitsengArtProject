@@ -80,14 +80,14 @@ export class DetailsPage implements OnInit {
         this.myProduct = true;
         snapshot.forEach(doc => {
           this.event.image= doc.data().image;
-          this.event.categories = doc.data().categories
-          this.event.name=doc.data().name
-          this.event.price=doc.data().price
-          this.event.productno=doc.data().productno
-          this.event.desc=doc.data().desc
-          this.event.small=doc.data().small
-          this.event.medium=doc.data().medium
-          this.event.large=doc.data().large
+          this.event.categories = doc.data().categories;
+          this.event.name=doc.data().name;
+          this.event.price=doc.data().price;
+          this.event.productno=doc.data().productno;
+          this.event.desc=doc.data().desc;
+          this.event.small=doc.data().small;
+          this.event.medium=doc.data().medium;
+          this.event.large=doc.data().large;
           
         })
       }

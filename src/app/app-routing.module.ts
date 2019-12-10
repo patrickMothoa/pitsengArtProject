@@ -42,6 +42,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
+    path: 'success',
+    loadChildren: () => import('./pages/success/success.module').then( m => m.SuccessPageModule)
+  },
+{
     path: 'trolley',
     loadChildren: () => import('./pages/trolley/trolley.module').then( m => m.TrolleyPageModule)
   },

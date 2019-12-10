@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import Swal from 'sweetalert2'
 
 import * as firebase from 'firebase'
   import { from } from 'rxjs';
+import { RegisterPage } from '../register/register.page';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,12 +17,14 @@ export class LoginPage implements OnInit {
  
   validations_form: FormGroup;
   errorMessage: string = '';
+  
  
   constructor(
  
     private navCtrl: NavController,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public modalController: ModalController
  
   ) { }
  
@@ -59,11 +64,58 @@ export class LoginPage implements OnInit {
       this.navCtrl.navigateForward('/');
     }, err => {
       this.errorMessage = err.message;
-    })
+    });
+    this.loader()
+   
   }
+
+  loader(){
+    let timerInterval
+   Swal.fire({
+    title: 'Loading',
+    html: 'Please wait, still loading',
+    timer: 3000,
+    onBeforeOpen: () => {
+      Swal.showLoading()
+   
+    },
+    onClose: () => {
+      clearInterval(timerInterval)
+    }
+   }).then((result) => {
+    if (
+      // Read more about handling dismissals
+      result.dismiss === Swal.DismissReason.timer
+    ) {
+      console.log('I was closed by the timer')
+    }
+   })
+   
+    }
  
   goToRegisterPage(){
-    this.navCtrl.navigateForward('/register');
+    // this.navCtrl.navigateForward('/register');
+    this.createModalRegister();
   }
- 
+
+  async createModalLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  async createModalRegister() {
+    const modal = await this.modalController.create({
+      component: RegisterPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  dismiss() {
+   console .log("gfgf")
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
 }

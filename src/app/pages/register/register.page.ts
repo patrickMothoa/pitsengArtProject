@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase'
+import { LoginPage } from '../login/login.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +17,9 @@ export class RegisterPage implements OnInit {
   validations_form: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
- 
+
   validation_messages = {
+  
    'email': [
      { type: 'required', message: 'Email is required.' },
      { type: 'pattern', message: 'Enter a valid email.' }
@@ -30,7 +33,10 @@ export class RegisterPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public modalController: ModalController,
+    private router: Router
+
   ) {}
  
   ngOnInit(){
@@ -59,6 +65,7 @@ export class RegisterPage implements OnInit {
        console.log(res);
        this.errorMessage = "";
        this.successMessage = "Your account has been created. Please log in.";
+       this.router.navigateByUrl('/')
      }, err => {
        console.log(err);
        this.errorMessage = err.message;
@@ -67,8 +74,31 @@ export class RegisterPage implements OnInit {
   }
 
   goLoginPage(){
-    this.navCtrl.navigateBack('');
+    // this.navCtrl.navigateBack('');
+    this.createModalLogin();
+    
   }
+  
+  async createModalLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  async createModalRegister() {
+    const modal = await this.modalController.create({
+      component: RegisterPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  dismiss() {
+   console .log("gfgf")
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+
  
- 
+}
 }
