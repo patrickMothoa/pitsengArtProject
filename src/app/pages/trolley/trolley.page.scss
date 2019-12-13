@@ -1,0 +1,231 @@
+
+.content {
+  height: 100%;
+  width: 100%;
+  margin: 0%;
+  left: 0%;
+  right: 0%;
+  background-color: green;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+.topnavbar {
+  float: left;
+}
+
+.itemDetails {
+width: 200px;
+height: 500px;
+border: solid black;
+display: flex;
+flex-direction: row;
+}
+
+
+.heading{
+    border: solid red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    width: 100%;
+    // height: 10%;
+}
+.itemsContainer{
+    width: 100%;
+    height: 100%;
+    border: solid blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+}
+.itemsDetails{
+    border: solid green;
+    width: 80%;
+    height: 100%;
+    margin-top: 10%;
+
+}
+.ProdDetails{
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.coverContent {
+  border: solid red;
+  width: 100%;
+  height: 100%;
+ display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.heading {
+  margin: auto;
+  width: 70%;
+  height: 80%;
+  border: solid black;
+  display: flex;
+  flex-direction: row;
+  margin: 0% auto;
+}
+.items {
+  border: solid red;
+  width: 30%;
+}
+.itemsDetails {
+  border: solid mediumaquamarine;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.itemName {
+margin: 0% auto;
+
+
+}
+.itemImage{
+    margin: 0% auto;
+}
+.qty {
+  border: solid green;
+  width: 15%;
+  margin: 0% auto;
+}
+
+.price {
+  width: 17%;
+  border: solid rgb(25, 101, 136);
+}
+.subtotal {
+  width: 17%;
+  border: solid rgb(130, 23, 180);
+}
+.delete{
+    width:7% ;
+    border: #63816f;
+}
+.otherHeading {
+  border: solid blue;
+  width: 70%;
+  display: flex;
+  float: left;
+}
+
+.qtyNo {
+    border: solid mediumaquamarine;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+.Qno{
+    margin: 0% auto;
+}
+ion-label{
+margin: auto;
+}
+
+.priceNo {
+  border: solid mediumaquamarine;
+  margin: 40px;
+  top: 0%;
+  bottom: 0%;
+  height: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  justify-content: center;
+  justify-items: center;
+}
+.deleteItem{
+border: solid mediumaquamarine;
+  margin: 40px;
+  top: 0%;
+  bottom: 0%;
+  height: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  justify-content: center;
+  justify-items: center;
+}
+.subtotalNo {
+  border: solid mediumaquamarine;
+  margin: 40px;
+  top: 0%;
+  bottom: 0%;
+  height: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  justify-content: center;
+  justify-items: center;
+}
+.itemName {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.total{
+  border: solid blueviolet;
+  width: 15%;
+  height:80%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin: 0% auto;
+
+}
+.totaldetails{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: solid red;
+}
+.buttons{
+  border: solid black         ;
+  
+}
+ion-title {
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: #707070;
+  text-transform: uppercase;
+  text-align: center;
+}
+.buttonss{
+  width: 100%;
+  --border-radius: 0px 50px 0px 50px;
+  font-family: serif;
+  font-weight: bolder;
+}
+
+ion-label {
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: #707070;
+  text-transform: capitalize;
+  text-align: center;
+}

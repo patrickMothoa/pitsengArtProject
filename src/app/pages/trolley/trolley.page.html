@@ -1,4 +1,4 @@
-<ion-content fullscreen>
+<!-- <ion-content fullscreen>
    
     <div class="ion-padding">
    
@@ -59,4 +59,77 @@
       </ion-button>
     </div>
    
-  </ion-content>
+  </ion-content> -->
+
+        <div class="coverContent">
+
+
+
+            <div  class="heading">
+              <div class="items">
+                <ion-title>item</ion-title>
+                <div *ngFor="let p of cart"  class="itemsDetails" >
+                  <div class="itemImage" >
+                       <img src="{{p.image}}" width="100px" height="100px" alt="">
+                  </div>
+                  <div class="itemName" >
+                       <ion-label>{{ p.name }}</ion-label>
+                  <ion-label>product code</ion-label>
+                  <ion-label>size</ion-label>
+                  </div>
+               
+                </div>
+              </div>
+              <div  class="qty" >
+                  <ion-title>qty</ion-title>
+                  <div *ngFor="let p of cart" class="qtyNo" >
+                    <ion-label class="Qno" >1</ion-label>
+                  </div>
+                  
+              </div>
+              <div class="price" >
+                  <ion-title>price</ion-title>
+                  <div *ngFor="let p of cart"  class="priceNo">
+                    <ion-label>1</ion-label>
+                  </div>
+              </div>
+              <div class="subtotal" >
+                  <ion-title>subtotal</ion-title>
+                  <div  class="subtotalNo" >
+                    <ion-label>1</ion-label>
+                  </div>
+                  <div class="subtotalNo" >
+                      <ion-label>1</ion-label>
+                    </div>
+                  
+              </div>
+              <div class="delete" >
+                  <ion-title>delete</ion-title>
+                  <div class="deleteItem" >
+                      <ion-label><ion-icon name="trash"></ion-icon></ion-label>
+                    </div>
+                    <div class="deleteItem" >
+                        <ion-label><ion-icon name="trash"></ion-icon></ion-label>
+                      </div>
+              </div>
+            </div>
+            <div class="total">
+              <div class="totaldetails" > 
+                <div>
+                  <ion-label > total amount </ion-label>
+                </div>
+                <div>
+                    <ion-label > R &nbsp; 5000</ion-label>
+                </div>
+                
+              
+              </div>
+              <div class="buttons" >
+            <ion-button class="buttons" *ngIf= "!isPaymentRecieved" padding  color="warning"  shape="round" expand="full" >Payment Recieved</ion-button>
+                  <ion-button class="buttonss" color="warning"  padding shape="block" *ngIf= "isPaymentRecieved">send reciept</ion-button>
+        
+              </div>
+            </div>
+        
+ 
+          </div>
