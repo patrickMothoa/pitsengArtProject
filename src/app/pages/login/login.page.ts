@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 import * as firebase from 'firebase'
   import { from } from 'rxjs';
