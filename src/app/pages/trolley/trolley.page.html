@@ -1,3 +1,336 @@
+<ion-content>
+  <div class="container">
+    <div class="content">
+      <div class="row">
+        <div class=" sidebar1">
+
+          <ion-button class="categories" color="warning" fill="clear" slot="end">
+            <ion-icon class="homeIcon" name="home" width="100" height="100"></ion-icon>
+          </ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Vase')" slot="end">Vase
+          </ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">
+            Bowls & <br> pots</ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Cups and Plates')"
+            slot="end">Mugs & plates</ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Photo Frame')" slot="end">
+            Photo <br> frames</ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Lamps')" slot="end">Lamps
+          </ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Decor Pallets')" slot="end">
+            Deco <br> Pallets</ion-button>
+          <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Wall Deco')" slot="end">Wall
+            <br> decos</ion-button>
+        </div>
+        <div class="main-content">
+          <div class="thisContent">
+            <div class="logo">
+              <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100">
+            </div>
+            <div class="navBarItems">
+              <div>
+                <ion-searchbar placeholder="Search Products" [(ngModel)]='myDest' (ionChange)='SearchProducts($event);'
+                  value=""></ion-searchbar>
+              </div>
+              <div>
+                <ion-button color="warning" fill="clear" (click)="goRegister()">
+                  <ion-icon color="warning" slot="icon-only" name="contact"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" (click)="openCart()">
+                  <ion-label color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label>
+                  <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </div>
+
+      <div class="for-heading">
+        <h1>Shopping bag</h1>
+<div class="coverContent">
+  
+  <div class="heading">
+    <div class="items">
+      <ion-title  >item</ion-title>
+      <div *ngFor="let p of cart" class="itemsDetails">
+        <div class="itemImage">
+          <img src="{{p.image}}" width="100px" height="100px" alt="">
+        </div>
+        <div class="itemName">
+          <ion-label class="ionLabel" >{{ p.name }}</ion-label>
+          <ion-label class="ionLabel">product code</ion-label>
+          <ion-label class="ionLabel">size</ion-label>
+        </div>
+
+      </div>
+    </div>
+    <div class="qty">
+      <ion-title>qty</ion-title>
+      <div *ngFor="let p of cart" class="qtyNo">
+        <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
+      </div>
+
+    </div>
+    <div class="price">
+      <ion-title>price</ion-title>
+      <div *ngFor="let p of cart" class="priceNo">
+        <ion-label class="ionLabel">1</ion-label>
+      </div>
+    </div>
+    <div class="subtotal">
+      <ion-title>subtotal</ion-title>
+      <div class="subtotalNo">
+        <ion-label class="ionLabel">1</ion-label>
+      </div>
+      <div class="subtotalNo" *ngFor="let p of cart">
+        <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
+      </div>
+
+    </div>
+    <div class="delete">
+      <ion-title color="light"  >delete</ion-title>
+      <div class="deleteItem">
+        <ion-label >
+          <ion-icon name="trash"></ion-icon>
+        </ion-label>
+      </div>
+      <div >
+        <ion-label class="ionLabel">
+          <ion-icon name="trash"></ion-icon>
+        </ion-label>
+      </div>
+    </div>
+  </div>
+  <div class="total">
+    
+    <h2>Order Summary</h2>
+    <div class="subtotal1">
+      <div>
+        <ion-label  class="ionLabel"> Sub-total </ion-label  >
+      </div>
+      <div>
+        <ion-label  class="ionLabel"> R &nbsp; 5000</ion-label>
+      </div>
+    </div>
+    <div class="vatincluded">
+      <div>
+        <ion-label  class="ionLabel"> Sub-total </ion-label>
+      </div>
+      <div>
+        <ion-label  class="ionLabel"> R &nbsp; 5000</ion-label>
+      </div>
+    </div>
+    <div class="totaldetails">
+
+      <div>
+        <ion-label  class="ionLabel"> total amount </ion-label>
+      </div>
+      <div>
+        <ion-label  class="ionLabel"> R &nbsp; 5000</ion-label>
+      </div>
+
+
+    </div>
+    <div class="buttons">
+      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
+      </ion-button>
+
+      <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="placeOrder()">Place Order
+      </ion-button>
+    </div>
+  </div>
+
+
+</div> 
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<!-- <ion-footer>
+  <ion-toolbar>
+    <ion-title color="light" size="small"> @ 2019 Pitseng Arts and Crafts. All right reserved. Privacy Policy
+    </ion-title>
+  </ion-toolbar>
+</ion-footer> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- <ion-content fullscreen>
    
     <div class="ion-padding">
@@ -35,7 +368,7 @@
                 <b>{{ p.name }}</b>
               </ion-col>
               <ion-col size="3" class="ion-text-end">
-                {{ p.quantity * p.price | currency:'R':'symbol' }}
+                {{ p.quantity * p.Delete | currency:'R':'symbol' }}
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -60,76 +393,62 @@
     </div>
    
   </ion-content> -->
+<!-- 
 
-        <div class="coverContent">
+  <ion-content fullscreen>
+   
+    <div class="ion-padding">
+   
+      <ion-list>
+        <ion-item  class="ion-text-wrap">
+          <ion-grid>
+            <ion-row  *ngFor="let p of cart"class="ion-align-items-center">
+          <ion-col>
+             <ion-label>Items</ion-label>
+             <ion-col>name</ion-col>
+          </ion-col>
+             
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+   
+      <ion-button expand="full" (click)="placeOrder()">
+          <ion-icon name="checkmark-circle" class="navicon" ></ion-icon>PLACE ORDER
+      </ion-button>
+    </div>
+   
+  </ion-content>
+
+       
+
+         -->
+<!-- <table>
+
+  <thead>
+    <th colspan="4">Items</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Subtotal</th>
+  </thead>
+  <tbody>
+    <tr>
+      <ion-item>
+        <td>image</td>
+      <td>name</td>
+      <td>productcode</td>
+      <td>price</td>
+      </ion-item>
+      
+        <td>quantity</td>
+        <td>price</td>
+        <td>subtotal</td>
+     
+     
+    </tr>
+  </tbody>
 
 
 
-            <div  class="heading">
-              <div class="items">
-                <ion-title>item</ion-title>
-                <div *ngFor="let p of cart"  class="itemsDetails" >
-                  <div class="itemImage" >
-                       <img src="{{p.image}}" width="100px" height="100px" alt="">
-                  </div>
-                  <div class="itemName" >
-                       <ion-label>{{ p.name }}</ion-label>
-                  <ion-label>product code</ion-label>
-                  <ion-label>size</ion-label>
-                  </div>
-               
-                </div>
-              </div>
-              <div  class="qty" >
-                  <ion-title>qty</ion-title>
-                  <div *ngFor="let p of cart" class="qtyNo" >
-                    <ion-label class="Qno" >1</ion-label>
-                  </div>
-                  
-              </div>
-              <div class="price" >
-                  <ion-title>price</ion-title>
-                  <div *ngFor="let p of cart"  class="priceNo">
-                    <ion-label>1</ion-label>
-                  </div>
-              </div>
-              <div class="subtotal" >
-                  <ion-title>subtotal</ion-title>
-                  <div  class="subtotalNo" >
-                    <ion-label>1</ion-label>
-                  </div>
-                  <div class="subtotalNo" >
-                      <ion-label>1</ion-label>
-                    </div>
-                  
-              </div>
-              <div class="delete" >
-                  <ion-title>delete</ion-title>
-                  <div class="deleteItem" >
-                      <ion-label><ion-icon name="trash"></ion-icon></ion-label>
-                    </div>
-                    <div class="deleteItem" >
-                        <ion-label><ion-icon name="trash"></ion-icon></ion-label>
-                      </div>
-              </div>
-            </div>
-            <div class="total">
-              <div class="totaldetails" > 
-                <div>
-                  <ion-label > total amount </ion-label>
-                </div>
-                <div>
-                    <ion-label > R &nbsp; 5000</ion-label>
-                </div>
-                
-              
-              </div>
-              <div class="buttons" >
-            <ion-button class="buttons" *ngIf= "!isPaymentRecieved" padding  color="warning"  shape="round" expand="full" >Payment Recieved</ion-button>
-                  <ion-button class="buttonss" color="warning"  padding shape="block" *ngIf= "isPaymentRecieved">send reciept</ion-button>
-        
-              </div>
-            </div>
-        
- 
-          </div>
+
+</table> -->

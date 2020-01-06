@@ -1,101 +1,90 @@
 
 <ion-content>
-    <div class="container">
-    <div class="content">
-      <div class="row">
-        <div class=" sidebar1">
-          
-            <ion-button class="categories"  color="warning" fill="clear" slot="end"><ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
-          <ion-button class="categories"  color="medium"  fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
-          <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls & <br> pots</ion-button>
-          <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Cups and Plates')" slot="end">Mugs & plates</ion-button>
-          <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Photo Frame')" slot="end">Photo <br> frames</ion-button>
-          <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
-          <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Decor Pallets')" slot="end">Deco <br> Pallets</ion-button>
-          <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Wall Deco')" slot="end">Wall <br> decos</ion-button>
-        </div>
-        <div class="main-content">
-          <div class="thisContent" >
-                     <div class="logo">
-                    <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" >
-                  </div>
-            <div class="navBarItems">
-                
-              <div>
-                <ion-searchbar  placeholder="Search Products" [(ngModel)]='myDest' (ionChange)='SearchProducts($event);'
-                  value=""></ion-searchbar>
-                <!-- <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon> -->
-                <ion-list class="list" [hidden]="autocompleteItemz.length == 0">
-                  <div *ngIf="autocompleteItemz.length > 0">
-                    <ion-item padding *ngFor="let item of autocompleteItemz" tappable id="submit"
-                      (click)="productDetails(item)">
-                      <ion-avatar>
-                        <img src="{{item.obj.image}}" alt="" height="500px" width="500px">
-                      </ion-avatar>
-                      <ion-label color="medium" padding> {{ item.obj.name }}</ion-label>
-                    </ion-item>
-                  </div>
-                </ion-list>
-              </div>
-              <div>
-                  <!-- <ion-button fill="clear" (click)=" presentPopover()" slot="end"><ion-icon name="person"></ion-icon></ion-button> -->
-                <ion-button color="warning" fill="clear" (click)="showLogin()">Login </ion-button>
-                <ion-button color="warning" fill="clear" (click)="goRegister()">Register</ion-button>
-                <ion-button  fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
-                <ion-button  fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
-                      <ion-button fill="clear" (click)="openCart()">
-                  <!-- <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge> -->
-                  <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
-                  <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
-                </ion-button>
-                <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
-          
-              </div>
+  <div class="container">
+  <div class="content">
+    <div class="row">
+      <div class=" sidebar1">
+        
+          <ion-button class="categories"  color="warning" fill="clear" slot="end"><ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
+        <ion-button class="categories"  color="medium"  fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls & <br> pots</ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Cups and Plates')" slot="end">Mugs & plates</ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Photo Frame')" slot="end">Photo <br> frames</ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Decor Pallets')" slot="end">Deco <br> Pallets</ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Wall Deco')" slot="end">Wall <br> decos</ion-button>
+      </div>
+      <div class="main-content">
+        <div class="thisContent" >
+                   <div class="logo">
+                  <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" >
+                </div>
+          <div class="navBarItems">
+              
+            <div>
+              <ion-searchbar  placeholder="Search Products" [(ngModel)]='myDest' (ionChange)='SearchProducts($event);'
+                value=""></ion-searchbar>
+              <!-- <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon> -->
+              <ion-list class="list" [hidden]="autocompleteItemz.length == 0">
+                <div *ngIf="autocompleteItemz.length > 0">
+                  <ion-item padding *ngFor="let item of autocompleteItemz" tappable id="submit"
+                    (click)="productDetails(item)">
+                    <ion-avatar>
+                      <img src="{{item.obj.image}}" alt="" height="500px" width="500px">
+                    </ion-avatar>
+                    <ion-label color="medium" padding> {{ item.obj.name }}</ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </div>
+            <div>
+                <!-- <ion-button fill="clear" (click)=" presentPopover()" slot="end"><ion-icon name="person"></ion-icon></ion-button> -->
+              <!-- <ion-button color="warning" fill="clear" (click)="showLogin()">Login </ion-button> -->
+              <!-- <ion-button color="warning" fill="clear" (click)="goRegister()">Register</ion-button> -->
+              <ion-button color="warning" fill="clear" (click)="goRegister()"> <ion-icon color="warning" slot="icon-only" name="contact"></ion-icon></ion-button>
+              <!-- <ion-button  fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
+              <ion-button  fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button> -->
+                    <ion-button fill="clear" (click)="openCart()">
+                <!-- <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge> -->
+                <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
+                <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
+              </ion-button>
+              <!-- <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button> -->
+        
             </div>
           </div>
-          
-          <div class="container1">
-            <div class="categories-block" *ngFor="let event of Products">
-              <!-- <ion-row no-padding class="categories-banner">
-                <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
-                  {{event.categories }}<br>
-                </ion-col>
-              </ion-row> -->
-              <div class="myProduct" *ngIf="myProduct">
-                <ion-card no-padding >
-                 
-                    <ion-title no-padding (click)="ViewDetails(event)">
-                      <img no-padding src="{{event.obj.image}}" alt="" height="350" width="300">
-                    </ion-title>
+        </div>
+        
+        <div class="container1">
+          <div class="categories-block" *ngFor="let event of Products">
+            <!-- <ion-row no-padding class="categories-banner">
+              <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
+                {{event.categories }}<br>
+              </ion-col>
+            </ion-row> -->
+            <div class="myProduct" *ngIf="myProduct">
+              <ion-card no-padding >
+               
+                  <ion-title no-padding (click)="ViewDetails(event)">
+                    <img no-padding src="{{event.obj.image}}" alt="" height="350" width="300">
+                  </ion-title>
+                   <div >
+                      <ion-label padding color="medium" class="name" > {{event.obj.name}}</ion-label> 
+                   </div>
                      <div >
-                        <ion-label padding color="medium" class="name" > {{event.obj.name}}</ion-label> 
+                        <ion-label class="price" >R{{event.obj.price}}</ion-label>
                      </div>
-                       <div >
-                          <ion-label class="price" >R{{event.obj.price}}</ion-label>
-                       </div>
-                       <div >
-                         <ion-button color="warning" fill="clear" (click)="addToCart(event)" slot="end">Add to Cart </ion-button>
-                       </div>
-                </ion-card>
-              </div>
+                     <div >
+                       <ion-button color="warning" fill="clear" (click)="addToCart(event)" slot="end">Add to Cart </ion-button>
+                     </div>
+              </ion-card>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </ion-content>
-
 </div>
-<!-- <div class="info" >
-  <ion-card  *ngFor = "let admin of Info">
-    <ion-item>
-         Telephone {{admin.phoneNumber}}  |
-         Physical Address {{admin.address}} |
-         Email Address {{admin.email}} |
-    </ion-item>
-  </ion-card>
-</div> -->
 </ion-content>
 <!-- <ion-footer>
   <ion-toolbar>
