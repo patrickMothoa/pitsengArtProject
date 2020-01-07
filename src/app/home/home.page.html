@@ -1,10 +1,12 @@
+
 <ion-content>
   <div class="container">
   <div class="content">
     <div class="row">
       <div class=" sidebar1">
         
-          <ion-button class="categories"  color="warning" fill="clear" slot="end"><ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
+          <ion-button class="categories"  color="warning" fill="clear" slot="end" (click)="CountinueShoping() " >
+            <ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
         <ion-button class="categories"  color="medium"  fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls & <br> pots</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Cups and Plates')" slot="end">Mugs & plates</ion-button>
@@ -12,11 +14,14 @@
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Decor Pallets')" slot="end">Deco <br> Pallets</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Wall Deco')" slot="end">Wall <br> decos</ion-button>
+        <button (click)="myFunction()">Show Snackbar</button>
+
+<div id="snackbar">Product added to cart</div>
       </div>
       <div class="main-content">
         <div class="thisContent" >
                    <div class="logo">
-                  <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" >
+                  <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" (click)="CountinueShoping() " >
                 </div>
           <div class="navBarItems">
               
@@ -57,17 +62,17 @@
             <div class="myProduct" *ngIf="myProduct">
               <ion-card no-padding >
                
-                  <ion-title (click)="ViewDetails(event)">
-                    <img no-padding src="{{event.obj.image}}" alt="" height="300" width="300">
+                  <ion-title no-padding (click)="ViewDetails(event)">
+                    <img no-padding src="{{event.obj.image}}" alt="" height="350" width="300">
                   </ion-title>
                    <div >
-                      <ion-label color="medium" class="name" > {{event.obj.name}}</ion-label> 
+                      <ion-label padding color="medium" class="name" > {{event.obj.name}}</ion-label> 
                    </div>
                      <div >
                         <ion-label class="price" >R{{event.obj.price}}</ion-label>
                      </div>
                      <div >
-                       <ion-button color="warning" fill="clear" (click)="addToCart(event)" slot="end">Add to Cart </ion-button>
+                       <ion-button color="warning" fill="clear" (click)="addToCart(event)"  (click)="myFunction()" slot="end">Add to Cart </ion-button>
                      </div>
               </ion-card>
             </div>
@@ -87,14 +92,3 @@
   </ion-card>
 </div>
 </ion-content>
-<!-- <ion-footer>
-  <ion-toolbar>
-    <ion-title color="light" size="small"> @ 2019 Pitseng Arts and Crafts. All right reserved. Privacy Policy
-    </ion-title>
-  </ion-toolbar>
-</ion-footer> -->
-
-<!-- 
-
-  
- -->

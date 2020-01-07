@@ -6,6 +6,7 @@ import { ConfirmationPage } from '../confirmation/confirmation.page';
 import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trolley',
@@ -18,7 +19,9 @@ export class TrolleyPage implements OnInit {
   cart = [];
   myArr = [];
 
-  constructor(public modalController: ModalController,private cartService: CartService, private alertCtrl: AlertController, public data : ProductService,public transact: TransactionService) {
+  constructor(public modalController: ModalController,
+    private cartService: CartService, private alertCtrl: AlertController, 
+    public data : ProductService,public transact: TransactionService, private router: Router, ) {
 
     
 
@@ -143,6 +146,9 @@ export class TrolleyPage implements OnInit {
       cssClass: 'my-custom-modal-css'
     });
     return await modal.present();
+  }
+  CountinueShoping(){
+    this.router.navigateByUrl('/');
   }
 
   clear(){

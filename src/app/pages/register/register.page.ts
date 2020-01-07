@@ -82,14 +82,14 @@ export class RegisterPage implements OnInit {
   async createModalLogin() {
     const modal = await this.modalController.create({
       component: LoginPage,
-      cssClass: 'my-custom-modal-css'
+     
     });
     return await modal.present();
   }
   async createModalRegister() {
     const modal = await this.modalController.create({
       component: RegisterPage,
-      cssClass: 'my-custom-modal-css'
+      
     });
     return await modal.present();
   }

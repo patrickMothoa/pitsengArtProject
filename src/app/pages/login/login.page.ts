@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 import * as firebase from 'firebase'
   import { from } from 'rxjs';
@@ -101,14 +101,14 @@ export class LoginPage implements OnInit {
   async createModalLogin() {
     const modal = await this.modalController.create({
       component: LoginPage,
-      cssClass: 'my-custom-modal-css'
+      
     });
     return await modal.present();
   }
   async createModalRegister() {
     const modal = await this.modalController.create({
       component: RegisterPage,
-      cssClass: 'my-custom-modal-css'
+   
     });
     return await modal.present();
   }

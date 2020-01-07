@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
 		<div class="closeButton" >
 				<div >
 				   <ion-button fill="clear"  color="tertiary"  float="right"	 (click)="dismiss()" slot="end">
@@ -7,37 +7,114 @@
 				</div>
 			   
 			  </div>
-</ion-header>
+</ion-header> -->
+
+<!-- 
+<ion-content padding>
+	<div class="main-container">
+		<div class="message">
+			<ion-title>Payment</ion-title>
+
+			<h5>Thank you for Shopping with PitsengArt!</h5>
+			<p>You will receive your order after your payments.</p>
+
+		</div>
+
+		<div>
+			<div class="bill-info">
+
+				<div>
+					<div class="order-heading">your order</div>
+					<div>
+									<ion-list>
+						<ion-item class="review-item" *ngFor="let li of conArray">
+							<span class="ornum">
+								<p>Your order confirmation number is {{li.details.orderNumber}}</p>
+							</span>
+							<span class="ornum">
+								<p>Date : {{li.details.orderdate}}</p>
+							</span>
+							<span class="ornum">
+								<p>Name : {{li.obj.name}}</p>
+							</span>
+							<span class="ornum">
+								<p> R {{li.obj.price}} </p>
+							</span>
+							<span class="ornum">
+								<p>Quantity: {{li.obj.quantity}}</p>
+							</span>
+							<h5> Total: {{li.details.total}}</h5>
+						</ion-item>
+					</ion-list>	
+					</div>
+	
+				</div>
+
+
+				<ion-label>Banking Details. </ion-label>
+				<div class="bill-info">
+					<p>Account Holder : Mr Pitseng</p>
+					<p>Account Number : 1234567891011</p>
+					<p>Bank Name : ABSA</p>
+					<p>Branch Name : Soweto</p>
+					<p>Branch Code : 23055</p>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</ion-content> -->
+
 
 
 <ion-content padding>
-<ion-card class="bill-info">
-	<div class="message"> 
-		<h5>Thank you for Shopping with PitsengArt!</h5>
-		<p>You will receive your order after your payments.</p>
-	</div>
-	<div>
-   		<ion-list >
-		  <ion-item class="review-item" *ngFor="let li of conArray">
-			<span class="ornum"><p>Your order confirmation number is  {{li.details.orderNumber}}</p> </span> 
-			<span class="ornum"> <p>Date : {{li.details.orderdate}}</p> </span> 
-			<span class="ornum"> <p>Name : {{li.obj.name}}</p> </span> 
-			<span class="ornum"> <p> R {{li.obj.price}} </p> </span> 
-			<span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p> </span> 
-			<h5> Total: {{li.details.total}}</h5>
-		  </ion-item>
-		</ion-list>
-   </div>
+	<div class="main-container">
+		<div class="message">
+			<ion-title>Payment</ion-title>
 
-  
-  <ion-label>Banking Details. </ion-label>
-  <ion-card class="bill-info">
-	<p>Account Holder : Mr Pitseng</p>
-	<p>Account Number : 1234567891011</p>
-	<p>Bank Name : ABSA</p>
-	<p>Branch Name : Soweto</p>
-	<p>Branch Code : 23055</p>
-  </ion-card>
-  </ion-card>
-	
-</ion-content>
+			<h5>Thank you for Shopping with PitsengArt!</h5>
+			<p>You will receive your order after your payments.</p>
+
+		</div>
+
+		<div class="oderDetails">
+			<div class="items">
+				<ion-title  >item</ion-title>
+				<div *ngFor="let p of cart" class="itemsDetails">
+				  <div class="itemImage">
+					<!-- <img src="{{p.image}}" width="100px" height="100px" alt=""> -->
+				  </div>
+				  <div class="itemName">
+					<ion-label class="ionLabel" >{{ p.name }}</ion-label>
+					<ion-label class="ionLabel">product code</ion-label>
+					<ion-label class="ionLabel">size</ion-label>
+				  </div>
+		  
+				</div>
+			  </div>
+			  <div class="qty">
+				<ion-title>qty</ion-title>
+				<div *ngFor="let p of cart" class="qtyNo">
+				  <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
+				</div>
+		  
+			  </div>
+			  <div class="price">
+				<ion-title>price</ion-title>
+				<div *ngFor="let p of cart" class="priceNo">
+				  <ion-label class="ionLabel">1</ion-label>
+				</div>
+			  </div>
+		</div>
+		<div class="" >
+
+		</div>
+
+
+	</div>
+
+</ion-content> -->
+
+

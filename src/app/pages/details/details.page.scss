@@ -1,5 +1,5 @@
 .display {
-  border: solid red;
+  // border: solid red;
   width: 100%;
   height: 100%;
   top: 0%;
@@ -11,7 +11,7 @@
   justify-items: center;
 }
 .itemsDetails {
-  border: solid black;
+  // border: solid black;
   width: 100%;
   height: 100%;
   top: 0%;
@@ -23,46 +23,114 @@
   justify-items: center;
 }
 .info {
-  border: solid green;
+  // border: solid green;
   padding: 16px;
   width: 60%;
+  height: 100%;
+  top: 0%;
+  padding-top: 50px;
+  bottom: 0%;
+  margin: 0% auto;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // justify-items: center;
 }
-.qty{
-    width: 40%;
-    border: solid black;
-    display: flex;
-    flex-direction: row;
+.qty {
+  width: 40%;
+  // border: solid black;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
 }
 ion-input {
-    border: solid #70707070;
-    width: 2px;
-    height: 2%;
+  border: solid 1px black;
+  padding: 8px;
+  // width: 2px;
+  // height: 2%;
 }
-.radioBttns{
-    // height: 100%;
+.radioBttns {
+  // height: 100%;
 }
 .image {
-  border: solid salmon;
+  // border: solid salmon;
   width: 100%;
   padding: 16px;
 }
 img {
   width: 100%;
   height: 80%;
-  border: solid darkred;
+  // border: solid darkred;
 }
 .size {
   margin: 0%;
   padding: 0%;
+  // border: solid darkgoldenrod;
 }
 .sizeContainer {
   display: flex;
   flex-direction: row;
   justify-content: left;
 }
-.ItemNo{
-    float: right;
+.ItemNo {
+  float: right;
+  color: #666464;
+  font-family: serif;
+  font-weight: lighter;
 }
-.prodName{
-    
+.name {
+  padding: 0%;
+  // border: solid rebeccapurple;
+  margin: 0%;
+}
+.prodName {
+  // border: solid black;
+  padding: 0%;
+  margin: 0%;
+  text-align: center;
+  font-family: serif;
+  font-weight: bold;
+  font-size: large;
+  text-transform: capitalize;
+  color: #666464;
+}
+.prodCode {
+  text-align: center;
+  padding: 0%;
+  // border: solid orange;
+  margin: 0%;
+  font-family: serif;
+  font-weight: lighter;
+  color: #666464;
+}
+.price {
+  padding-top: 16px;
+  text-align: center;
+}
+.prodPrice {
+  font-weight: bold;
+  font-size: large;
+  font-family: serif;
+  color: #666464;
+}
+.desc { 
+   color: #666464;
+   font-family: serif;
+}
+.proDesc {
+  text-align: center;
+}
+.btn {
+  --border-radius: 0px 50px 0px 50px;
+  width: 80%;
+}
+.buttons {
+  margin: 0% auto;
+  margin-top: 10%;
+  width: 100%;
+  text-align: center;
+  // position: absolute;
+  right: 0;
+  // bottom: 10%;
+  // border: solid red;
 }
