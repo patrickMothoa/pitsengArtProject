@@ -39,6 +39,7 @@ export class OrdersPage implements OnInit {
     this.createModal();
   }
   
+  
   async createModal() {
     const modal = await this.modalController.create({
       component: OrderdetailsPage,

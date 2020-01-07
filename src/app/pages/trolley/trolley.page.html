@@ -70,32 +70,26 @@
       </div>
 
     </div>
-    <div class="price">
+    <div class="price" >
       <ion-title>price</ion-title>
       <div *ngFor="let p of cart" class="priceNo">
-        <ion-label class="ionLabel">1</ion-label>
+        <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
     <div class="subtotal">
       <ion-title>subtotal</ion-title>
-      <div class="subtotalNo">
+      <!-- <div class="subtotalNo">
         <ion-label class="ionLabel">1</ion-label>
-      </div>
+      </div> -->
       <div class="subtotalNo" *ngFor="let p of cart">
         <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
-
     </div>
     <div class="delete">
       <ion-title color="light"  >delete</ion-title>
-      <div class="deleteItem">
+      <div class="deleteItem" *ngFor="let p of cart">
         <ion-label >
-          <ion-icon name="trash"></ion-icon>
-        </ion-label>
-      </div>
-      <div >
-        <ion-label class="ionLabel">
-          <ion-icon name="trash"></ion-icon>
+          <ion-button color="medium" fill="clear" (click)="removeCartItem(p)"> <ion-icon name="trash"> </ion-icon></ion-button>
         </ion-label>
       </div>
     </div>
@@ -103,29 +97,29 @@
   <div class="total">
     
     <h2>Order Summary</h2>
-    <div class="subtotal1">
+    <!-- <div class="subtotal1">
       <div>
         <ion-label  class="ionLabel"> Sub-total </ion-label  >
       </div>
       <div>
         <ion-label  class="ionLabel"> R &nbsp; 5000</ion-label>
       </div>
-    </div>
-    <div class="vatincluded">
+    </div> -->
+    <!-- <div class="vatincluded">
       <div>
         <ion-label  class="ionLabel"> Sub-total </ion-label>
       </div>
       <div>
         <ion-label  class="ionLabel"> R &nbsp; 5000</ion-label>
       </div>
-    </div>
+    </div> -->
     <div class="totaldetails">
 
       <div>
         <ion-label  class="ionLabel"> total amount </ion-label>
       </div>
       <div>
-        <ion-label  class="ionLabel"> R &nbsp; 5000</ion-label>
+        <ion-label  class="ionLabel"> R &nbsp; {{getTotal()}}</ion-label>
       </div>
 
 
