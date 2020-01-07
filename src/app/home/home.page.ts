@@ -12,6 +12,8 @@ import { PopoverComponent } from '../components/popover/popover.component';
 import { log } from 'util';
 import { LoginPage } from '../pages/login/login.page';
 import { RegisterPage } from '../pages/register/register.page';
+import Swal from 'sweetalert2';
+
 declare var window
 
 @Component({
@@ -157,6 +159,7 @@ async createModalRegister() {
     }else{
       this.createModalLogin();
     }
+    // this.alert();
   }
   
   openCart() {
@@ -291,5 +294,55 @@ this.db.collection('admins').get().then(snapshot => {
        }
 })
 }
+// alert(){
+//   Swal.fire({
+//     position: 'center',
+//     icon: 'success',
+//     title: 'Added to cart',
+//     showConfirmButton: false,
+//     timer: 500
+//   })
+// }
 
+CountinueShoping(){
+  this.router.navigateByUrl('/');
+}
+
+
+ addCart(){
+  var cart = document.getElementById("toast-cart");
+cart.classList.add("show");
+cart.innerHTML = '<i class="fas fa-shopping-cart cart"></i> Product added to cart';
+setTimeout(function(){
+cart.classList.remove("show");
+}, 3000);
+}
+
+ myFunction() {
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 500);
+}
+
+
+
+
+
+// wishList(){
+//   var list = document.getElementById("toast");
+// list.classList.add("show");
+// list.innerHTML = '<i class="far fa-heart wish"></i> Product added to List';
+// setTimeout(function(){
+//   list.classList.remove("show");
+// },3000);
+// }
+
+// addCart(){
+//     var cart = document.getElementById("toast-cart");
+// cart.classList.add("show");
+// cart.innerHTML = '<i class="fas fa-shopping-cart cart"></i> Product added to cart';
+// setTimeout(function(){
+//   cart.classList.remove("show");
+// }, 3000);
+// }
 }

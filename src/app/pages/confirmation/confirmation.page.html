@@ -80,11 +80,33 @@
 		</div>
 
 		<div class="oderDetails">
-			<div class="title" >
-			</div>
-			<div class="oder-Content">
-
-			</div>
+			<div class="items">
+				<ion-title  >item</ion-title>
+				<div *ngFor="let p of cart" class="itemsDetails">
+				  <div class="itemImage">
+					<!-- <img src="{{p.image}}" width="100px" height="100px" alt=""> -->
+				  </div>
+				  <div class="itemName">
+					<ion-label class="ionLabel" >{{ p.name }}</ion-label>
+					<ion-label class="ionLabel">product code</ion-label>
+					<ion-label class="ionLabel">size</ion-label>
+				  </div>
+		  
+				</div>
+			  </div>
+			  <div class="qty">
+				<ion-title>qty</ion-title>
+				<div *ngFor="let p of cart" class="qtyNo">
+				  <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
+				</div>
+		  
+			  </div>
+			  <div class="price">
+				<ion-title>price</ion-title>
+				<div *ngFor="let p of cart" class="priceNo">
+				  <ion-label class="ionLabel">1</ion-label>
+				</div>
+			  </div>
 		</div>
 		<div class="" >
 
