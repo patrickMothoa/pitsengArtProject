@@ -257,112 +257,112 @@ ion-button{
 
 
 
-@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
 
-body{
-  background-color: #DFE7EF;
-}
+// body{
+//   background-color: #DFE7EF;
+// }
 
-.container{
-  margin-top: 50px;
-}
+// .container{
+//   margin-top: 50px;
+// }
 
-h1, .card-title, a, #toast{
-  font-family: 'Roboto', sans-serif;
-}
+// h1, .card-title, a, #toast{
+//   font-family: 'Roboto', sans-serif;
+// }
 
-h1{
-  color: #5C7CFA;
-}
+// h1{
+//   color: #5C7CFA;
+// }
 
-.card{
-  box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
-  border-radius: 15px;
-  transition: transform .2s;
-}
+// .card{
+//   box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
+//   border-radius: 15px;
+//   transition: transform .2s;
+// }
 
-.card-body{
-  padding: 10px;
-  margin-top: -50px;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease-in-out;
-}
+// .card-body{
+//   padding: 10px;
+//   margin-top: -50px;
+//   -webkit-transition: all 1s ease;
+//   -moz-transition: all 1s ease;
+//   -o-transition: all 1s ease;
+//   transition: all 1s ease-in-out;
+// }
 
-.heart{
-  color: #989898;
-  margin-top: 15px;
-  margin-left: 230px;
-  font-size: 30px;
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border-radius: 30px;
-  padding: 0px;
-  text-align: center;
-}
+// .heart{
+//   color: #989898;
+//   margin-top: 15px;
+//   margin-left: 230px;
+//   font-size: 30px;
+//   position: absolute;
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 30px;
+//   padding: 0px;
+//   text-align: center;
+// }
 
-.heart-active{
-  color: #C50707;
-}
+// .heart-active{
+//   color: #C50707;
+// }
 
-.heart:hover{
-  color: red;
-  background-color: #f9f9f9;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease-in-out;
-}
+// .heart:hover{
+//   color: red;
+//   background-color: #f9f9f9;
+//   -webkit-transition: all 1s ease;
+//   -moz-transition: all 1s ease;
+//   -o-transition: all 1s ease;
+//   transition: all 1s ease-in-out;
+// }
 
-.card-body a{
-  visibility: hidden;
-}
+// .card-body a{
+//   visibility: hidden;
+// }
 
-.card:hover > .card-body{
-  margin-top: -0px;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
-}
+// .card:hover > .card-body{
+//   margin-top: -0px;
+//   -webkit-transition: all 1s ease;
+//   -moz-transition: all 1s ease;
+//   -o-transition: all 1s ease;
+//   transition: all 1s ease;
+// }
 
-.card:hover{
-  transform: scale(1.02);
-}
+// .card:hover{
+//   transform: scale(1.02);
+// }
 
-.card:hover > .card-body > a{
-  visibility: visible;
-}
+// .card:hover > .card-body > a{
+//   visibility: visible;
+// }
 
-.first-image{
-  width: 100%;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-}
+// .first-image{
+//   width: 100%;
+//   border-top-left-radius: 15px;
+//   border-top-right-radius: 15px;
+// }
 
-.cart, .wish{
-  padding: 5px;
-  width: 50px;
-  height: 50px;
-  margin-left: -24px;
-  margin-top: 0px;
-  margin-right: 3px;
-  background-color: #fff;
-  color: #5C7CFA;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  text-align: center;
-  -ms-display: flex;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// .cart, .wish{
+//   padding: 5px;
+//   width: 50px;
+//   height: 50px;
+//   margin-left: -24px;
+//   margin-top: 0px;
+//   margin-right: 3px;
+//   background-color: #fff;
+//   color: #5C7CFA;
+//   border-top-left-radius: 8px;
+//   border-bottom-left-radius: 8px;
+//   text-align: center;
+//   -ms-display: flex;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-.wish{
-  color: #C50707;
-}
+// .wish{
+//   color: #C50707;
+// }
 
 #toast, #toast-cart{
   padding: 10px;
