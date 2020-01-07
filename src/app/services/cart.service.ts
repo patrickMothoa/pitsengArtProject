@@ -69,25 +69,25 @@ export class CartService {
     return this.cartItemCount;
   }
  
-  decreaseProduct(event) {
-    for (let [index, p] of this.cart.entries()) {
-      if (p.id === event.id) {
-        p.amount -= 1;
-        if (p.amount == 0) {
-          this.cart.splice(index, 1);
-        }
-      }
-    }
-    this.cartItemCount.next(this.cartItemCount.value - 1);
-  }
+  // decreaseProduct(event) {
+  //   for (let [index, p] of this.cart.entries()) {
+  //     if (p.id === event.id) {
+  //       p.amount -= 1;
+  //       if (p.amount == 0) {
+  //         this.cart.splice(index, 1);
+  //       }
+  //     }
+  //   }
+  //   this.cartItemCount.next(this.cartItemCount.value - 1);
+  // }
  
-  removeProduct(event) {
-    for (let [index, p] of this.cart.entries()) {
-      if (p.id === event.id) {
-        this.cartItemCount.next(this.cartItemCount.value - p.amount);
-        this.cart.splice(index, 1);
-      }
-    }
-  }
+  // removeProduct(event) {
+  //   for (let [index, p] of this.cart.entries()) {
+  //     if (p.id === event.id) {
+  //       this.cartItemCount.next(this.cartItemCount.value - p.amount);
+  //       this.cart.splice(index, 1);
+  //     }
+  //   }
+  // }
 
 }

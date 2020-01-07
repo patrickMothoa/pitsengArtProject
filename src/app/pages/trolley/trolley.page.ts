@@ -49,47 +49,46 @@ export class TrolleyPage implements OnInit {
   }, 1500);
   }
  
-  decreaseCartItem(p) {
-    // this.cartService.decreaseProduct(p);
-     console.log("dec");
-     for (let [index, p] of this.cart.entries()) {
-      if (this.cart) {
-        p.quantity -= 1;
-        if (p.quantity == 0) {
-          this.cart.splice(index, 1);
-        }
-      }
-    }
-  }
+  // decreaseCartItem(p) {
+  //   // this.cartService.decreaseProduct(p);
+  //    console.log("dec");
+  //    for (let [index, p] of this.cart.entries()) {
+  //     if (this.cart) {
+  //       p.quantity -= 1;
+  //       if (p.quantity == 0) {
+  //         this.cart.splice(index, 1);
+  //       }
+  //     }
+  //   }
+  // }
  
-  increaseCartItem(p) {
-    //this.cartService.addProduct(p);
-    console.log("inc");
-    let added = false;
-    for (let p of this.cart) {
-      if (this.cart) {
-        p.quantity += 1;
-        added = true;
-        break;
-      }
-    }
-    if (!added) {
-      this.cart.push(this.cart);
-    }
-    this.cartItemCount.next(this.cartItemCount.value + 1);
-
-  }
+  // increaseCartItem(p) {
+  //   //this.cartService.addProduct(p);
+  //   console.log("inc");
+  //   let added = false;
+  //   for (let p of this.cart) {
+  //     if (this.cart) {
+  //       p.quantity += 1;
+  //       added = true;
+  //       break;
+  //     }
+  //   }
+  //   if (!added) {
+  //     this.cart.push(this.cart);
+  //   }
+  //   this.cartItemCount.next(this.cartItemCount.value + 1);
+  // }
  
-  removeCartItem(p) {
-    // this.cartService.removeProduct(p);
-    console.log("del");
-    for (let [index, p] of this.cart.entries()) {
-      if (this.cart) {
-        this.cartItemCount.next(this.cartItemCount.value - p.quantity);
-        this.cart.splice(index, 1);
-      }
-    }
-  }
+  // removeCartItem(p) {
+  //   // this.cartService.removeProduct(p);
+  //   console.log("del");
+  //   for (let [index, p] of this.cart.entries()) {
+  //     if (this.cart) {
+  //       this.cartItemCount.next(this.cartItemCount.value - p.quantity);
+  //       this.cart.splice(index, 1);
+  //     }
+  //   }
+  // }
  
   getTotal() {
     return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);

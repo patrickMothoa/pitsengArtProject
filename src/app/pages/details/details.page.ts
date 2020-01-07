@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
-
+import { HomePage } from 'src/app/home/home.page';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -12,6 +13,8 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
+  cartItemCount: BehaviorSubject<number>;
+  @ViewChild('cart', {static: false, read: ElementRef})fab: ElementRef;
   db = firebase.firestore();
   MyObj = [];
   event = {
@@ -27,6 +30,7 @@ export class DetailsPage implements OnInit {
   };
 
   public items: any;
+  counter
   cart = [];
   Products = [];
   myProduct = false;
@@ -37,26 +41,32 @@ export class DetailsPage implements OnInit {
     private router: Router,
     public modalController: ModalController) { }
 
-    dismiss() {
-      // using the injected ModalController this page
-      // can "dismiss" itself and optionally pass back data
-      this.modalController.dismiss({
-        'dismissed': true
-      });
-    }
+
 
   ngOnInit() {
     this.getProducts();
 
    // this.items = this.cartService.getProducts();
     this.cart = this.cartService.getCart();
+    this.cartItemCount = this.cartService.getCartItemCount();
   }
 
    /// taking values from db to cart
-  addToCart( p ) {
-    this.cartService.addProduct( p );
-    console.log("pushing to Cart",event);
+  // addToCart( p ) {
+  //   this.cartService.addProduct( p );
+  //   console.log("pushing to Cart",event);
     
+  // }
+  addToCart(p) {
+    this.cartService.addProduct(p);
+    console.log("goes to Cart",p);
+    // if(firebase.auth().currentUser){
+    //   this.cartService.addProduct(event);
+    //   console.log("pushing to Cart",event);
+    // }else{
+    //   // this.createModalLogin();
+    // }
+   //this.alert();
   }
 
   openCart() {
@@ -83,7 +93,7 @@ export class DetailsPage implements OnInit {
           this.event.categories = doc.data().categories;
           this.event.name=doc.data().name;
           this.event.price=doc.data().price;
-          this.event.productno=doc.data().productno;
+          this.event.productno=doc.data().productCode;
           this.event.desc=doc.data().desc;
           this.event.small=doc.data().small;
           this.event.medium=doc.data().medium;
@@ -92,6 +102,21 @@ export class DetailsPage implements OnInit {
         })
       }
     })
+  }
+  async myModal() {
+    const modal = await this.modalController.create({
+      component: HomePage,
+    });
+    return await modal.present();
+  }
+
+  dismiss() {
+    console.log("clicked")
+    // using the injected ModalController this page
+    // can "dismiss" itself and optionally pass back data
+    this.modalController.dismiss({
+      'dismissed': true
+    });
   }
   
 

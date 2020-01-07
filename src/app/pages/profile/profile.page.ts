@@ -15,11 +15,12 @@ export class ProfilePage implements OnInit {
   uid
   profile = {
     image: '',
+    surname:'',
     name: '',
     address: '',
-    email: '',
     uid: '',
     phoneNumber: '',
+    email: firebase.auth().currentUser.email,
   }
   uploadprogress = 0;
   errtext = '';
@@ -30,7 +31,7 @@ export class ProfilePage implements OnInit {
 
   Users = {
     uid: '',
-    // phoneNumber: '',
+    email: '',
   }
   constructor(public router: Router,public alertCtrl: AlertController) {
     this.uid = firebase.auth().currentUser.uid;
@@ -41,9 +42,10 @@ export class ProfilePage implements OnInit {
     firebase.auth().onAuthStateChanged(admins => {
       if (admins) {
         this.Users.uid = admins.uid
+        this.Users.uid = admins.email
       this.getProfile();
       } else {
-        console.log('no admin');
+        console.log('no user');
         
       }
     })
@@ -98,17 +100,16 @@ this.router.navigateByUrl('/orders');
        }
     }
   }
+  
   createAccount(){
-    
-    if (!this.profile.address||!this.profile.name||!this.profile.email){
-      console.log("Are we inside");
+    if (!this.profile.address||!this.profile.name||!this.profile.surname||!this.profile.phoneNumber){
+      this.errtext = 'Fields should not be empty'
+    } else {
       if (!this.profile.image){
         this.errtext = 'Profile image still uploading or not selected';
-        
       } else {
         this.profile.uid =  this.Users.uid;
-        this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => 
-          {
+        this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => {
           console.log('Profile created');
           this.getProfile();
         }).catch(error => {
@@ -116,15 +117,11 @@ this.router.navigateByUrl('/orders');
         });
       }
     }
-    else {
-      
-      this.errtext = 'Fields should not be empty'
-    }
   }
 
 
   getProfile(){
-    this.db.collection('Users').where('uid', '==', this.Users.uid).get().then(snapshot => {
+    this.db.collection('UserProfile').where('uid', '==', this.Users.uid).get().then(snapshot => {
       if (snapshot.empty) {
         this.isprofile = false;
       } else {
@@ -133,6 +130,7 @@ this.router.navigateByUrl('/orders');
           this.profile.address = doc.data().address;
           this.profile.image= doc.data().image
           this.profile.name=doc.data().name
+          this.profile.surname=doc.data().surname
           this.profile.phoneNumber=doc.data().phoneNumber
           this.profile.email=doc.data().email
           
