@@ -28,10 +28,10 @@
               <ion-searchbar  placeholder="Search Products" [(ngModel)]='myDest' (ionChange)='SearchProducts($event);'
                 value=""></ion-searchbar>
               <!-- <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon> -->
-              <ion-list class="list" [hidden]="autocompleteItemz.length == 0">
+              <ion-list [style.display]="!myDest ? 'none' : 'block'" class="list" [hidden]="autocompleteItemz.length == 0">
                 <div *ngIf="autocompleteItemz.length > 0">
                   <ion-item padding *ngFor="let item of autocompleteItemz" tappable id="submit"
-                    (click)="productDetails(item)">
+                    (click)="ViewDetails(item)">
                     <ion-avatar>
                       <img src="{{item.obj.image}}" alt="" height="500px" width="500px">
                     </ion-avatar>

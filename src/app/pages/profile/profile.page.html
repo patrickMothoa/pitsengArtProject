@@ -9,8 +9,12 @@
 <p *ngIf="isuploading">Uploading</p>
 <p *ngIf="isuploaded">Done</p>
 <ion-item>
-  <ion-label position="floating" >Fullname</ion-label>
+  <ion-label position="floating" >Name</ion-label>
   <ion-input type="text" [(ngModel)]="profile.name"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label position="floating" >Surname</ion-label>
+  <ion-input type="text" [(ngModel)]="profile.surname"></ion-input>
 </ion-item>
 <ion-item>
   <ion-label position="floating">Phone Number</ion-label>

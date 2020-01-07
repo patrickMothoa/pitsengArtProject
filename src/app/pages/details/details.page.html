@@ -1,9 +1,9 @@
 <div class="closeButton" align="right">
-  <div>
-    <ion-button fill="clear" color="medium" (click)="dismiss()" slot="end">
-      <ion-icon slot="icon-only" name="close"></ion-icon>
-    </ion-button>
-  </div>
+  <div class="closeButton">
+    <ion-button fill="clear"   color="medium"  float="right"	 (click)="dismiss()"   slot="end">
+      <ion-icon class="closeIcon" slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+ </div>
 
 </div>
 <!-- <ion-header>
@@ -26,7 +26,7 @@
       <div class="info">
         <div class="name">
           <ion-title   no-padding class="prodName">{{p.obj.name}}</ion-title>
-          <p class="prodCode">code:&nbsp; {{p.obj.productno}}</p>
+          <p class="prodCode">code:&nbsp; {{p.obj.productCode}}</p>
           <!-- <ion-title>{{p.obj.categories}}</ion-title> -->
         </div>
         <div class="price">
@@ -67,7 +67,8 @@
           </ion-item>
         </div>
         <div class="buttons" >
-          <ion-button shape="round" color="warning" class="btn" (click)="addToCart( p )" slot="end">Add to Cart </ion-button>
+          <ion-button shape="round" color="warning" class="btn" (click)="addToCart(p)" slot="end">Add to Cart </ion-button>
+          <!-- <ion-button color="warning" fill="clear" (click)="addToCart(event)"  slot="end">Add to Cart </ion-button> -->
         </div>
       </div>
     </div>

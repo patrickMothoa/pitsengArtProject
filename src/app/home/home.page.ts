@@ -205,11 +205,13 @@ async createModalRegister() {
   }
 
 
-
+// gggggggggggggggggg
   productDetails(item){
     this.data.data = item;
-    this.router.navigateByUrl('/details');
+    // this.router.navigateByUrl('/details');
+    this.createModal();
   }
+  
 
       // retriving from firebase.firestore
   getProducts(categories) {
