@@ -42,13 +42,11 @@
             </div>
             <div>
                 <!-- <ion-button fill="clear" (click)=" presentPopover()" slot="end"><ion-icon name="person"></ion-icon></ion-button> -->
-              <!-- <ion-button color="warning" fill="clear" (click)="showLogin()">Login </ion-button> -->
-              <!-- <ion-button color="warning" fill="clear" (click)="goRegister()">Register</ion-button> -->
-              <ion-button color="warning" fill="clear" (click)="goRegister()"> <ion-icon color="warning" slot="icon-only" name="contact"></ion-icon></ion-button>
-              <!-- <ion-button  fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
-              <ion-button  fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button> -->
+              <ion-button *ngIf="!loginBtn" color="warning" fill="clear" (click)="showLogin()">Login </ion-button>
+              <ion-button *ngIf="!registerBtn" color="warning" fill="clear" (click)="goRegister()">Register</ion-button>
+              <ion-button  *ngIf="!orderBtn"   fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
+              <ion-button *ngIf="!profileBtn"   fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
                     <ion-button fill="clear" (click)="openCart()">
-                <!-- <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge> -->
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
               </ion-button>
@@ -60,11 +58,6 @@
         
         <div class="container1">
           <div class="categories-block" *ngFor="let event of Products">
-            <!-- <ion-row no-padding class="categories-banner">
-              <ion-col text-left button tappable (click)="cat.expanded = !cat.expanded" align-self-center>
-                {{event.categories }}<br>
-              </ion-col>
-            </ion-row> -->
             <div class="myProduct" *ngIf="myProduct">
               <ion-card no-padding >
                
@@ -88,16 +81,13 @@
     </div>
   </div>
 </div>
-
-
-
-<script>
-
-  </script>
+<div class="info" >
+  <ion-card  *ngFor = "let admin of Info">
+    <ion-item>
+         Telephone {{admin.phoneNumber}}  |
+         Physical Address {{admin.address}} |
+         Email Address {{admin.email}} |
+    </ion-item>
+  </ion-card>
+</div>
 </ion-content>
-<!-- <ion-footer>
-  <ion-toolbar>
-    <ion-title color="light" size="small"> @ 2019 Pitseng Arts and Crafts. All right reserved. Privacy Policy
-    </ion-title>
-  </ion-toolbar>
-</ion-footer> -->

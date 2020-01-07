@@ -42,7 +42,13 @@ export class HomePage {
   Products = [];
   supplier
   myProduct = false;
-
+     ////
+  loginBtn = false;
+  registerBtn =  false;
+  logoutBtn = false;
+  orderBtn = false;
+  profileBtn = false;
+    /////
   sliderConfig = {
     slidesPerView: 1.6,
     spaceBetween: 10,
@@ -91,10 +97,20 @@ public  isLogin = false;
   }
 
   showLogin(){
+    this.loginBtn = true;
+    this.registerBtn =  true;
+    this.logoutBtn = false;
+    this.orderBtn = false;
+    this.profileBtn = false;
     // this.router.navigateByUrl('/login');
     this.createModalLogin();
   }
   goRegister(){
+    this.loginBtn = false;
+    this.registerBtn =  true;
+    this.logoutBtn = false;
+    this.orderBtn = true;
+    this.profileBtn = true;
     // this.router.navigateByUrl('/register');
     this.createModalRegister();
   }
@@ -103,6 +119,12 @@ public  isLogin = false;
     this.getProduct();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
+
+    this.loginBtn = false;
+    this.registerBtn =  false;
+    this. logoutBtn = true;
+    this.orderBtn = true;
+    this.profileBtn = true;
   }
 
 async viewModal(){
@@ -127,14 +149,7 @@ async createModal() {
   });
   return await modal.present();
 }
-// function createModal() {
-//   controller.create({
-//     component: 'modal-content'
-//   }).then(modal => {
-//     modal.present();
-//     currentModal = modal;
-//   });
-// }
+
 async createModalLogin() {
   const modal = await this.modalController.create({
     component: LoginPage,
@@ -168,6 +183,11 @@ async createModalRegister() {
   }
  
   openOrders(){
+    this.loginBtn = true;
+    this.registerBtn =  true;
+    this.logoutBtn = false;
+    this.orderBtn = false;
+    this.profileBtn = false;
     this.router.navigateByUrl('/orders');
   }
 
@@ -175,6 +195,12 @@ async createModalRegister() {
 
 
   openProfile(){
+    this.loginBtn = true;
+    this.registerBtn =  true;
+    this.logoutBtn = false;
+    this.orderBtn = false;
+    this.profileBtn = false;
+
     this.router.navigateByUrl('/profile');
   }
 
@@ -193,6 +219,7 @@ async createModalRegister() {
             this.Products = [];
             if (snapshot.empty) {
                     this.myProduct = false;
+                    console.log(" Category is Empty...")
                   } else {
                     this.myProduct = true;
                     snapshot.forEach(doc => {
@@ -272,8 +299,13 @@ SearchProducts(ev: CustomEvent){
 
 logOut(){
   firebase.auth().signOut().then(()=> {
+    this.loginBtn = false;
+    this.registerBtn =  false;
+    this. logoutBtn = true;
+    this.orderBtn = true;
+    this.profileBtn = true;
     // Sign-out successful.
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/');
   }).catch((error)=> {
     // An error happened.
   });

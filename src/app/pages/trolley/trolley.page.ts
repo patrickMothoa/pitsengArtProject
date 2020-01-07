@@ -40,6 +40,7 @@ export class TrolleyPage implements OnInit {
   })
 
   setTimeout(() => {
+    this.clear();
     this.cart = [];
     this.myArr.forEach((item)=>{
       this.cart.push(item.name.obj);
@@ -122,8 +123,7 @@ export class TrolleyPage implements OnInit {
      } 
     this.SuccessModal();
   }
-
-  
+ 
 /////// generating Random string
   stringGen(len){
     var text = " ";
@@ -149,6 +149,10 @@ export class TrolleyPage implements OnInit {
   }
   CountinueShoping(){
     this.router.navigateByUrl('/');
+  }
+
+  clear(){
+    this.cart = [];
   }
 
 }

@@ -14,15 +14,14 @@
       
 <ion-list >
     <ion-card  *ngFor="let li of conArray">
-      <ion-item class="cart-item" (click)="ViewDetails(li)">
+      <ion-item class="cart-item">
         <ion-thumbnail item-start>
           <img src="{{li.obj.image}}">
         </ion-thumbnail>
-        <span class="ornum"><p>Order Number : {{li.details.orderNumber}} </p></span>
+        <!-- <span class="ornum"><p>Order Number : {{li.details.orderNumber}} </p></span> -->
         <span class="ornum"><p>Name : {{li.obj.name}}</p></span>
         <span class="ornum"> <p> R {{li.obj.price}} </p></span>
         <span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p></span>
-        <span class="ornum"> <h6 class="order-date">{{li.datetime}}</h6></span>
       </ion-item>
     </ion-card>
     
