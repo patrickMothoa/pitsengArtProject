@@ -38,6 +38,7 @@ export class OrdersPage implements OnInit {
     this.data.data = view;
     this.createModal();
   }
+
   
   async createModal() {
     const modal = await this.modalController.create({
