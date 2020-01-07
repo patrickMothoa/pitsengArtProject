@@ -79,42 +79,44 @@
 
 		</div>
 
+<h1>Your Order</h1>
 		<div class="oderDetails">
 			<div class="items">
 				<ion-title  >item</ion-title>
-				<div *ngFor="let p of cart" class="itemsDetails">
-				  <div class="itemImage">
-					<!-- <img src="{{p.image}}" width="100px" height="100px" alt=""> -->
-				  </div>
+				<div *ngFor="let li of conArray" class="itemsDetails">
 				  <div class="itemName">
-					<ion-label class="ionLabel" >{{ p.name }}</ion-label>
-					<ion-label class="ionLabel">product code</ion-label>
-					<ion-label class="ionLabel">size</ion-label>
+					<ion-label class="ionLabel" > {{li.obj.name}}</ion-label>
 				  </div>
 		  
 				</div>
 			  </div>
 			  <div class="qty">
 				<ion-title>qty</ion-title>
-				<div *ngFor="let p of cart" class="qtyNo">
-				  <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
+				<div *ngFor="let li of conArray" class="qtyNo">
+				  <ion-label class="ionLabel"> {{li.obj.quantity}}</ion-label>
 				</div>
 		  
 			  </div>
 			  <div class="price">
 				<ion-title>price</ion-title>
-				<div *ngFor="let p of cart" class="priceNo">
-				  <ion-label class="ionLabel">1</ion-label>
+				<div *ngFor="let li of conArray" class="priceNo">
+				  <ion-label class="ionLabel">{{li.obj.price}}</ion-label>
 				</div>
 			  </div>
 		</div>
-		<div class="" >
-
+		<div class="total-amount" >
+			<div>
+				<ion-label>Total Amount</ion-label>
+			</div>
+			<div>
+				
+			</div>
+ 
 		</div>
 
 
 	</div>
 
-</ion-content> -->
+</ion-content> 
 
 

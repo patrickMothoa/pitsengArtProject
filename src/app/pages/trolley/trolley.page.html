@@ -73,14 +73,11 @@
     <div class="price">
       <ion-title>price</ion-title>
       <div *ngFor="let p of cart" class="priceNo">
-        <ion-label class="ionLabel">1</ion-label>
+        <ion-label class="ionLabel"> R 144</ion-label>
       </div>
     </div>
     <div class="subtotal">
       <ion-title>subtotal</ion-title>
-      <div class="subtotalNo">
-        <ion-label class="ionLabel">1</ion-label>
-      </div>
       <div class="subtotalNo" *ngFor="let p of cart">
         <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>

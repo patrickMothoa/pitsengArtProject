@@ -4,9 +4,8 @@
   <div class="content">
     <div class="row">
       <div class=" sidebar1">
-        
           <ion-button class="categories"  color="warning" fill="clear" slot="end" (click)="CountinueShoping() " >
-            <ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
+          <ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
         <ion-button class="categories"  color="medium"  fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls & <br> pots</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Cups and Plates')" slot="end">Mugs & plates</ion-button>
@@ -14,7 +13,7 @@
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Lamps')" slot="end">Lamps</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Decor Pallets')" slot="end">Deco <br> Pallets</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Wall Deco')" slot="end">Wall <br> decos</ion-button>
-        <button (click)="myFunction()">Show Snackbar</button>
+       
 
 <div id="snackbar">Product added to cart</div>
       </div>
@@ -53,7 +52,7 @@
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
               </ion-button>
-              <!-- <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button> -->
+              <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
         
             </div>
           </div>
