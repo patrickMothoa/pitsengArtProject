@@ -16,51 +16,21 @@ PList = []
   constructor(public data : ProductService,public modalController: ModalController) { }
 
   ngOnInit() {
-    this.Here();
-  //     let  obj = {
-  //       details : {orderNumber : 0, total : 0},
-  //       obj : {
-  //         categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
-  //       }
-  //     }
+    this.DetailsHere();
   
-  
-  //     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
-  //       this.conArray = [];
-  //       res.forEach((doc)=>{
-  
-  //         obj.details.orderNumber = doc.data().details.orderNumber;
-  //         obj.details.total = doc.data().details.total;
-  //         obj.obj.categories = doc.data().obj.categories;
-  //         obj.obj.price = doc.data().obj.price;
-  //         obj.obj.productNumber = doc.data().obj.productNumber;
-  //         obj.obj.quantity = doc.data().obj.quantity;
-  //         obj.obj.name = doc.data().obj.name;
-  //         obj.obj.image = doc.data().obj.image;
-  
-  //         this.conArray.push(obj);
-  //         obj = {
-  //           details : {orderNumber : 0, total : 0},
-  //           obj : {
-  //             categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
-  //           }
-  //         }
-  //          console.log('My array ', this.conArray);
-  //       })  
-  //   })
-   
-  //     setTimeout(() => {
-  //       this.conArray.forEach((item)=>{
-  //         this.Orders.push(item)
-  //       })
-  //     }, 1500);
-  // }
-  // dismiss() {
-  //   this.modalController.dismiss({
-  //     'dismissed': true
-  //   });
   }
-Here(){
+
+//   Pulling(productNumber){
+//     this.db.collection("Users").doc(productNumber).collection("Orders").onSnapshot(w => {
+//       w.forEach(d => {
+//         console.log("sssssss ", d.data());
+        
+//       })
+//     })
+//  }
+
+
+DetailsHere(){
   let  obj = {
     details : {orderNumber : 0, total : 0},
     obj : {
@@ -102,13 +72,6 @@ dismiss() {
 this.modalController.dismiss({
   'dismissed': true
 });
-}
-
-ionViewWillEnter(){
-    this.PList.push(this.data.data)  
-}
-ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductPage');
 }
 
 }
