@@ -5,7 +5,6 @@
   width: 100%;
 }
 .content {
-
   width: 100%;
   margin: 0%;
   left: 0%;
@@ -30,9 +29,7 @@
   
   
 }
-
 .sidebar1 > li:hover {
-
 }
 ion-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
@@ -44,7 +41,6 @@ ion-button:hover {
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
-
 }
 .navBarItems {
   padding-top: 8px;
@@ -58,7 +54,6 @@ ion-button:hover {
   justify-content: space-between;
   width: 70%;
   height: 100%;
-
 }
 ion-searchbar{
   width: 150%;
@@ -66,13 +61,12 @@ ion-searchbar{
 }
 .sidebar1 {
  
-  border-right: 0.5px solid #7070707e;
+  border-right: 0.5px solid #7070707E;
   width: 10%;
   text-align: center; 
   display: flex;
   flex-direction: column;
 }
-
 ion-label{
   font-family: serif;
 }
@@ -83,11 +77,10 @@ ion-label{
   left: 0%;
   right: 0%;
   //  border:  solid #707070;
-
 }
 .thisContent{
   // border: solid blue;
-  border-bottom: 0.5px solid #7070707e;
+  border-bottom: 0.5px solid #7070707E;
   display: flex;
   flex-direction: row;
 }
@@ -117,7 +110,6 @@ ion-card{
   
   margin-top: 10%;
   // margin-bottom: 15%;
-
   border-radius: 15px;
   box-shadow: rgb(235, 230, 230);
   background-color: rgba(245, 245, 245, 0.363);
@@ -148,7 +140,6 @@ ion-card:hover {
     // justify-content: center;
     // border: solid orange;
     // margin: 16px;
-
 }
 .name{
   font-family: serif;
@@ -160,7 +151,7 @@ ion-button{
   text-transform: uppercase;
   font-family: serif;
   font-weight: bold;
-  box-shadow: 2px #7070707e;
+  box-shadow: 2px #7070707E;
 }
 .price{
   font-weight: bold;
@@ -176,5 +167,5 @@ ion-button{
 .categories{
   height: 10.5%;
   // border:  solid black ;
-  border-bottom: 0.5px solid #7070707e;
+  border-bottom: 0.5px solid #7070707E;
 }
