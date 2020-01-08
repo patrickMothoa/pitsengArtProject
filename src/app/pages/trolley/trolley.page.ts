@@ -18,18 +18,30 @@ export class TrolleyPage implements OnInit {
   db = firebase.firestore();
   cart = [];
   myArr = [];
-
+  total = 1;
   constructor(public modalController: ModalController,
     private cartService: CartService, private alertCtrl: AlertController, 
     public data : ProductService,public transact: TransactionService, private router: Router, ) {
-
-    
-
    }
  
   ngOnInit() {
-    this.cart = this.cartService.getCart();
+// pushing to Array before firebase using this way
+//     let item = this.cartService.getCart();
+//     let seleted = [];
+//     for(let obj of item){
+//       if(seleted[obj.id]){
+//         seleted[obj.id].count++;
+//       }else{
+//         seleted[obj.id] = {...obj, count : 1};
+//       }
+//     }
+// this.cart = Object.keys(seleted).map(key => seleted[key]);
+// this.total = this.cart.reduce((a, b) => a + (b.count * b.price), 0)
+// console.log("vvv", this.total);
+
+
   //////////// working used this way
+  this.cart = this.cartService.getCart();
   this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').onSnapshot((res)=> {
     this.myArr = [];
     res.forEach((doc)=>{
@@ -91,9 +103,12 @@ export class TrolleyPage implements OnInit {
   // }
  
   getTotal() {
-    return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);
-    
+    return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);  
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////// group orders together.
   orderNumber
   member
   Orders = []
@@ -122,8 +137,8 @@ export class TrolleyPage implements OnInit {
      } 
     this.SuccessModal();
   }
- 
-/////// generating Random string
+ /////////////////////////////////////////////////////////////////////////////////////////////
+/////// generating Random string   ///////////////////////////////////////////////////////////
   stringGen(len){
     var text = " ";
     var charset = "abcdefghijklmnopqrstuvwxyz0123456789";

@@ -50,7 +50,6 @@ export class CartService {
    addProduct(event) {
     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
       name : event,
-      // quantity : event += 1
      })
       .catch(err => {
              console.error(err);
@@ -59,6 +58,10 @@ export class CartService {
   }
   
 
+  /// this pushes to array not firebase
+ //   addProduct(event){
+ //  this.cart.push(event);
+//   }
   
 
   getCart() {

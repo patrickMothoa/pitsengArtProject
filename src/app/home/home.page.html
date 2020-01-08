@@ -50,6 +50,12 @@
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
               </ion-button>
+              <!-- <ion-buttons fill="clear">
+                <ion-button  fill="clear" (click)="openCart()">
+                    <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
+                    <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
+                </ion-button>
+            </ion-buttons> -->
               <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
         
             </div>
