@@ -28,22 +28,22 @@ import { Popover1Component } from './components/popover1/popover1.component';
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDRwZjjA37ZlERum6-XfR1YKNxHjYcZfRc",
-    authDomain: "pitseng.firebaseapp.com",
-    databaseURL: "https://pitseng.firebaseio.com",
-    projectId: "pitseng",
-    storageBucket: "pitseng.appspot.com",
-    messagingSenderId: "480621678215",
-    appId: "1:480621678215:web:78d00062aeaf3f478f3222",
-    measurementId: "G-CMHGYBB83X"
-  // apiKey: "AIzaSyCEdqt_gOew6SACcVm3xMXETdQxxbdbLJE",
-  // authDomain: "pitsengproject.firebaseapp.com",
-  // databaseURL: "https://pitsengproject.firebaseio.com",
-  // projectId: "pitsengproject",
-  // storageBucket: "pitsengproject.appspot.com",
-  // messagingSenderId: "359447010965",
-  // appId: "1:359447010965:web:30e22a1e055bd366d7c59c",
-  // measurementId: "G-T4KR75ZKET"
+  // apiKey: "AIzaSyDRwZjjA37ZlERum6-XfR1YKNxHjYcZfRc",
+  //   authDomain: "pitseng.firebaseapp.com",
+  //   databaseURL: "https://pitseng.firebaseio.com",
+  //   projectId: "pitseng",
+  //   storageBucket: "pitseng.appspot.com",
+  //   messagingSenderId: "480621678215",
+  //   appId: "1:480621678215:web:78d00062aeaf3f478f3222",
+  //   measurementId: "G-CMHGYBB83X"
+  apiKey: "AIzaSyCEdqt_gOew6SACcVm3xMXETdQxxbdbLJE",
+  authDomain: "pitsengproject.firebaseapp.com",
+  databaseURL: "https://pitsengproject.firebaseio.com",
+  projectId: "pitsengproject",
+  storageBucket: "pitsengproject.appspot.com",
+  messagingSenderId: "359447010965",
+  appId: "1:359447010965:web:30e22a1e055bd366d7c59c",
+  measurementId: "G-T4KR75ZKET"
   // apiKey: "AIzaSyB1es8iP2ZqtEUH8TJCa9HRDU7yjgRcuqs",
   // authDomain: "pitsengart.firebaseapp.com",
   // databaseURL: "https://pitsengart.firebaseio.com",

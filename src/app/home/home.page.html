@@ -1,5 +1,5 @@
 
-<ion-content>
+
   <div class="container">
   <div class="content">
     <div class="row">
@@ -43,7 +43,7 @@
               <!-- <ion-button *ngIf="!loginBtn" color="warning" fill="clear" (click)="showLogin()">Login </ion-button>
               <ion-button *ngIf="!registerBtn" color="warning" fill="clear" (click)="goRegister()">Register</ion-button> -->
               <!-- <ion-button     fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button> -->
-              <ion-button *ngIf="!profileBtn"   fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
+              <ion-button    fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
                     <ion-button fill="clear" (click)="trolley()">
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
@@ -59,7 +59,7 @@
             </div>
           </div>
         </div>
-        
+        <ion-content scroll="true" >
         <div class="  container1">
           <div class="categories-block" *ngFor="let event of Products">
             <div class="myProduct" *ngIf="myProduct">
@@ -78,6 +78,7 @@
             </div>
           </div>
         </div>
+      </ion-content>
       </div>
     </div>
   </div>
@@ -91,4 +92,4 @@
     </ion-item>
   </ion-card>
 </div> -->
-</ion-content>
+

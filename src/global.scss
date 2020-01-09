@@ -33,6 +33,16 @@
     --height:80%
 
 }
+.my-confirmation .modal-wrapper{
+    box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
+    border-radius: 15px;
+    --width: 30%;
+    --height:80%
+
+}
+.my-confirmation .modal-wrapper :hover{
+    transform: scale(1);
+  }
 .pop-over-style{
     --ion-safe-area-top: 10px;
     --ion-safe-area-bottom: ;
