@@ -188,7 +188,7 @@ export class TrolleyPage implements OnInit {
 
   async viewModal(){
     const modal = await this.modalController.create({
-      component: ConfirmationPage
+      component: ConfirmationPage,
     });
     return  modal.present();
   }
@@ -196,7 +196,7 @@ export class TrolleyPage implements OnInit {
   async SuccessModal() {
     const modal = await this.modalController.create({
       component: ConfirmationPage,
-      cssClass: 'my-custom-modal-css'
+      cssClass: 'my-confirmation'
     });
     return await modal.present();
   }

@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 import * as firebase from 'firebase';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PopoverController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { PopoverComponent } from '../../components/popover/popover.component';
+import { TrolleyPage } from '../../pages/trolley/trolley.page';
+import { CartService } from 'src/app/services/cart.service';
+import { LoginPage } from '../login/login.page';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -10,8 +16,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+
   db = firebase.firestore();
   storage = firebase.storage().ref();
+  @ViewChild('cart', {static: false, read: ElementRef})fab: ElementRef;
+  cartItemCount: BehaviorSubject<number>;
   uid
   profile = {
     image: '',
@@ -22,6 +31,7 @@ export class ProfilePage implements OnInit {
     phoneNumber: '',
     email: firebase.auth().currentUser.email,
   }
+  cart = [];
   uploadprogress = 0;
   errtext = '';
   isuploading = false;
@@ -33,7 +43,9 @@ export class ProfilePage implements OnInit {
     uid: '',
     email: '',
   }
-  constructor(public router: Router,public alertCtrl: AlertController) {
+  constructor(public router: Router,public alertCtrl: AlertController, public popoverController: PopoverController,
+    public modalController: ModalController,
+    private cartService: CartService,) {
     this.uid = firebase.auth().currentUser.uid;
 
    }
@@ -49,11 +61,62 @@ export class ProfilePage implements OnInit {
         
       }
     })
+    this.cart = this.cartService.getCart();
+    this.cartItemCount = this.cartService.getCartItemCount();
+    
   }
 
   Orders(){
 this.router.navigateByUrl('/orders');
   }
+  CountinueShoping(){
+    this.router.navigateByUrl('/');
+  }
+  
+  
+ addCart(){
+  var cart = document.getElementById("toast-cart");
+cart.classList.add("show");
+setTimeout(function(){
+cart.classList.remove("show");
+}, 3000);
+}
+  trolley(){
+    this.createModalTrolley();
+  }
+  async createModalTrolley() {
+    const modal = await this.modalController.create({
+      component: TrolleyPage,
+      cssClass: 'my-custom-trolley-css'
+    
+    });
+    return await modal.present();
+  }
+  
+     /// taking values db to cart import
+    addToCart(event) {
+      
+      if(firebase.auth().currentUser){
+        this.cartService.addProduct(event);
+        console.log("pushing to Cart",event);
+      }else{
+        this.createModalLogin();
+      }
+      // this.alert();
+    }
+    
+async createModalLogin() {
+  const modal = await this.modalController.create({
+    component: LoginPage,
+    
+  });
+  return await modal.present();
+}
+    
+    openCart() {
+     // this.router.navigateByUrl('/cart');
+     this.router.navigateByUrl('/trolley');
+    }
 
   async getImage(image){
     let imagetosend = image.item(0);
@@ -119,6 +182,24 @@ this.router.navigateByUrl('/orders');
     }
   }
 
+  // createAccount(){
+  //   if (!this.profile.address||!this.profile.name||!this.profile.surname||!this.profile.phoneNumber){
+  //     this.errtext = 'Fields should not be empty'
+  //   } else {
+  //     if (!this.profile.image){
+  //       this.errtext = 'Profile image still uploading or not selected';
+  //     } else {
+  //       this.profile.uid =  this.admin.uid;
+  //       this.db.collection('admins').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => {
+  //         console.log('Profile created');
+  //         this.getProfile();
+  //       }).catch(error => {
+  //         console.log('Error');
+  //       });
+  //     }
+  //   }
+  // }
+
 
   getProfile(){
     this.db.collection('UserProfile').where('uid', '==', this.Users.uid).get().then(snapshot => {
@@ -140,5 +221,15 @@ this.router.navigateByUrl('/orders');
   }
   edit() {
     this.isprofile = false;
+  }
+  async presentPopover(ev) {
+    const popover = await this.popoverController.create({
+      component:PopoverComponent,
+      event: ev,
+      cssClass: 'pop-over-style',
+      translucent: true,
+    });
+    return await popover.present();
+    
   }
 }
