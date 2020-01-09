@@ -123,7 +123,7 @@
   <div class="container">
     <div class="content">
       <div class="row">
-        <div class=" sidebar1">
+        <!-- <div class=" sidebar1">
 
           <ion-button class="categories" color="warning" fill="clear" slot="end" (click)="CountinueShoping() ">
             <ion-icon class="homeIcon" name="home" width="100" height="100"  ></ion-icon>
@@ -142,9 +142,9 @@
             Deco <br> Pallets</ion-button>
           <ion-button class="categories" color="medium" fill="clear" (click)="getProducts('Wall Deco')" slot="end">Wall
             <br> decos</ion-button>
-        </div>
+        </div> -->
         <div class="main-content">
-          <div class="thisContent">
+          <!-- <div class="thisContent">
             <div class="logo">
               <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100"  (click)="CountinueShoping() " >
             </div>
@@ -163,10 +163,10 @@
                 </ion-button>
               </div>
             </div>
-          </div>
+          </div> -->
 
       <div class="for-heading">
-        <h1>Shopping bag</h1>
+        <!-- <h1>Shopping bag</h1> -->
 <div class="coverContent">
   
   <div class="heading">
@@ -196,14 +196,14 @@
       </div>
     </div>
     <div class="subtotal">
-      <ion-title>subtotal</ion-title>
+      <ion-title text-now-wrap>Amount</ion-title>
 
       <div class="subtotalNo" *ngFor="let p of cart">
         <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
     <div class="delete">
-      <ion-title color="light"  >delete</ion-title>
+      <ion-title color="light" class="deleteName" >delete</ion-title>
       <div class="deleteItem" *ngFor="let p of cart">
         <ion-label >
           <ion-button color="medium" fill="clear" (click)="removeCartItem(p)"> <ion-icon name="trash"> </ion-icon></ion-button>
@@ -223,10 +223,10 @@
       </div>
     </div>
     <div class="buttons">
-      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
+      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()"(click)="DismissClick() ">Place Order
       </ion-button>
 
-      <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="CountinueShoping()">Countinue Shopping
+      <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="DismissClick() " text-wrap > Shopping
       </ion-button>
     </div>
   </div>

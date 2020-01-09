@@ -69,10 +69,15 @@ ion-label {
 .main-content {
   text-align: center;
   width: 100%;
-  margin: 0%;
+  height: 95%;
+  margin: 0% auto;
   left: 0%;
   right: 0%;
-  //  border:  solid #707070;
+    
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   justify-items: center;
 }
 .thisContent {
   // border: solid blue;
@@ -132,9 +137,12 @@ ion-label {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  justify-content: center;
+  justify-items: center;
+  margin: 0 auto;
+  height: 100%;
+  width: 75%;
 
-  width: 100%;
-  // height: 10%;
 }
 .itemsContainer {
   width: 100%;
@@ -171,9 +179,11 @@ ion-label {
 }
 .for-heading {
   width: 100%;
-  height: 100%;
+  height: 80%;
   display: flex;
   flex-direction: column;
+  // border: solid rgb(236, 184, 13);
+margin-top: 5%;
 }
 h1{
   text-align: left;
@@ -194,19 +204,11 @@ h2{
   width: 100%;
 }
 
-.heading {
-  margin: auto;
-  width: 65%;
-  height: 100%;
-  // border: solid black;
-  display: flex;
-  flex-direction: row;
-  margin: 0% auto;
-}
+
 .total {
   border:  0.5px solid #7070707e;
-  width: 15%;
-  height: 40%;
+  width: 20%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -217,7 +219,7 @@ h2{
 }
 .items {
   // border: solid red;
-  width: 50%;
+  width: 46%;
   text-align: left;
 }
 .itemsDetails {
@@ -248,7 +250,7 @@ h2{
   // border: solid rgb(25, 101, 136);
 }
 .subtotal {
-  width: 17%;
+  width: 21%;
   // border: solid rgb(130, 23, 180);
 }
 .delete {
@@ -339,11 +341,15 @@ ion-label {
 // }
 ion-title {
   font-family: serif;
-  font-size: large;
+  font-size: small;
   font-weight: bold;
   color: #707070;
   text-transform: uppercase;
   text-align: center;
+  white-space: nowrap
+}
+.deleteName{
+  color: transparent;
 }
 .buttonss {
   width: 100%;

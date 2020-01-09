@@ -1,9 +1,9 @@
 <div class="closeButton" align="right">
   <div class="closeButton">
-    <ion-button fill="clear"   color="medium"  float="right"	 (click)="dismiss()"   slot="end">
+    <ion-button fill="clear" color="medium" float="right" (click)="dismiss()" slot="end">
       <ion-icon class="closeIcon" slot="icon-only" name="close"></ion-icon>
-      </ion-button>
- </div>
+    </ion-button>
+  </div>
 
 </div>
 <!-- <ion-header>
@@ -25,49 +25,55 @@
       </div>
       <div class="info">
         <div class="name">
-          <ion-title   no-padding class="prodName">{{p.obj.name}}</ion-title>
+          <ion-title no-padding class="prodName">{{p.obj.name}}</ion-title>
           <p class="prodCode">code:&nbsp; {{p.obj.productCode}}</p>
           <!-- <ion-title>{{p.obj.categories}}</ion-title> -->
         </div>
         <div class="price">
-          <ion-label   class="prodPrice"  > R &nbsp;{{p.obj.price}}</ion-label>
+          <ion-label class="prodPrice"> R &nbsp;{{p.obj.price}}</ion-label>
         </div>
         <div class="desc">
           <p class="proDesc">{{p.obj.desc}}</p>
         </div>
         <div class="size">
-            <div class="sizeContainer">
-              <ion-item class="radioBttns" lines="none">
-                <ion-checkbox color="medium" [(ngModel)]="event.small"> </ion-checkbox>
-                <ion-label padding>S</ion-label>
-              </ion-item>
-              <ion-item lines="none" class="radioBttns">
-                <ion-checkbox color="medium" [(ngModel)]="event.medium"> </ion-checkbox>
-                <ion-label padding>M</ion-label>
-              </ion-item>
-              <ion-item lines="none" class="radioBttns">
-                <ion-checkbox color="medium" [(ngModel)]="event.large"> </ion-checkbox>
-                <ion-label padding>L</ion-label>
-              </ion-item>
-              
-            </div>
+          <div class="sizeContainer">
+            <ion-item class="radioBttns" lines="none">
+              <ion-checkbox color="medium" [(ngModel)]="event.small"> </ion-checkbox>
+              <ion-label padding>S</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="radioBttns">
+              <ion-checkbox color="medium" [(ngModel)]="event.medium"> </ion-checkbox>
+              <ion-label padding>M</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="radioBttns">
+              <ion-checkbox color="medium" [(ngModel)]="event.large"> </ion-checkbox>
+              <ion-label padding>L</ion-label>
+            </ion-item>
+            <!-- <ion-item>
+                  <ion-label color="medium" position="floating">Size</ion-label>
+                  <ion-select multiple="true" [(ngModel)]="event.size">
+                    <ion-select-option *ngFor="let s of size">{{s}}</ion-select-option>
+                  </ion-select>
+          </ion-item> -->
+          </div>
           <div class="ItemNo">
             <p> {{p.obj.items}}</p>
           </div>
         </div>
         <br>
-        <div class="qty">
-            <ion-label>Quantity</ion-label> <br>
-                <ion-input  type="number" min="1" max="1000000" [(ngModel)]="event.quantity"></ion-input>
-          <ion-item>
-                  <ion-label color="medium" position="floating">Size</ion-label>
-                  <ion-select multiple="true" [(ngModel)]="event.size">
-                    <ion-select-option *ngFor="let s of size">{{s}}</ion-select-option>
-                  </ion-select>
-          </ion-item>
+        <div class="quantity-flex">
+           <ion-label>quantity</ion-label>
+          <div class="this">
+                      <ion-input no-padding type="number" min="1" max="10" [(ngModel)]="event.quantity"></ion-input>
+ 
+         
+          </div>
+
         </div>
-        <div class="buttons" >
-          <ion-button shape="round" color="warning" class="btn" (click)="addToCart(p)" slot="end">Add to Cart </ion-button>
+
+        <div class="buttons">
+          <ion-button shape="round" color="warning" class="btn" (click)="addToCart(p)" (click)="toastPopover($event) " slot="end">Add to Cart
+          </ion-button>
           <!-- <ion-button color="warning" fill="clear" (click)="addToCart(event)"  slot="end">Add to Cart </ion-button> -->
         </div>
       </div>

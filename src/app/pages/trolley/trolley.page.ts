@@ -162,11 +162,21 @@ export class TrolleyPage implements OnInit {
     return await modal.present();
   }
   CountinueShoping(){
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('home');
   }
+  async DismissClick() {
+    await this.modalController.dismiss();
+      }
 
   clear(){
     this.cart = [];
+  }
+  async createModalTrolley() {
+    const modal = await this.modalController.create({
+      component: TrolleyPage,
+    
+    });
+    return await modal.present();
   }
 
 }

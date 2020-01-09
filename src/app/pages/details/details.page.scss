@@ -36,18 +36,27 @@
   // justify-content: center;
   // justify-items: center;
 }
-.qty {
-  width: 40%;
-  // border: solid black;
+
+.quantity-flex{
+  // border: solid blue;
   display: flex;
-  flex-direction: row;
-  text-align: center;
+  flex-direction: row; 
+  justify-content: center;
+  justify-content: space-around;
+  height: 5%;
+  width: 35%;
 }
+.this{
+  border: 0.5px solid rgb(226, 222, 222);
+  height: 100%;
+  margin: 2% auto;
+  width: 40%;
+  
+}
+
 ion-input {
-  border: solid 1px black;
-  padding: 8px;
-  // width: 2px;
-  // height: 2%;
+
+  
 }
 .radioBttns {
   // height: 100%;

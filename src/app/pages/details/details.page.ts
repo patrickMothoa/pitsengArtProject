@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { HomePage } from 'src/app/home/home.page';
 import { BehaviorSubject } from 'rxjs';
+import { Popover1Component } from 'src/app/components/popover1/popover1.component';
 
 @Component({
   selector: 'app-details',
@@ -39,7 +40,7 @@ export class DetailsPage implements OnInit {
     public data : ProductService,
     public alertCtrl: AlertController,
     private router: Router,
-    public modalController: ModalController) { }
+    public modalController: ModalController,  public popoverController: PopoverController) { }
 
 
 
@@ -74,6 +75,21 @@ export class DetailsPage implements OnInit {
    this.router.navigateByUrl('/trolley');
   }
 
+  async toastPopover(ev) {
+    const popover = await this.popoverController.create({
+      component:Popover1Component,
+      event: ev,
+      
+      // cssClass: 'pop-over-style',
+      translucent: true,
+    });
+    
+   popover.present();
+    setTimeout(()=>popover.dismiss(),500);
+    
+
+    
+  }
   ionViewWillEnter(){
     this.Products.push(this.data.data)  
   }
