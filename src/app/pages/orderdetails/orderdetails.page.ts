@@ -13,21 +13,47 @@ db = firebase.firestore();
 Orders = []
 conArray = []
 PList = []
-  constructor(public data : ProductService,public modalController: ModalController) { }
+  constructor(public ProductService: ProductService,public data : ProductService,public modalController: ModalController) { }
 
   ngOnInit() {
     this.DetailsHere();
-  
+    // this.conArray = this.ProductService.myArray;
+    // console.log("Data from Service",   this.conArray);
+    // this.checks();
+    // console.log("xxx", this.checks());
   }
 
-//   Pulling(productNumber){
-//     this.db.collection("Users").doc(productNumber).collection("Orders").onSnapshot(w => {
-//       w.forEach(d => {
-//         console.log("sssssss ", d.data());
-        
-//       })
+//  async checks(){
+
+//     let  obj = {
+//       details : {orderNumber : 0, total : 0, orderdate : ""},
+//       obj : {
+//         categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
+//       }
+//     }
+
+//     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').where("orderNumber", "==", true).get().then((querySnapshot)=> {
+//       this.conArray = []; 
+//       querySnapshot.forEach((doc) => {
+//         obj.details.orderNumber = doc.data().details.orderNumber;
+//         obj.details.total = doc.data().details.total;
+//         obj.details.orderdate = doc.data().details.orderdate;
+//         this.conArray.push(obj);
+//         obj = {
+//           details : {orderNumber : 0, total : 0, orderdate : ""},
+//           obj : {
+//             categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
+//           }
+//         }
+//          console.log('My array ', this.conArray);
+//             // doc.data() is never undefined for query doc snapshots
+//            // console.log(doc.id, " => ", doc.data());
+//         });
 //     })
-//  }
+//     .catch((error) => {
+//         console.log("Error getting documents: ", error);
+//     });
+//   }
 
 
 DetailsHere(){
@@ -37,7 +63,6 @@ DetailsHere(){
       categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
     }
   }
-
 
   this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
     this.conArray = [];
@@ -68,6 +93,7 @@ DetailsHere(){
     })
   }, 1500);
 }
+
 dismiss() {
 this.modalController.dismiss({
   'dismissed': true

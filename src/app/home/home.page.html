@@ -65,6 +65,8 @@
         <div class="container1">
           <div class="categories-block" *ngFor="let event of Products">
             <div class="myProduct" *ngIf="myProduct">
+              <!-- <ion-label class="price" *ngIf="myProduct">Category is Empty</ion-label> -->
+
               <ion-card no-padding >
                
                   <ion-title no-padding (click)="ViewDetails(event)">

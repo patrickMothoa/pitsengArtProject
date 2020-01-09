@@ -206,7 +206,7 @@
       <ion-title color="light"  >delete</ion-title>
       <div class="deleteItem" *ngFor="let p of cart">
         <ion-label >
-          <ion-button color="medium" fill="clear" (click)="removeCartItem(p)"> <ion-icon name="trash"> </ion-icon></ion-button>
+          <ion-button color="medium" fill="clear" (click)="removeCartItem(p.id)"> <ion-icon name="trash"> </ion-icon></ion-button>
         </ion-label>
       </div>
     </div>
@@ -223,7 +223,7 @@
       </div>
     </div>
     <div class="buttons">
-      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
+      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder();presentToast()">Place Order
       </ion-button>
 
       <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="CountinueShoping()">Countinue Shopping
