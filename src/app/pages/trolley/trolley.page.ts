@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ToastController, LoadingController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { ConfirmationPage } from '../confirmation/confirmation.page';
 import { ProductService } from 'src/app/services/product.service';
@@ -19,9 +19,9 @@ export class TrolleyPage implements OnInit {
   cart = [];
   myArr = [];
   total = 1;
-  constructor(public modalController: ModalController,
+  constructor(  public loadingCtrl: LoadingController,public modalController: ModalController,
     private cartService: CartService, private alertCtrl: AlertController, 
-    public data : ProductService,public transact: TransactionService, private router: Router, ) {
+    public data : ProductService,public transact: TransactionService, private router: Router,public toastController : ToastController ) {
    }
  
   ngOnInit() {
@@ -47,19 +47,19 @@ export class TrolleyPage implements OnInit {
     res.forEach((doc)=>{
       this.myArr.push(doc.data());
     })
-    console.log("vvv");
-    
+    console.log("vvv"); 
   })
 
   setTimeout(() => {
-    this.clear();
+    // this.clear();
     this.cart = [];
     this.myArr.forEach((item)=>{
       this.cart.push(item.name.obj);
     })
+  
     console.log('My array ', this.cart );
   }, 1500);
-  }
+}
  
   // decreaseCartItem(p) {
   //   // this.cartService.decreaseProduct(p);
@@ -101,7 +101,46 @@ export class TrolleyPage implements OnInit {
   //     }
   //   }
   // }
- 
+
+   async removeCartItem(p) {
+      console.log('item =>',p);
+    
+      const alert = await this.alertCtrl.create({
+        header: 'Confirm!',
+        message: 'Are you sure you want to delete?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Okay',
+            handler: async () => {
+              const worker = await this.loadingCtrl.create({
+                message: 'Working',
+                spinner: 'bubbles'
+              })
+              worker.present();
+              this.db.collection('Cart').doc(p).delete().then(async res => {
+                worker.dismiss()
+                this.cart = [];
+                //this.retrieve();
+                const alerter = await this.alertCtrl.create({
+                message: 'item deleted'
+              })
+              alerter.present();
+              })
+            }
+          }
+        ]
+      });
+  
+      await alert.present(); 
+  }
+
   getTotal() {
     return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);  
   }
@@ -167,6 +206,14 @@ export class TrolleyPage implements OnInit {
   async DismissClick() {
     await this.modalController.dismiss();
       }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your order processed successfully..',
+      duration: 2000
+    });
+    toast.present();
+  }
 
   clear(){
     this.cart = [];
