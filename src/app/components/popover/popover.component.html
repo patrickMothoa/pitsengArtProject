@@ -2,8 +2,9 @@
     <div class="buttons">
         <ion-button *ngIf="!loginBtn" color="warning" fill="clear" (click)="showLogin()" (click)="DismissClick() " >Login </ion-button>
         <ion-button *ngIf="!registerBtn" color="warning" fill="clear"  (click)="goRegister()" (click)="DismissClick() " >Register</ion-button>
-        <ion-button *ngIf="profileBtn"   fill="clear"  color="warning" fill="clear" (click)="openProfile()" (click)="DismissClick() "   slot="end">Profile</ion-button>
-        <ion-button  color="warning" fill="clear" (click)="logOut()" (click)="DismissClick() "slot="end">Logout</ion-button>
+        <ion-button *ngIf="!orderBtn"    fill="clear"  color="warning"  (click)="openOrders()" slot="end">Orders</ion-button> 
+        <ion-button *ngIf="!profileBtn"   fill="clear"  color="warning" fill="clear" (click)="openProfile()" (click)="DismissClick() "   slot="end">Profile</ion-button>
+        <ion-button *ngIf="!logoutBtn" color="warning" fill="clear" (click)="logOut()" (click)="DismissClick() "slot="end">Logout</ion-button>
     </div>
 </div>
 

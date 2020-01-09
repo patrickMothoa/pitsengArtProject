@@ -46,11 +46,11 @@ export class HomePage {
   supplier
   myProduct = false;
      ////
-  loginBtn = false;
-  registerBtn =  false;
-  logoutBtn = false;
-  orderBtn = false;
-  profileBtn = false;
+  // loginBtn = false;
+  // registerBtn =  false;
+  // logoutBtn = false;
+  // orderBtn = false;
+  // profileBtn = false;
     /////
   sliderConfig = {
     slidesPerView: 1.6,
@@ -135,11 +135,11 @@ public  isLogin = false;
       }
 
   showLogin(){
-    this.loginBtn = true;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = false;
-    this.profileBtn = false;
+    // this.loginBtn = true;
+    // this.registerBtn =  true;
+    // this.logoutBtn = false;
+    // this.orderBtn = false;
+    // this.profileBtn = false;
     // this.router.navigateByUrl('/login');
     this.createModalLogin();
   }
@@ -147,11 +147,11 @@ public  isLogin = false;
     this.createModalTrolley();
   }
   goRegister(){
-    this.loginBtn = false;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = true;
-    this.profileBtn = true;
+    // this.loginBtn = false;
+    // this.registerBtn =  true;
+    // this.logoutBtn = false;
+    // this.orderBtn = true;
+    // this.profileBtn = true;
     // this.router.navigateByUrl('/register');
     this.createModalRegister();
   }
@@ -161,11 +161,11 @@ public  isLogin = false;
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
 
-    this.loginBtn = false;
-    this.registerBtn =  false;
-    this. logoutBtn = true;
-    this.orderBtn = true;
-    this.profileBtn = true;
+    // this.loginBtn = false;
+    // this.registerBtn =  false;
+    // this. logoutBtn = true;
+    // this.orderBtn = true;
+    // this.profileBtn = true;
   }
 
 async viewModal(){
@@ -216,7 +216,6 @@ async createModalTrolley() {
 
    /// taking values db to cart import
   addToCart(event) {
-    
     if(firebase.auth().currentUser){
       this.cartService.addProduct(event);
       console.log("pushing to Cart",event);
@@ -232,11 +231,11 @@ async createModalTrolley() {
   }
  
   openOrders(){
-    this.loginBtn = true;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = false;
-    this.profileBtn = false;
+    // this.loginBtn = true;
+    // this.registerBtn =  true;
+    // this.logoutBtn = false;
+    // this.orderBtn = false;
+    // this.profileBtn = false;
     this.router.navigateByUrl('/orders');
   }
 
@@ -244,11 +243,11 @@ async createModalTrolley() {
 
 
   openProfile(){
-    this.loginBtn = true;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = false;
-    this.profileBtn = false;
+    // this.loginBtn = true;
+    // this.registerBtn =  true;
+    // this.logoutBtn = false;
+    // this.orderBtn = false;
+    // this.profileBtn = false;
 
     this.router.navigateByUrl('/profile');
   }
@@ -356,11 +355,11 @@ SearchProducts(ev: CustomEvent){
 
 logOut(){
   firebase.auth().signOut().then(()=> {
-    this.loginBtn = false;
-    this.registerBtn =  false;
-    this. logoutBtn = true;
-    this.orderBtn = true;
-    this.profileBtn = false;
+    // this.loginBtn = false;
+    // this.registerBtn =  false;
+    // this. logoutBtn = true;
+    // this.orderBtn = true;
+    // this.profileBtn = false;
     // Sign-out successful.
     this.router.navigateByUrl('/');
   }).catch((error)=> {
