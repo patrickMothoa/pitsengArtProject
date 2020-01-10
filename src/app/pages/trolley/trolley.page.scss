@@ -133,7 +133,7 @@ ion-label {
 }
 
 .heading {
-  // border: solid red;
+  border: solid red;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -141,7 +141,8 @@ ion-label {
   justify-items: center;
   margin: 0 auto;
   height: 100%;
-  width: 75%;
+  width: 65%;
+  min-width: 450px;
 
 }
 .itemsContainer {
@@ -202,13 +203,16 @@ h2{
 .btn {
   --border-radius: 0px 50px 0px 50px;
   width: 100%;
+  min-width: 150px;
 }
 
 
 .total {
   border:  0.5px solid #7070707e;
   width: 20%;
+  min-width: 160px;
   height: 50%;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -216,6 +220,7 @@ h2{
   // justify-content: center;
   margin: 0% auto;
   padding: 16px;
+  
 }
 .items {
   // border: solid red;
@@ -346,7 +351,8 @@ ion-title {
   color: #707070;
   text-transform: uppercase;
   text-align: center;
-  white-space: nowrap
+  text-overflow: inherit;
+  white-space: normal;
 }
 .deleteName{
   color: transparent;

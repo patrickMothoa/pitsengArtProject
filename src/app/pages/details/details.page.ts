@@ -123,6 +123,7 @@ export class DetailsPage implements OnInit {
         console.log("pushing to Cart",p);
       }else{
         this.createModalLogin();
+        this.dismiss()
       }
     }
 

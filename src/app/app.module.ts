@@ -34,6 +34,8 @@ const firebaseConfig = {
   //   messagingSenderId: "480621678215",
   //   appId: "1:480621678215:web:78d00062aeaf3f478f3222",
   //   measurementId: "G-CMHGYBB83X"
+
+  //current datavase
   apiKey: "AIzaSyCEdqt_gOew6SACcVm3xMXETdQxxbdbLJE",
   authDomain: "pitsengproject.firebaseapp.com",
   databaseURL: "https://pitsengproject.firebaseio.com",

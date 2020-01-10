@@ -15,6 +15,7 @@ import { LoginPage } from '../pages/login/login.page';
 import { RegisterPage } from '../pages/register/register.page';
 import Swal from 'sweetalert2';
 import { TrolleyPage } from '../pages/trolley/trolley.page';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 declare var window
 
@@ -160,6 +161,7 @@ public  isLogin = false;
     this.getProduct();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.CountinueShoping();
 
     // this.loginBtn = false;
     // this.registerBtn =  false;
@@ -275,6 +277,7 @@ async createModalTrolley() {
             this.Products = [];
             if (snapshot.empty) {
                     this.myProduct = false;
+                  //  alert('the are no Vase')
                     console.log(" Category is Empty...")
                   } else {
                     this.myProduct = true;
@@ -394,6 +397,7 @@ this.db.collection('admins').get().then(snapshot => {
 
 CountinueShoping(){
   this.router.navigateByUrl('/');
+  
 }
 
 
@@ -427,4 +431,6 @@ cart.classList.remove("show");
 //   cart.classList.remove("show");
 // }, 3000);
 // }
+
+
 }
