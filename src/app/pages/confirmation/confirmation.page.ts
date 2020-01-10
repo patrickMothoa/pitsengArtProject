@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-confirmation',
@@ -92,6 +93,14 @@ export class ConfirmationPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+  logoutAlert(){
+    Swal.fire(
+      'Thank you for shopping with PitsengArt! You will receive your order after your payments has been done.',
+      '',
+      'success'
+    )
+    this.dismiss();
   }
   
 }

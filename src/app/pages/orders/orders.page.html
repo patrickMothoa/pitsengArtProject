@@ -12,11 +12,12 @@
         
 	<ion-list >
       <ion-card  *ngFor="let li of conArray">
-        <!-- <ion-item class="cart-item" (click)="ViewDetails(li)"> -->
-          <ion-item class="cart-item" (click)="ViewDetails(li.details.orderNumber)">
+        <ion-item class="cart-item" (click)="ViewDetails(li)">
+          <ion-item class="cart-item"{{li.details.orderdate}}>
           <span class="ornum"><p>Order Number : {{li.details.orderNumber}} | </p></span>
           <span class="ornum"> <p> Date : {{li.details.orderdate}}</p> </span> 
         </ion-item>
+       </ion-item>
       </ion-card>  
 	</ion-list>
 </ion-content>

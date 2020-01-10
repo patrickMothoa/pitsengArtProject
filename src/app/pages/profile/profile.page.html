@@ -94,6 +94,8 @@
             </div>
           
             </div>
+            <div class="details-section" >
+
             <div class="Account-details" >
               <ion-label>Account details</ion-label>
               <div class="details" >
@@ -109,29 +111,20 @@
               </div>
 
             </div>
-            <div class="Account-history" >
-              <ion-label>oder history</ion-label>
-              <div class="history" >
+            <div  class="Account-history" (click)="ViewDetails(li)" >
+              <h5>oder history</h5>
+              <ion-card  *ngFor="let li of conArray" class="Account-history" class="history" >
                 <div>
-                  <ion-label>oder23934</ion-label>
+                  <ion-label> {{li.details.orderNumber}}</ion-label>
                 </div>
                 <div>
-                  <ion-label>12 Nov 2019</ion-label>
+                  <ion-label>{{li.details.orderdate}}</ion-label>
                 </div>
-              </div>
-              <div class="history" >
-                <div>
-                  <ion-label>oder58bnr</ion-label>
-                </div>
-                <div>
-                  <ion-label>01 Dec 2019</ion-label>
-                </div>
-                
-              </div>
+              </ion-card>
 
             </div>
             
-           
+           </div>
 
           </div>
           </div>
