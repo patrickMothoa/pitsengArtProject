@@ -8,6 +8,9 @@ import { TrolleyPage } from '../../pages/trolley/trolley.page';
 import { CartService } from 'src/app/services/cart.service';
 import { LoginPage } from '../login/login.page';
 import { BehaviorSubject } from 'rxjs';
+import { OrderdetailsPage } from '../orderdetails/orderdetails.page';
+import { TransactionService } from 'src/app/services/transaction.service';
+import { ProductService } from 'src/app/services/product.service';
 
 
 @Component({
@@ -43,8 +46,19 @@ export class ProfilePage implements OnInit {
     uid: '',
     email: '',
   }
+
+
+  public item =[];
+  conArray = []
+  Orders =[]
+  public display;
+  public postSort='recent';
+  public userID;
+  public userTransact: any;
+  myArray =[]
   constructor(public router: Router,public alertCtrl: AlertController, public popoverController: PopoverController,
     public modalController: ModalController,
+    public data: ProductService, public transact: TransactionService,
     private cartService: CartService,) {
     this.uid = firebase.auth().currentUser.uid;
 
@@ -55,7 +69,8 @@ export class ProfilePage implements OnInit {
       if (admins) {
         this.Users.uid = admins.uid
         this.Users.uid = admins.email
-      this.getProfile();
+      this.getProfile(); 
+       this.GetOrders();
       } else {
         console.log('no user');
         
@@ -65,10 +80,95 @@ export class ProfilePage implements OnInit {
     this.cartItemCount = this.cartService.getCartItemCount();
     
   }
-
-  Orders(){
-this.router.navigateByUrl('/orders');
+  
+  async viewModal(){
+    const modal = await this.modalController.create({
+      component: OrderdetailsPage
+    });
+    return  modal.present();
   }
+  
+  ViewDetails(view) {
+    console.log("sds", view);
+    this.data.data = view;
+    this.createModal();
+  }
+
+  async createModal() {
+    const modal = await this.modalController.create({
+      component: OrderdetailsPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+
+
+async  deleteItem(li){
+  
+   let confirm = this.alertCtrl.create({
+      message: "Are you sure you want to delete this order?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: data => {
+            this.transact.removeOrder(li);
+        }
+        },
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancelled');
+          }
+        }
+      ]
+    });
+    (await confirm).present();
+  }
+
+
+  GetOrders(){
+        let  obj = {
+          details : {orderNumber : 0, total : 0, orderdate : ""},
+          obj : {
+            categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
+          }
+        }
+    
+        this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
+          this.conArray = [];
+          res.forEach((doc)=>{
+    
+            obj.details.orderNumber = doc.data().details.orderNumber;
+            obj.details.total = doc.data().details.total;
+            obj.details.orderdate = doc.data().details.orderdate;
+            obj.obj.name = doc.data().obj.name;
+            obj.obj.price = doc.data().obj.price;
+            obj.obj.quantity = doc.data().obj.quantity;
+            obj.obj.productNumber = doc.data().obj.productNumber;
+            obj.obj.image = doc.data().obj.image;
+            this.conArray.push(obj);
+            obj = {
+              details : {orderNumber : 0, total : 0, orderdate : ""},
+              obj : {
+                categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
+              }
+            }
+             console.log('My array ', this.conArray);
+          })  
+      })
+     
+        setTimeout(() => {
+          this.conArray.forEach((item)=>{
+            this.Orders.push(item)
+          })
+        }, 1500);
+  }
+
+
+
+//   Orders(){
+// this.router.navigateByUrl('/orders');
+//   }
   CountinueShoping(){
     this.router.navigateByUrl('/');
   }
