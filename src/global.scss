@@ -26,7 +26,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 .my-custom-modal-css .modal-wrapper{
     --width: 50%;
-    --height:82%
+    --height:82%;
+    min-width: 780px;
 }
 .my-custom-trolley-css .modal-wrapper{
     --width: 80%;
