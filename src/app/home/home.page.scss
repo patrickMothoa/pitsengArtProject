@@ -317,8 +317,9 @@ ion-button{
 
 .empty{
   margin-top: 20%;
-  font-weight: lighter;
+  font-weight: bold;
   font-family: serif;
+  font-weight: 10px ;
 }
 
 
@@ -464,4 +465,7 @@ ion-button{
 @keyframes fadeInOut{
   5%,95%{opacity:1;top:50px}
   15%,85%{opacity:1;top:30px}
+}
+.ionContent{
+  height: 100%;
 }
