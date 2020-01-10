@@ -111,13 +111,14 @@ ion-label{
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  // flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
   justify-content: space-evenly;
  justify-content: center;
-  // height: 80%;
+  // height: 100%;
   background-color: white;
   margin: 0 auto;
+ margin-bottom: 15%;
   
   // width: 80%;
   // // margin-top: 20px;
@@ -130,6 +131,8 @@ ion-label{
     width: 17%;
     min-width: 300px;
     display: flex;
+
+
     height: 450px;
     // min-height: 10;
     margin-top: 2%;
@@ -466,6 +469,6 @@ ion-button{
   5%,95%{opacity:1;top:50px}
   15%,85%{opacity:1;top:30px}
 }
-.ionContent{
-  height: 100%;
+.ccc{
+height: 100%;
 }
