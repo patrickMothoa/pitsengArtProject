@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-trolley',
@@ -153,28 +154,66 @@ export class TrolleyPage implements OnInit {
   Orders = []
   orderdate 
   placeOrder(){
-    this.orderNumber = this.stringGen(11);
-    ///// creating date
-    const date = new Date();
-    this.orderdate = date.toDateString();
-    ///////
-    console.log("clickedX",this.orderNumber);
-    console.log("sHOW dATE", this.orderdate);
-    this.data.data
-      for(var i = 0; i <  this.cart.length; i++){
-        let item =  this.cart[i];
-        console.log("inside-items",item);
-     /////////// your order details
-        let orderDetails ={
-          total: this.getTotal(),
-          orderNumber: this.orderNumber,
-          orderdate : this.orderdate
-        };
-        console.log("inside-Order",orderDetails);
-         let userID = firebase.auth().currentUser.uid;
-         this.transact.memberTransact(userID,item,orderDetails);
-     } 
-    this.SuccessModal();
+    // this.orderNumber = this.stringGen(11);
+    // ///// creating date
+    // const date = new Date();
+    // this.orderdate = date.toDateString();
+    // ///////
+    // console.log("clickedX",this.orderNumber);
+    // console.log("sHOW dATE", this.orderdate);
+    // this.data.data
+
+    //   for(var i = 0; i <  this.cart.length; i++){
+    //     let item =  this.cart[i];
+    //     console.log("inside-items",item);
+    //  /////////// your order details
+    //     let orderDetails ={
+    //       total: this.getTotal(),
+    //       orderNumber: this.orderNumber,
+    //       orderdate : this.orderdate
+    //     };
+    //     console.log("inside-Order",orderDetails);
+    //      let userID = firebase.auth().currentUser.uid;
+    //      this.transact.memberTransact(userID,item,orderDetails);
+    //  } 
+    // this.SuccessModal();
+
+
+    if(firebase.auth().currentUser){
+      this.orderNumber = this.stringGen(11);
+      ///// creating date
+      const date = new Date();
+      this.orderdate = date.toDateString();
+      ///////
+      console.log("clickedX",this.orderNumber);
+      console.log("sHOW dATE", this.orderdate);
+      this.data.data
+  
+        for(var i = 0; i <  this.cart.length; i++){
+          let item =  this.cart[i];
+          console.log("inside-items",item);
+       /////////// your order details
+          let orderDetails ={
+            total: this.getTotal(),
+            orderNumber: this.orderNumber,
+            orderdate : this.orderdate
+          };
+          console.log("inside-Order",orderDetails);
+           let userID = firebase.auth().currentUser.uid;
+           this.transact.memberTransact(userID,item,orderDetails);
+       } 
+      this.SuccessModal();
+      console.log("pushing to Cart",event);
+    }else{
+      this.createModalLogin();
+    }
+  }
+  async createModalLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      
+    });
+    return await modal.present();
   }
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////
