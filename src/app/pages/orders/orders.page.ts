@@ -34,27 +34,27 @@ export class OrdersPage implements OnInit {
     return  modal.present();
   }
   
-  // ViewDetails(view) {
-  //   console.log("sds", view);
-  //   this.data.data = view;
-  //   this.createModal();
-  // }
+  ViewDetails(view) {
+    console.log("sds", view);
+    this.data.data = view;
+    this.createModal();
+  }
 
 
-  ViewDetails(orderNumber) {
-    console.log("cheking", orderNumber);
+//   ViewDetails(orderNumber) {
+//     console.log("cheking", orderNumber);
 
-      this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').where('orderNumber', '==', orderNumber).get().then((data) => {
-       console.log("xxx", data);
-        console.log("checks inside", 'orderNumber', '==', orderNumber );
-      this.ProductService.myArray = this.conArray
-      console.log('Arrays values', this.ProductService.myArray);
-      })
-      this.ProductService.myArray.forEach(i => {
-        console.log("data from the service ", i);
-      })
-      this.createModal(); 
-}
+//       this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').where('orderNumber', '==', orderNumber).get().then((data) => {
+//        console.log("xxx", data);
+//         console.log("checks inside", 'orderNumber', '==', orderNumber );
+//       this.ProductService.myArray = this.conArray
+//       console.log('Arrays values', this.ProductService.myArray);
+//       })
+//       this.ProductService.myArray.forEach(i => {
+//         console.log("data from the service ", i);
+//       })
+//       this.createModal(); 
+// }
   
   async createModal() {
     const modal = await this.modalController.create({
