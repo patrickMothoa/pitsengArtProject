@@ -43,13 +43,8 @@
               <!-- <ion-button *ngIf="!loginBtn" color="warning" fill="clear" (click)="showLogin()">Login </ion-button>
               <ion-button *ngIf="!registerBtn" color="warning" fill="clear" (click)="goRegister()">Register</ion-button> -->
               <!-- <ion-button     fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button> -->
-<<<<<<< HEAD
               <!-- <ion-button *ngIf="!profileBtn"   fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button> -->
                 <ion-button fill="clear" (click)="trolley()">
-=======
-              <ion-button    fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
-                    <ion-button fill="clear" (click)="trolley()">
->>>>>>> fb6156127a88490d714e184d6a91e07c82311eb8
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
                 </ion-button>
@@ -65,6 +60,9 @@
           </div>
         </div>
         <ion-content scroll="true" >
+          <div *ngIf="!myProduct" class="empty" >
+            <ion-title color="medium" >This product is not available  currently.</ion-title>
+          </div>
         <div class="  container1">
           <div class="categories-block" *ngFor="let event of Products">
             <div class="myProduct" *ngIf="myProduct">
