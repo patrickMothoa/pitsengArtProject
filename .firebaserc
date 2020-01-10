@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "pitsengart"
+    "default": "pitsengproject",
+    "hosting": "ceramicart-e82f5"
   }
 }

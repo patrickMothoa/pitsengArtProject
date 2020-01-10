@@ -4,7 +4,7 @@
   <div class="content">
     <div class="row">
       <div class=" sidebar1">
-          <ion-button class="categories"  color="warning" fill="clear" slot="end" (click)="CountinueShoping() " >
+          <ion-button class="categories"  color="warning" fill="clear" slot="end" (click)="getProducts('')" >
           <ion-icon  id="1" class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
         <ion-button id="2" class="categories"  color="medium"  fill="clear" [style.backgroundColr]="active ? 'red': 'white'" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
         <ion-button id="3" class="categories" color="medium"  fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls & <br> pots</ion-button>
@@ -53,8 +53,8 @@
                     <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
                     <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
                 </ion-button>
-            </ion-buttons> -->
-              <!-- <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button> -->
+              </ion-buttons> -->
+         <!-- <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button> -->
         
             </div>
           </div>
