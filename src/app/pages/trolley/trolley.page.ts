@@ -121,7 +121,7 @@ export class TrolleyPage implements OnInit {
             text: 'Okay',
             handler: async () => {
               const worker = await this.loadingCtrl.create({
-                message: 'Working',
+                message: 'Deleting...',
                 spinner: 'bubbles'
               })
               worker.present();
