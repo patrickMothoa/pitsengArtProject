@@ -4,6 +4,7 @@ import { LoginPage } from 'src/app/pages/login/login.page';
 import { RegisterPage } from 'src/app/pages/register/register.page';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-popover',
@@ -16,6 +17,7 @@ export class PopoverComponent implements OnInit {
   logoutBtn = false;
   orderBtn = false;
   profileBtn = false;
+  checkUser: boolean;
 
   constructor(public toastController: ToastController,public modalController: ModalController,private popoverController: PopoverController,private router: Router,  public alertCtrl: AlertController ) { }
  
@@ -28,6 +30,15 @@ export class PopoverComponent implements OnInit {
     // this.goRegister();
     // this.openProfile();
     // this.logOut();
+
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        this.checkUser = true;
+      }else {
+        this.checkUser = false;
+      }
+    })
   }
   async DismissClick() {
     await this.popoverController.dismiss();
@@ -89,7 +100,13 @@ export class PopoverComponent implements OnInit {
     this.router.navigateByUrl('/orders');
   }
 
-
+  logoutAlert(){
+    Swal.fire(
+      'You have logged out!',
+      '',
+      'success'
+    )
+  }
   logOut(){
     // this.loginBtn = false;
     // this.registerBtn =  false;
@@ -102,7 +119,7 @@ export class PopoverComponent implements OnInit {
       this.orderBtn = true;
       this.profileBtn = true;
       this.router.navigateByUrl('/');
-      this.presentToast();
+      this.logoutAlert()
     }).catch((error)=> {
     console.log(error);
     });
