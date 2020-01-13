@@ -92,55 +92,55 @@ export class TrolleyPage implements OnInit {
   //   this.cartItemCount.next(this.cartItemCount.value + 1);
   // }
  
-  // removeCartItem(p) {
-  //   // this.cartService.removeProduct(p);
-  //   console.log("del");
-  //   for (let [index, p] of this.cart.entries()) {
-  //     if (this.cart) {
-  //       this.cartItemCount.next(this.cartItemCount.value - p.quantity);
-  //       this.cart.splice(index, 1);
-  //     }
-  //   }
-  // }
-
-   async removeCartItem(p) {
-      console.log('item =>',p);
-    
-      const alert = await this.alertCtrl.create({
-        header: 'Confirm!',
-        message: 'Are you sure you want to delete?',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: (blah) => {
-              console.log('Confirm Cancel: blah');
-            }
-          }, {
-            text: 'Okay',
-            handler: async () => {
-              const worker = await this.loadingCtrl.create({
-                message: 'Working',
-                spinner: 'bubbles'
-              })
-              worker.present();
-              this.db.collection('Cart').doc(p).delete().then(async res => {
-                worker.dismiss()
-                this.cart = [];
-                //this.retrieve();
-                const alerter = await this.alertCtrl.create({
-                message: 'item deleted'
-              })
-              alerter.present();
-              })
-            }
-          }
-        ]
-      });
-  
-      await alert.present(); 
+  removeCartItem(p) {
+    // this.cartService.removeProduct(p);
+    console.log("del");
+    for (let [index, p] of this.cart.entries()) {
+      if (this.cart) {
+        this.cartItemCount.next(this.cartItemCount.value - p.quantity);
+        this.cart.splice(index, 1);
+      }
+    }
   }
+
+  //  async removeCartItem(p) {
+  //     console.log('item =>',p);
+    
+  //     const alert = await this.alertCtrl.create({
+  //       header: 'Confirm!',
+  //       message: 'Are you sure you want to delete?',
+  //       buttons: [
+  //         {
+  //           text: 'Cancel',
+  //           role: 'cancel',
+  //           cssClass: 'secondary',
+  //           handler: (blah) => {
+  //             console.log('Confirm Cancel: blah');
+  //           }
+  //         }, {
+  //           text: 'Okay',
+  //           handler: async () => {
+  //             const worker = await this.loadingCtrl.create({
+  //               message: 'Working',
+  //               spinner: 'bubbles'
+  //             })
+  //             worker.present();
+  //             this.db.collection('Cart').doc(p).delete().then(async res => {
+  //               worker.dismiss()
+  //               this.cart = [];
+  //               //this.retrieve();
+  //               const alerter = await this.alertCtrl.create({
+  //               message: 'item deleted'
+  //             })
+  //             alerter.present();
+  //             })
+  //           }
+  //         }
+  //       ]
+  //     });
+  
+  //     await alert.present(); 
+  // }
 
   getTotal() {
     return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);  
@@ -154,30 +154,6 @@ export class TrolleyPage implements OnInit {
   Orders = []
   orderdate 
   placeOrder(){
-    // this.orderNumber = this.stringGen(11);
-    // ///// creating date
-    // const date = new Date();
-    // this.orderdate = date.toDateString();
-    // ///////
-    // console.log("clickedX",this.orderNumber);
-    // console.log("sHOW dATE", this.orderdate);
-    // this.data.data
-
-    //   for(var i = 0; i <  this.cart.length; i++){
-    //     let item =  this.cart[i];
-    //     console.log("inside-items",item);
-    //  /////////// your order details
-    //     let orderDetails ={
-    //       total: this.getTotal(),
-    //       orderNumber: this.orderNumber,
-    //       orderdate : this.orderdate
-    //     };
-    //     console.log("inside-Order",orderDetails);
-    //      let userID = firebase.auth().currentUser.uid;
-    //      this.transact.memberTransact(userID,item,orderDetails);
-    //  } 
-    // this.SuccessModal();
-
 
     if(firebase.auth().currentUser){
       this.orderNumber = this.stringGen(11);

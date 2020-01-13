@@ -27,6 +27,7 @@ item
 ////////////////////////////////////////////////////////////////////////////
 ///////////////TAKEN FROM OUR Trolley TS FILE
  memberTransact(item,total,orderDetails){
+   // this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').doc().set({
     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').doc().set({
       details: orderDetails,
       obj: total,

@@ -11,7 +11,7 @@ export class CartService {
   db = firebase.firestore();
 
   cart = [];
-
+ 
   event = {
     image: '',
     categories:'',
@@ -30,11 +30,14 @@ export class CartService {
 
  
   cartList =  [];
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) { 
+    //this.db.collection('Users').doc(firebase.auth().currentUser.uid);
+  }
  
   CartList() {
-    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').get().then(snapshot => {
-    this.cart
+ 
+    this.db.collection('Kart').get().then(snapshot => {
+    this.cart = []
     snapshot.forEach(doc => {
     this.cart.push(doc.data());
   });
@@ -48,7 +51,8 @@ export class CartService {
   }
  
    addProduct(event) {
-    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
+  //  this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
+    this.db.collection('Kart').doc().set({
       name : event,
      })
       .catch(err => {

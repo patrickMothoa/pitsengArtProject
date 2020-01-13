@@ -117,14 +117,15 @@ export class DetailsPage implements OnInit {
   
      /// taking values db to cart import
     addToCart(p) {
-      
-      if(firebase.auth().currentUser){
-        this.cartService.addProduct(p);
-        console.log("pushing to Cart",p);
-      }else{
-        this.createModalLogin();
-        this.dismiss()
-      }
+      this.cartService.addProduct(p);
+
+      // if(firebase.auth().currentUser){
+      //   this.cartService.addProduct(p);
+      //   console.log("pushing to Cart",p);
+      // }else{
+      //   this.createModalLogin();
+      //   this.dismiss()
+      // }
     }
 
         // retriving from firebase.firestore
