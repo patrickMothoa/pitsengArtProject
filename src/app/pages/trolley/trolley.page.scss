@@ -237,11 +237,20 @@ h2{
   align-items: center;
   justify-content: space-between;
 }
+.code-name{
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+
+
+}
 .itemName {
   margin: 0% auto;
+    
 }
 .itemImage {
   margin: 0% auto;
+
 }
 .qty {
   // border: solid green;
