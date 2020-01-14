@@ -19,12 +19,17 @@ export class TrolleyPage implements OnInit {
   cart = [];
   myArr = [];
   total = 1;
+  dbCart = firebase.firestore().collection('Cart');
+  dbOrder = firebase.firestore().collection('Order');
+  cartProduct = [];
+  orderProd = [];
   constructor(public modalController: ModalController,
     private cartService: CartService, private alertCtrl: AlertController, 
     public data : ProductService,public transact: TransactionService, private router: Router, ) {
    }
  
   ngOnInit() {
+    this.getProducts();
 // pushing to Array before firebase using this way
 //     let item = this.cartService.getCart();
 //     let seleted = [];
@@ -40,25 +45,22 @@ export class TrolleyPage implements OnInit {
 // console.log("vvv", this.total);
 
 
-  //////////// working used this way
-  this.cart = this.cartService.getCart();
-  this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').onSnapshot((res)=> {
-    this.myArr = [];
-    res.forEach((doc)=>{
-      this.myArr.push(doc.data());
-    })
-    console.log("vvv");
-    
-  })
+  //////////// working used this wa
 
-  setTimeout(() => {
-    this.clear();
-    this.cart = [];
-    this.myArr.forEach((item)=>{
-      this.cart.push(item.name.obj);
+  }
+
+  getProducts() {
+
+
+    this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
+      this.cartProduct = [];
+      res.forEach((doc)=>{
+        this.cartProduct.push(doc.data());
+      })
+
+      console.log('My products in cart ',this.cartProduct);
+      
     })
-    console.log('My array ', this.cart );
-  }, 1500);
   }
  
   // decreaseCartItem(p) {
@@ -109,33 +111,26 @@ export class TrolleyPage implements OnInit {
   //////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////
   //////////////////////// group orders together.
-  orderNumber
-  member
-  Orders = []
-  orderdate 
+
   placeOrder(){
-    this.orderNumber = this.stringGen(11);
-    ///// creating date
-    const date = new Date();
-    this.orderdate = date.toDateString();
-    ///////
-    console.log("clickedX",this.orderNumber);
-    console.log("sHOW dATE", this.orderdate);
-    this.data.data
-      for(var i = 0; i <  this.cart.length; i++){
-        let item =  this.cart[i];
-        console.log("inside-items",item);
-     /////////// your order details
-        let orderDetails ={
-          total: this.getTotal(),
-          orderNumber: this.orderNumber,
-          orderdate : this.orderdate
-        };
-        console.log("inside-Order",orderDetails);
-         let userID = firebase.auth().currentUser.uid;
-         this.transact.memberTransact(userID,item,orderDetails);
-     } 
-    this.SuccessModal();
+
+
+    this.orderProd=[];
+   //let item = {name:'', size:[],quantity:'',image:''}
+   for (let j = 0; j < this.cartProduct.length; j++) {
+    //console.log('Products ', this.cartProduct[j]);
+    this.orderProd.push(this.cartProduct[j]);
+   }
+   this.dbOrder.doc('Pitseng'+Math.floor(Math.random()*100000)).set({
+     date: new Date().getTime(),
+     product: this.orderProd
+   })
+    //console.log('My prod ', this.orderProd);
+    
+    //this.SuccessModal();
+
+    firebase.firestore().collection("Cart")
+    this.cartProduct = []
   }
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////

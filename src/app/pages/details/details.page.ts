@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { CartService } from 'src/app/services/cart.service';
 import { HomePage } from 'src/app/home/home.page';
 import { BehaviorSubject } from 'rxjs';
@@ -14,19 +14,23 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DetailsPage implements OnInit {
   cartItemCount: BehaviorSubject<number>;
-  @ViewChild('cart', {static: false, read: ElementRef})fab: ElementRef;
-  db = firebase.firestore();
+  @ViewChild('cart', { static: false, read: ElementRef }) fab: ElementRef;
+  dbProduct = firebase.firestore().collection('Products');
+  dbCart = firebase.firestore().collection('Cart');
+  customerUid = firebase.auth().currentUser.uid;
   MyObj = [];
   event = {
     image: '',
-    categories:'',
-    name:'',
-    price:null,
-    productno:'',
+    categories: '',
+    name: '',
+    price: 0,
+    productno: '',
     desc: null,
-    small:'',
-    medium:'',
-    large: ''
+    small: '',
+    medium: '',
+    large: '',
+    quantity: null,
+    total:0
   };
 
   public items: any;
@@ -34,10 +38,13 @@ export class DetailsPage implements OnInit {
   cart = [];
   Products = [];
   myProduct = false;
+  mysize: string = '';
+  sizes = [];
   constructor(private cartService: CartService,
-    public productService: ProductService, 
-    public data : ProductService,
+    public productService: ProductService,
+    public data: ProductService,
     public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     private router: Router,
     public modalController: ModalController) { }
 
@@ -46,62 +53,76 @@ export class DetailsPage implements OnInit {
   ngOnInit() {
     this.getProducts();
 
-   // this.items = this.cartService.getProducts();
+    // this.items = this.cartService.getProducts();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
   }
+  async toastController(message) {
+    let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
+    return toast.present();
+  }
 
-   /// taking values from db to cart
-  // addToCart( p ) {
-  //   this.cartService.addProduct( p );
-  //   console.log("pushing to Cart",event);
+  addToCart(i) {
+    console.log(i);
     
-  // }
-  addToCart(p) {
-    this.cartService.addProduct(p);
-    console.log("goes to Cart",p);
-    // if(firebase.auth().currentUser){
-    //   this.cartService.addProduct(event);
-    //   console.log("pushing to Cart",event);
-    // }else{
-    //   // this.createModalLogin();
-    // }
-   //this.alert();
-  }
+    this.dbCart.add({
+      timestamp: new Date().getTime(),
+      customerUid: this.customerUid,
+      product_name : i.obj.name,
+      size : this.sizes,
+      price: i.obj.price,
+      quantity: this.event.quantity,
+      image: i.obj.image,
 
+      // total: this.event.total
+     }).then(() => {
+      this.toastController(' product Added to cart')
+      //this.router.navigateByUrl('basket');
+    })
+      .catch(err => {
+             console.error(err);
+    });
+    this.cartItemCount.next(this.cartItemCount.value + 1);
+
+  }
+  sizeSelect(i, val, y) {
+
+   this.sizes = i.detail.value;
+
+  }
   openCart() {
-   // this.router.navigate(['cart']);
-   this.router.navigateByUrl('/trolley');
+    // this.router.navigate(['cart']);
+    this.router.navigateByUrl('/trolley');
   }
 
-  ionViewWillEnter(){
-    this.Products.push(this.data.data)  
+  ionViewWillEnter() {
+    this.Products.push(this.data.data)
   }
-   ionViewDidLoad() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad ProductPage');
   }
 
-        // retriving from firebase.firestore
-    getProducts(){
-    this.db.collection('Products').get().then(snapshot => {
-      if (snapshot.empty) {
-        this.myProduct = false;
-      } else {
-        this.myProduct = true;
-        snapshot.forEach(doc => {
-          this.event.image= doc.data().image;
-          this.event.categories = doc.data().categories;
-          this.event.name=doc.data().name;
-          this.event.price=doc.data().price;
-          this.event.productno=doc.data().productCode;
-          this.event.desc=doc.data().desc;
-          this.event.small=doc.data().small;
-          this.event.medium=doc.data().medium;
-          this.event.large=doc.data().large;
-          
-        })
-      }
-    })
+  // retriving from firebase.firestore
+  getProducts() {
+    // this.db.collection('Products').get().then(snapshot => {
+    //   if (snapshot.empty) {
+    //     this.myProduct = false;
+    //   } else {
+    //     this.myProduct = true;
+    //     snapshot.forEach(doc => {
+    //       this.event.image = doc.data().image;
+    //       this.event.categories = doc.data().categories;
+    //       this.event.name = doc.data().name;
+    //       this.event.price = doc.data().price;
+    //       this.event.productno = doc.data().productCode;
+    //       this.event.desc = doc.data().desc;
+    //       this.event.small = doc.data().small;
+    //       this.event.medium = doc.data().medium;
+    //       this.event.large = doc.data().large;
+
+    //     })
+    //   }
+    // })
   }
   async myModal() {
     const modal = await this.modalController.create({
@@ -118,6 +139,6 @@ export class DetailsPage implements OnInit {
       'dismissed': true
     });
   }
-  
+
 
 }

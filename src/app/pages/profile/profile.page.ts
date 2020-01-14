@@ -118,8 +118,6 @@ this.router.navigateByUrl('/orders');
       }
     }
   }
-
-
   getProfile(){
     this.db.collection('UserProfile').where('uid', '==', this.Users.uid).get().then(snapshot => {
       if (snapshot.empty) {

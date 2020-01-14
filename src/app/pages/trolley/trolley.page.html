@@ -172,39 +172,39 @@
   <div class="heading">
     <div class="items">
       <ion-title  >item</ion-title>
-      <div *ngFor="let p of cart" class="itemsDetails">
+      <div *ngFor="let p of cartProduct" class="itemsDetails">
         <div class="itemImage">
           <img src="{{p.image}}" width="100px" height="100px" alt="">
         </div>
         <div class="itemName">
-          <ion-label class="ionLabel" >{{ p.name }}</ion-label>
+          <ion-label class="ionLabel" >{{ p.product_name }}</ion-label>
         </div>
 
       </div>
     </div>
     <div class="qty">
       <ion-title>qty</ion-title>
-      <div *ngFor="let p of cart" class="qtyNo">
+      <div *ngFor="let p of cartProduct" class="qtyNo">
         <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
       </div>
 
     </div>
     <div class="price" >
       <ion-title>price</ion-title>
-      <div *ngFor="let p of cart" class="priceNo">
+      <div *ngFor="let p of cartProduct" class="priceNo">
         <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
     <div class="subtotal">
       <ion-title>subtotal</ion-title>
 
-      <div class="subtotalNo" *ngFor="let p of cart">
+      <div class="subtotalNo" *ngFor="let p of cartProduct">
         <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
     <div class="delete">
       <ion-title color="light"  >delete</ion-title>
-      <div class="deleteItem" *ngFor="let p of cart">
+      <div class="deleteItem" *ngFor="let p of cartProduct">
         <ion-label >
           <ion-button color="medium" fill="clear" (click)="removeCartItem(p)"> <ion-icon name="trash"> </ion-icon></ion-button>
         </ion-label>
@@ -222,7 +222,7 @@
         <ion-label  class="ionLabel"> R &nbsp; {{getTotal()}}</ion-label>
       </div>
     </div>
-    <div class="buttons">
+    <div class="buttons" >
       <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
       </ion-button>
 

@@ -169,7 +169,7 @@ async createModalRegister() {
   addToCart(event) {
     
     if(firebase.auth().currentUser){
-      this.cartService.addProduct(event);
+      //this.cartService.addProduct(event);
       console.log("pushing to Cart",event);
     }else{
       this.createModalLogin();

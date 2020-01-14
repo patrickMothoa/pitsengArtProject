@@ -47,9 +47,12 @@ export class CartService {
     return this.cartList; 
   }
  
-   addProduct(event) {
+   addProduct(name, size, price, quantity) {
     this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
-      name : event,
+      name : name,
+      size : size,
+      price: price,
+      quantity: quantity
      })
       .catch(err => {
              console.error(err);

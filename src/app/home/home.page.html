@@ -4,9 +4,9 @@
   <div class="content">
     <div class="row">
       <div class=" sidebar1">
-          <ion-button class="categories"  color="warning" fill="clear" slot="end" (click)="CountinueShoping() " >
-          <ion-icon class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
-        <ion-button class="categories"  color="medium"  fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
+          <ion-button class="categories"  color="warning" fill="clear" slot="end"  (click)="getProducts('')">
+          <ion-icon class="homeIcon" name="home" width="100" height="100" ></ion-icon></ion-button>
+        <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Vase')" slot="end">Vase</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Bowls and Pots')" slot="end">Bowls & <br> pots</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Cups and Plates')" slot="end">Mugs & plates</ion-button>
         <ion-button class="categories" color="medium"  fill="clear" (click)="getProducts('Photo Frame')" slot="end">Photo <br> frames</ion-button>
@@ -76,6 +76,9 @@
                      <div >
                         <ion-label class="price" >R{{event.obj.price}}</ion-label>
                      </div>
+                     <!-- <div *ngFor="let s of event.obj.size">
+                       <ion-label>{{s}}</ion-label>
+                   </div> -->
                      <div >
                        <ion-button color="warning" fill="clear" (click)="addToCart(event)"  (click)="myFunction()" slot="end">Add to Cart </ion-button>
                      </div>
