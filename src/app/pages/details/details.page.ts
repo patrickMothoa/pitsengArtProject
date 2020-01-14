@@ -120,13 +120,18 @@ export class DetailsPage implements OnInit {
       
       if(firebase.auth().currentUser){
         this.cartService.addProduct(p);
-        console.log("pushing to Cart",p);
+        this.dismiss()
       }else{
         this.createModalLogin();
-        this.dismiss()
       }
     }
 
+    // dismiss() {
+    //   this.modalController.dismiss({
+    //     'dismissed': true
+    //   });
+    //   }
+  
         // retriving from firebase.firestore
     getProducts(){
     this.db.collection('Products').get().then(snapshot => {

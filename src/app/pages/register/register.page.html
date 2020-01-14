@@ -40,7 +40,7 @@
 
 
 
-<ion-content padding>
+<!-- <ion-content padding>
    <div class="closeButton">
          <ion-button fill="clear"   color="medium"  float="right"	 (click)="dismiss()" slot="end">
            <ion-icon class="closeIcon" slot="icon-only" name="close"></ion-icon>
@@ -98,4 +98,59 @@
 </ion-card>
  </div>
 
-</div>
+</div> -->
+
+
+<div  class="mainContainer" >
+
+
+  
+  <div class="content" >
+       
+    <div class="formContainer">
+        <div  class="formContainer2" >
+            <div class="logo">
+                <img src="../../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" >
+              </div>
+              <div class="text" >
+                          <form [formGroup]="signupForm">
+        <ion-item  lines="none" color="transparent">
+            <ion-label><ion-icon color="medium" name="contact"></ion-icon> </ion-label>
+          <ion-input color="medium"  formControlName="email" type="email" placeholder="Your email address"
+            [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none" color="transparent" class="error-message" *ngIf="!signupForm.controls['email'].valid
+          && signupForm.controls['email'].touched">
+          <ion-title>Please enter a valid email.</ion-title>
+        </ion-item>
+    
+        <ion-item lines="none" color="transparent">
+            <ion-label ><ion-icon name="lock" color="medium" ></ion-icon> </ion-label>
+          <ion-input  color="medium"  formControlName="password" type="password" placeholder="Your password"
+            [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+          </ion-input>
+        </ion-item>
+        <ion-item lines="none"  color="transparent" class="error-message" *ngIf="!signupForm.controls['password'].valid  &&
+          signupForm.controls['password'].touched">
+          <ion-title>Your password needs more than 6 characters.</ion-title>
+        </ion-item>
+    <div class="buttons">
+        <ion-button color="warning"  padding shape="block"  (click)="signupUser(signupForm)" [disabled]="!signupForm.valid"> REGISTER</ion-button>
+        <ion-button padding  (click)="loginuser()"  fill="clear" color="medium" padding shape="block" >Have an account? Login</ion-button>
+    </div>
+      
+      </form>
+              </div>
+
+    </div>
+  
+    </div>
+  <div class="imageside" >
+      <img src="../../../assets/" alt="">
+    </div>
+  </div>
+  
+</div>     
+
+

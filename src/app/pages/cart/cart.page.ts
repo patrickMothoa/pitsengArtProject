@@ -98,6 +98,7 @@ this.total =  XXX.reduce((a, b) => a + (b.count * b.price), 0);
             console.log("inside-Order",orderDetails);
              let userID = firebase.auth().currentUser.uid;
              this.transact.memberTransact(userID,item,orderDetails);
+             
          } 
     ////// this.router.navigateByUrl('/confirmation');
         this.SuccessModal();

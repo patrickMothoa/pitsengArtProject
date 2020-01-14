@@ -19,7 +19,22 @@ export class AuthService {
        err => reject(err))
    })
   }
- 
+  signupUser(email: string, password: string): Promise<any> {
+    return firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((newUserCredential: firebase.auth.UserCredential) => {
+      firebase
+      .firestore()
+      .doc(`/userProfile/${newUserCredential.user.uid}`)
+      .set({email});
+    })
+   .catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
+
+  }
   loginUser(value){
    return new Promise<any>((resolve, reject) => {
      firebase.auth().signInWithEmailAndPassword(value.email, value.password)
