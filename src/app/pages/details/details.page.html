@@ -17,6 +17,7 @@
 </ion-button>
 </ion-header> -->
 
+
 <ion-content>
   <div class="display">
     <div class="itemsDetails" *ngFor="let p of Products">
@@ -62,13 +63,10 @@
         </div>
         <br>
         <div class="quantity-flex">
-           <ion-label>quantity</ion-label>
+           <ion-label>Quantity</ion-label>
           <div class="this">
                       <ion-input no-padding type="number" min="1" max="10" [(ngModel)]="event.quantity"></ion-input>
- 
-         
           </div>
-
         </div>
 
         <div class="buttons">

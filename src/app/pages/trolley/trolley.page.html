@@ -173,12 +173,18 @@
     <div class="items">
       <ion-title  >item</ion-title>
       <div *ngFor="let p of cart" class="itemsDetails">
-        <div class="itemImage">
-          <img src="{{p.image}}" width="100px" height="100px" alt="">
+        <div padding class="itemImage">
+          <img src="{{p.image}}" width="80px" height="75px" alt="">
+        </div>
+        <div class="code-name" >
+          <div class="itemName">
+          <ion-label padding class="ionLabel" >{{ p.name }}</ion-label>
         </div>
         <div class="itemName">
-          <ion-label class="ionLabel" >{{ p.name }}</ion-label>
+          <ion-label pading class="ionLabel" >{{ p.productCode }}</ion-label>
         </div>
+        </div>
+        
 
       </div>
     </div>

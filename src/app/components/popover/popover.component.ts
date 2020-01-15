@@ -26,11 +26,6 @@ export class PopoverComponent implements OnInit {
     this.registerBtn =  false;
     this.logoutBtn = false;
     this.profileBtn = false;
-    // this.showLogin();
-    // this.goRegister();
-    // this.openProfile();
-    // this.logOut();
-
 
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
@@ -44,15 +39,6 @@ export class PopoverComponent implements OnInit {
     await this.popoverController.dismiss();
       }
   showLogin(){
-    // if( this.loginBtn = false ){
-    //   this.createModalLogin();
-    //   console.log("at Top");
-    // }else{
-    //   console.log("at Bottom");
-    //   this.logoutBtn = true;
-    //   this.orderBtn = true;
-    //   this.profileBtn = true;
-    // }
 
     this.loginBtn = true;
     this.registerBtn =  true;
@@ -62,18 +48,6 @@ export class PopoverComponent implements OnInit {
   }
 
   goRegister(){
-    // if(this.loginBtn = false){
-    //   this.createModalRegister();
-    //   console.log("at Top");
-      
-    // }else{
-    //   console.log("at Bottom");
-    //   //this.registerBtn =  false;
-    //   this.logoutBtn = true;
-    //   this.orderBtn = true;
-    //   this.profileBtn = true;
-    // }
-
     this.loginBtn = false;
     this.registerBtn =  false;
     this.logoutBtn = false;
@@ -92,11 +66,6 @@ export class PopoverComponent implements OnInit {
   }
 
   openOrders(){
-    // this.loginBtn = true;
-    // this.registerBtn =  true;
-    // this.logoutBtn = false;
-    // this.orderBtn = false;
-    // this.profileBtn = false;
     this.router.navigateByUrl('/orders');
   }
 
@@ -108,9 +77,6 @@ export class PopoverComponent implements OnInit {
     )
   }
   logOut(){
-    // this.loginBtn = false;
-    // this.registerBtn =  false;
-    // this.profileBtn = true;
 
    firebase.auth().signOut().then(()=> {
       this.loginBtn = false;

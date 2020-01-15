@@ -136,24 +136,14 @@ public  isLogin = false;
       }
 
   showLogin(){
-    // this.loginBtn = true;
-    // this.registerBtn =  true;
-    // this.logoutBtn = false;
-    // this.orderBtn = false;
-    // this.profileBtn = false;
-    // this.router.navigateByUrl('/login');
+
     this.createModalLogin();
   }
   trolley(){
     this.createModalTrolley();
   }
   goRegister(){
-    // this.loginBtn = false;
-    // this.registerBtn =  true;
-    // this.logoutBtn = false;
-    // this.orderBtn = true;
-    // this.profileBtn = true;
-    // this.router.navigateByUrl('/register');
+ 
     this.createModalRegister();
   }
   ngOnInit() {
@@ -163,11 +153,6 @@ public  isLogin = false;
     this.cartItemCount = this.cartService.getCartItemCount();
     this.CountinueShoping();
 
-    // this.loginBtn = false;
-    // this.registerBtn =  false;
-    // this. logoutBtn = true;
-    // this.orderBtn = true;
-    // this.profileBtn = true;
   }
 
 async viewModal(){

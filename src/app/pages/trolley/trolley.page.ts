@@ -92,55 +92,55 @@ export class TrolleyPage implements OnInit {
   //   this.cartItemCount.next(this.cartItemCount.value + 1);
   // }
  
-  // removeCartItem(p) {
-  //   // this.cartService.removeProduct(p);
-  //   console.log("del");
-  //   for (let [index, p] of this.cart.entries()) {
-  //     if (this.cart) {
-  //       this.cartItemCount.next(this.cartItemCount.value - p.quantity);
-  //       this.cart.splice(index, 1);
-  //     }
-  //   }
-  // }
-
-   async removeCartItem(p) {
-      console.log('item =>',p);
-    
-      const alert = await this.alertCtrl.create({
-        header: 'Confirm!',
-        message: 'Are you sure you want to delete?',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: (blah) => {
-              console.log('Confirm Cancel: blah');
-            }
-          }, {
-            text: 'Okay',
-            handler: async () => {
-              const worker = await this.loadingCtrl.create({
-                message: 'Working',
-                spinner: 'bubbles'
-              })
-              worker.present();
-              this.db.collection('Cart').doc(p).delete().then(async res => {
-                worker.dismiss()
-                this.cart = [];
-                //this.retrieve();
-                const alerter = await this.alertCtrl.create({
-                message: 'item deleted'
-              })
-              alerter.present();
-              })
-            }
-          }
-        ]
-      });
-  
-      await alert.present(); 
+  removeCartItem(p) {
+    // this.cartService.removeProduct(p);
+    console.log("del");
+    for (let [index, p] of this.cart.entries()) {
+      if (this.cart) {
+        this.cartItemCount.next(this.cartItemCount.value - p.quantity);
+        this.cart.splice(index, 1);
+      }
+    }
   }
+
+  //  async removeCartItem(p) {
+  //     console.log('item =>',p);
+    
+  //     const alert = await this.alertCtrl.create({
+  //       header: 'Confirm!',
+  //       message: 'Are you sure you want to delete?',
+  //       buttons: [
+  //         {
+  //           text: 'Cancel',
+  //           role: 'cancel',
+  //           cssClass: 'secondary',
+  //           handler: (blah) => {
+  //             console.log('Confirm Cancel: blah');
+  //           }
+  //         }, {
+  //           text: 'Okay',
+  //           handler: async () => {
+  //             const worker = await this.loadingCtrl.create({
+  //               message: 'Working',
+  //               spinner: 'bubbles'
+  //             })
+  //             worker.present();
+  //             this.db.collection('Cart').doc(p).delete().then(async res => {
+  //               worker.dismiss()
+  //               this.cart = [];
+  //               //this.retrieve();
+  //               const alerter = await this.alertCtrl.create({
+  //               message: 'item deleted'
+  //             })
+  //             alerter.present();
+  //             })
+  //           }
+  //         }
+  //       ]
+  //     });
+  
+  //     await alert.present(); 
+  // }
 
   getTotal() {
     return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);  
