@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavController, NavParams, ModalController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
 import * as firebase from 'firebase';
@@ -12,6 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./confirmation.page.scss'],
 })
 export class ConfirmationPage implements OnInit {
+
+
+  @Input() id: any;
 
   dbOrder = firebase.firestore().collection('Order');
   dbProfile = firebase.firestore().collection('userProfile');
@@ -47,6 +50,8 @@ export class ConfirmationPage implements OnInit {
     this.key = this.navParams.get('id');
 
     console.log(this.key);
+
+    this.displayProduct(this.key); 
     
   }
 
@@ -65,6 +70,19 @@ export class ConfirmationPage implements OnInit {
 
 
   }
+
+  displayProduct(key) {
+    this.dbOrder.doc('Pitseng' + key).onSnapshot((data) => {
+      this.conArray.push(data.data());  
+    })
+
+
+    // this.conArray.forEach(i => {
+     
+      console.log("ssssssssssssssss ");
+    // })
+  }
+  
 
   dismiss() {
     // using the injected ModalController this page

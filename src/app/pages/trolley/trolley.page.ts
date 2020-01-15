@@ -181,8 +181,16 @@ export class TrolleyPage implements OnInit {
     console.log('My prod ', this.orderProd);
     
      this.SuccessModal(key);
+     this.dismiss();
     // this.cartProduct = []
   }
+
+  dismiss() {
+    this.modalController.dismiss({
+      'dismissed': true
+    });
+  }
+
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////
   stringGen(len){

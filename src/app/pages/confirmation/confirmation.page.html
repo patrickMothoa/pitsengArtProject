@@ -80,22 +80,23 @@
 		</div>
 
 		<h1>Your Order</h1>
-		<div class="line" >	
-				<div class="content">
-					<div class="oderDetails">
+		<div *ngFor="let b of conArray" class="line" >	
+			
+				<div class="content"  >
+					<div *ngFor="let li of b.product" class="oderDetails">
 						<div class="items">
 				<!-- <ion-title>item</ion-title> -->
-				<div *ngFor="let li of conArray" class="itemsDetails">
+				<div  class="itemsDetails">
 					<div class="itemName">
-						<ion-label class="ionLabel"> {{li.obj.name}}</ion-label>
+						<ion-label class="ionLabel"> {{li.product_name}}</ion-label>
 					</div>
 
 				</div>
 			</div>
 			<div class="qty">
 				<!-- <ion-title>qty</ion-title> -->
-				<div *ngFor="let li of conArray" class="qtyNo">
-					<ion-label class="ionLabel"> {{li.obj.quantity}}</ion-label>
+				<div class="qtyNo">
+					<ion-label class="ionLabel"> {{li.quantity}}</ion-label>
 				</div>
 
 			</div>
@@ -104,8 +105,8 @@
 			</div>
 			<div class="price">
 				<!-- <ion-title>price</ion-title> -->
-				<div *ngFor="let li of conArray" class="priceNo">
-					<ion-label class="ionLabel">R &nbsp; {{li.obj.price}}</ion-label>
+				<div class="priceNo">
+					<ion-label class="ionLabel">R &nbsp; {{li.price}}</ion-label>
 				</div>
 			</div>
 					</div>
@@ -118,10 +119,12 @@
 				<div>
 				</div>
 			</div>
+			
 		</div>
+	</div>
 		<div class="businessInfor">
-			<div  *ngFor="let li of conArray" class="reference" >
-				<p>your reference number {{li.details.orderNumber}} please use it for 
+			<div class="reference" >
+				<p>your reference number {{key}} please use it for 
 					paying the amount  due.
 					
 					</p>
@@ -139,7 +142,7 @@
 			<ion-button class="btn" padding color="warning" shape="round" expand="full"  (click)="logoutAlert()">done
 			</ion-button>
 		</div>
-	</div>
+	
 
 	</div>
 </ion-content> 
