@@ -202,14 +202,14 @@
         <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
-    <div class="delete">
+    <!-- <div class="delete">
       <ion-title color="light"  >delete</ion-title>
       <div class="deleteItem" *ngFor="let p of cartProduct">
         <ion-label >
           <ion-button color="medium" fill="clear" (click)="removeCartItem(p)"> <ion-icon name="trash"> </ion-icon></ion-button>
         </ion-label>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="total">
     
@@ -219,7 +219,7 @@
         <ion-label  class="ionLabel"> total amount </ion-label>
       </div>
       <div>
-        <ion-label  class="ionLabel"> R &nbsp; {{getTotal()}}</ion-label>
+        <ion-label  class="ionLabel"> R &nbsp; {{total | currency: '&#82;'}}</ion-label>
       </div>
     </div>
     <div class="buttons" >

@@ -15,12 +15,13 @@ import { Router } from '@angular/router';
 })
 export class TrolleyPage implements OnInit {
   private cartItemCount = new BehaviorSubject(0);
-  db = firebase.firestore();
+
   cart = [];
   myArr = [];
-  total = 1;
+  total = 0;
   dbCart = firebase.firestore().collection('Cart');
   dbOrder = firebase.firestore().collection('Order');
+  dbUser = firebase.firestore().collection('UserProfile');
   cartProduct = [];
   orderProd = [];
   constructor(public modalController: ModalController,
@@ -49,16 +50,24 @@ export class TrolleyPage implements OnInit {
 
   }
 
+  ionViewWillLeave(){
+   this.cartProduct = [];
+  }
+
+
+
   getProducts() {
 
-
+   
     this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
       this.cartProduct = [];
       res.forEach((doc)=>{
         this.cartProduct.push(doc.data());
+
+        this.total = this.total + parseFloat(doc.data().price);
       })
 
-      console.log('My products in cart ',this.cartProduct);
+      // console.log('My products in cart ',this.cartProduct);
       
     })
   }
@@ -105,7 +114,7 @@ export class TrolleyPage implements OnInit {
   // }
  
   getTotal() {
-    return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);  
+     this.total;
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -113,24 +122,27 @@ export class TrolleyPage implements OnInit {
   //////////////////////// group orders together.
 
   placeOrder(){
-
-
     this.orderProd=[];
+    let key = Math.floor(Math.random()*100000);
    //let item = {name:'', size:[],quantity:'',image:''}
    for (let j = 0; j < this.cartProduct.length; j++) {
-    //console.log('Products ', this.cartProduct[j]);
+    console.log('Products ', this.cartProduct[j]);
     this.orderProd.push(this.cartProduct[j]);
    }
-   this.dbOrder.doc('Pitseng'+Math.floor(Math.random()*100000)).set({
+   this.dbOrder.doc('Pitseng'+ key).set({
      date: new Date().getTime(),
-     product: this.orderProd
+     product: this.orderProd,
+     userID: firebase.auth().currentUser.uid}).then(() => {
+          this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
+            res.forEach((i)=>{
+              this.dbCart.doc(i.id).delete();
+            })
+          })
    })
-    //console.log('My prod ', this.orderProd);
+    console.log('My prod ', this.orderProd);
     
-    //this.SuccessModal();
-
-    firebase.firestore().collection("Cart")
-    this.cartProduct = []
+     this.SuccessModal(key);
+    // this.cartProduct = []
   }
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////
@@ -149,9 +161,10 @@ export class TrolleyPage implements OnInit {
     return  modal.present();
   }
   
-  async SuccessModal() {
+  async SuccessModal(key) {
     const modal = await this.modalController.create({
       component: ConfirmationPage,
+      componentProps: {id : key},
       cssClass: 'my-custom-modal-css'
     });
     return await modal.present();

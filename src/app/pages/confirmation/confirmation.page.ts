@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
 import * as firebase from 'firebase';
 import { ProductService } from 'src/app/services/product.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-confirmation',
@@ -11,9 +12,14 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ConfirmationPage implements OnInit {
 
-  db = firebase.firestore();
+  dbOrder = firebase.firestore().collection('Order');
+  dbProfile = firebase.firestore().collection('userProfile');
+  uid = firebase.auth().currentUser.uid;
+  myOrder = [];
+  doc_id: string;
+  orderNumber: string;
   public totalpay: number = 0;
-  public orderNumber;
+
 
   Orders = [];
   conArray =[]
@@ -35,8 +41,12 @@ export class ConfirmationPage implements OnInit {
   storage;
 
 
-  constructor( public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
+  key: string;
+  constructor(private navParams: NavParams, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
+    this.key = this.navParams.get('id');
 
+    console.log(this.key);
+    
   }
 
   ionViewDidLoad() {
@@ -46,44 +56,12 @@ export class ConfirmationPage implements OnInit {
 
   ngOnInit() {
 
-    let  obj = {
-      details : {orderNumber : 0, total : 0, orderdate : ""},
-      obj : {
-        categories : "", price : "", productNumber : "", quantity : 0,name : ""
-      }
-    }
+   /*  this.dbOrder.doc(this.doc_id).onSnapshot((res) => {
+      this.myOrder.push(res.data());
+      this.orderNumber = res.id;
+    }) */
+    // console.log('My order is', this.myOrder);
 
-
-    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
-      this.conArray = [];
-      res.forEach((doc)=>{
-
-        obj.details.orderNumber = doc.data().details.orderNumber;
-        obj.details.total = doc.data().details.total;
-        obj.details.orderdate = doc.data().details.orderdate;
-        obj.obj.categories = doc.data().obj.categories;
-        obj.obj.price = doc.data().obj.price;
-        obj.obj.productNumber = doc.data().obj.productNumber;
-        obj.obj.quantity = doc.data().obj.quantity;
-        obj.obj.name = doc.data().obj.name;
-
-        this.conArray.push(obj);
-        obj = {
-          details : {orderNumber : 0, total : 0, orderdate : ""},
-          obj : {
-            categories : "", price : "", productNumber : "", quantity : 0, name : ""
-          }
-        }
-         console.log('My array ', this.conArray);
-      })  
-  })
- 
-    setTimeout(() => {
-      this.conArray.forEach((item)=>{
-        this.Orders.push(item)
-      })
-      // console.log('My array ', this.Orders);
-    }, 1500);
   }
 
   dismiss() {

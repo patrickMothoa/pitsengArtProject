@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pages.module').then( m => m.PagesPageModule)
   },
   {
-    path: 'confirmation',
+    path: 'confirmation/:key',
     loadChildren: () => import('./pages/confirmation/confirmation.module').then( m => m.ConfirmationPageModule)
   },
   {
