@@ -75,11 +75,8 @@
                      <div >
                         <ion-label class="price" >R{{event.obj.price}}</ion-label>
                      </div>
-                     <!-- <div *ngFor="let s of event.obj.size">
-                       <ion-label>{{s}}</ion-label>
-                   </div> -->
-                     <div >
-                       <ion-button color="warning" fill="clear" (click)="addToCart(event)"  (click)="myFunction()" slot="end">Add to Cart </ion-button>
+                     <div  >
+                       <ion-button class="card-button" color="warning" fill="clear" (click)="ViewDetails(event)" slot="end"> View More</ion-button>
                      </div>
             </div>
           </div>
