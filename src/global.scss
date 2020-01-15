@@ -26,5 +26,26 @@
 @import "~@ionic/angular/css/flex-utils.css";
 .my-custom-modal-css .modal-wrapper{
     --width: 50%;
-    --height:82%
+    --height:82%;
+    --min-width:750px;
+}
+.my-custom-trolley-css .modal-wrapper{
+    --width: 80%;
+    --height:80%;
+
+}
+.my-confirmation .modal-wrapper{
+    box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
+    border-radius: 15px;
+    --width: 30%;
+    --height:80%;
+
+}
+.my-confirmation .modal-wrapper :hover{
+    transform: scale(1);
+  }
+.pop-over-style{
+    --ion-safe-area-top: 10px;
+    --ion-safe-area-bottom: ;
+  
 }

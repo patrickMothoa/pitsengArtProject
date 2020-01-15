@@ -19,7 +19,8 @@ export class OrdersPage implements OnInit {
   public postSort='recent';
   public userID;
   public userTransact: any;
-  constructor(public modalController : ModalController,public data: ProductService, public transact: TransactionService,  public alertCtrl: AlertController) {
+  myArray =[]
+  constructor(public ProductService: ProductService,public modalController : ModalController,public data: ProductService, public transact: TransactionService,  public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -39,6 +40,21 @@ export class OrdersPage implements OnInit {
     this.createModal();
   }
 
+
+//   ViewDetails(orderNumber) {
+//     console.log("cheking", orderNumber);
+
+//       this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').where('orderNumber', '==', orderNumber).get().then((data) => {
+//        console.log("xxx", data);
+//         console.log("checks inside", 'orderNumber', '==', orderNumber );
+//       this.ProductService.myArray = this.conArray
+//       console.log('Arrays values', this.ProductService.myArray);
+//       })
+//       this.ProductService.myArray.forEach(i => {
+//         console.log("data from the service ", i);
+//       })
+//       this.createModal(); 
+// }
   
   async createModal() {
     const modal = await this.modalController.create({
@@ -72,38 +88,46 @@ async  deleteItem(li){
   }
 
   ngOnInit() {
-    ///
-    let  obj = {
-      details : {orderNumber : 0, total : 0, orderdate : ""},
-      obj : {
-        categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
-      }
-    }
+   this.GetOrders();
+  }
 
-
-    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
-      this.conArray = [];
-      res.forEach((doc)=>{
-
-        obj.details.orderNumber = doc.data().details.orderNumber;
-        obj.details.total = doc.data().details.total;
-        obj.details.orderdate = doc.data().details.orderdate;
-        this.conArray.push(obj);
-        obj = {
+  GetOrders(){
+        let  obj = {
           details : {orderNumber : 0, total : 0, orderdate : ""},
           obj : {
-            categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
+            categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
           }
         }
-         console.log('My array ', this.conArray);
-      })  
-  })
- 
-    setTimeout(() => {
-      this.conArray.forEach((item)=>{
-        this.Orders.push(item)
+    
+        this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
+          this.conArray = [];
+          res.forEach((doc)=>{
+    
+            obj.details.orderNumber = doc.data().details.orderNumber;
+            obj.details.total = doc.data().details.total;
+            obj.details.orderdate = doc.data().details.orderdate;
+            obj.obj.name = doc.data().obj.name;
+            obj.obj.price = doc.data().obj.price;
+            obj.obj.quantity = doc.data().obj.quantity;
+            obj.obj.productNumber = doc.data().obj.productNumber;
+            obj.obj.image = doc.data().obj.image;
+            this.conArray.push(obj);
+            obj = {
+              details : {orderNumber : 0, total : 0, orderdate : ""},
+              obj : {
+                categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
+              }
+            }
+             console.log('My array ', this.conArray);
+          })  
       })
-    }, 1500);
+     
+        setTimeout(() => {
+          this.conArray.forEach((item)=>{
+            this.Orders.push(item)
+          })
+        }, 1500);
   }
+
 
 }

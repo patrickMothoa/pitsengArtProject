@@ -21,7 +21,8 @@ import { popoverController } from '@ionic/core';
 import { PopoverComponent } from './components/popover/popover.component';
 import { LoginPageModule } from './pages/login/login.module';   
 import { RegisterPageModule } from './pages/register/register.module';
-
+import { TrolleyPageModule } from './pages/trolley/trolley.module';
+import { Popover1Component } from './components/popover1/popover1.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEdqt_gOew6SACcVm3xMXETdQxxbdbLJE",
@@ -45,10 +46,10 @@ firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
 @NgModule({
-  declarations: [AppComponent,PopoverComponent ],
-  entryComponents: [PopoverComponent],
+  declarations: [AppComponent,PopoverComponent ,Popover1Component],
+  entryComponents: [PopoverComponent,Popover1Component],
   imports: [BrowserModule,FormsModule,HttpClientModule, ReactiveFormsModule, IonicModule.forRoot(),
-     AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule, LoginPageModule,RegisterPageModule],
+     AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule, LoginPageModule,RegisterPageModule,TrolleyPageModule],
   providers: [
     StatusBar,
     AuthService ,

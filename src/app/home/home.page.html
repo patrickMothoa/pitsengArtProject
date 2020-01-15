@@ -1,5 +1,5 @@
 
-<ion-content>
+
   <div class="container">
   <div class="content">
     <div class="row">
@@ -23,14 +23,14 @@
                   <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" (click)="CountinueShoping() " >
                 </div>
           <div class="navBarItems">
-              
+              <div id="snackbar">Product added to cart</div>
             <div>
               <ion-searchbar  placeholder="Search Products" [(ngModel)]='myDest' (ionChange)='SearchProducts($event);'
                 value=""></ion-searchbar>
               <!-- <ion-icon style="float: right; padding: 10px;" name="close" (click)="HideButton()"></ion-icon> -->
               <ion-list [style.display]="!myDest ? 'none' : 'block'" class="list" [hidden]="autocompleteItemz.length == 0">
                 <div *ngIf="autocompleteItemz.length > 0">
-                  <ion-item padding *ngFor="let item of autocompleteItemz" tappable id="submit"
+                  <ion-item  *ngFor="let item of autocompleteItemz" tappable id="submit"
                     (click)="ViewDetails(item)">
                     <ion-avatar>
                       <img src="{{item.obj.image}}" alt="" height="500px" width="500px">
@@ -41,34 +41,33 @@
               </ion-list>
             </div>
             <div>
-                <!-- <ion-button fill="clear" (click)=" presentPopover()" slot="end"><ion-icon name="person"></ion-icon></ion-button> -->
-              <ion-button *ngIf="!loginBtn" color="warning" fill="clear" (click)="showLogin()">Login </ion-button>
-              <ion-button *ngIf="!registerBtn" color="warning" fill="clear" (click)="goRegister()">Register</ion-button>
-              <ion-button     fill="clear"  color="warning" fill="clear" (click)="openOrders()" slot="end">Orders</ion-button>
-              <ion-button *ngIf="!profileBtn"   fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Profile</ion-button>
-                    <ion-button fill="clear" (click)="openCart()">
+         
+                <ion-button fill="clear"  color="warning" (click)=" presentPopover($event)" slot="end"><ion-icon name="person"></ion-icon></ion-button>
+              
+                <ion-button fill="clear" (click)="trolley()">
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
-              </ion-button>
+                </ion-button>
               <!-- <ion-buttons fill="clear">
                 <ion-button  fill="clear" (click)="openCart()">
                     <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
                     <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
                 </ion-button>
-            </ion-buttons> -->
-              <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button>
+              </ion-buttons> -->
+         <!-- <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button> -->
         
             </div>
           </div>
         </div>
-        
-        <div class="container1">
+        <ion-content scroll="true" class="ionContent" >
+          <div *ngIf="!myProduct" class="empty" >
+            <ion-title >This product is not available  currently.</ion-title>
+          </div>
+        <div class="  container1">
           <div class="categories-block" *ngFor="let event of Products">
             <div class="myProduct" *ngIf="myProduct">
-              <ion-card no-padding >
-               
                   <ion-title no-padding (click)="ViewDetails(event)">
-                    <img no-padding src="{{event.obj.image}}" alt="" height="350" width="300">
+                    <img class="image" no-padding src="{{event.obj.image}}" height="350px" alt="" >
                   </ion-title>
                    <div >
                       <ion-label padding color="medium" class="name" > {{event.obj.name}}</ion-label> 
@@ -82,15 +81,15 @@
                      <div >
                        <ion-button color="warning" fill="clear" (click)="addToCart(event)"  (click)="myFunction()" slot="end">Add to Cart </ion-button>
                      </div>
-              </ion-card>
             </div>
           </div>
         </div>
+      </ion-content>
       </div>
     </div>
   </div>
 </div>
-<div class="info" >
+<!-- <div class="info" >
   <ion-card  *ngFor = "let admin of Info">
     <ion-item>
          Telephone {{admin.phoneNumber}}  |
@@ -98,5 +97,5 @@
          Email Address {{admin.email}} |
     </ion-item>
   </ion-card>
-</div>
-</ion-content>
+</div> -->
+

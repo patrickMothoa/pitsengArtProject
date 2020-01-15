@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {NavController, ModalController, PopoverController} from '@ionic/angular';
+import {NavController, ModalController, PopoverController,ToastController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -9,10 +9,13 @@ import { AlertController } from '@ionic/angular';
 import { DetailsPage } from '../pages/details/details.page';
 import { BehaviorSubject } from 'rxjs';
 import { PopoverComponent } from '../components/popover/popover.component';
+import { Popover1Component } from '../components/popover1/popover1.component';
 import { log } from 'util';
 import { LoginPage } from '../pages/login/login.page';
 import { RegisterPage } from '../pages/register/register.page';
 import Swal from 'sweetalert2';
+import { TrolleyPage } from '../pages/trolley/trolley.page';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 declare var window
 
@@ -38,16 +41,17 @@ export class HomePage {
     medium:'',
     large: ''
   };
+  toastr
 
   Products = [];
   supplier
   myProduct = false;
      ////
-  loginBtn = false;
-  registerBtn =  false;
-  logoutBtn = false;
-  orderBtn = false;
-  profileBtn = false;
+  // loginBtn = false;
+  // registerBtn =  false;
+  // logoutBtn = false;
+  // orderBtn = false;
+  // profileBtn = false;
     /////
   sliderConfig = {
     slidesPerView: 1.6,
@@ -69,15 +73,18 @@ public  isLogin = false;
 
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
+  active: boolean;
 
-  constructor( public alertController: AlertController,public popoverController: PopoverController,
+  constructor( public alertController: AlertController, public toastController: ToastController,
+    public popoverController: PopoverController,
     // public authService: AuthService,
     private navCtrl:NavController,
     public data: ProductService,
     private cartService: CartService,
     private router: Router, 
     public productService: ProductService,
-    public modalController: ModalController) {
+    public modalController: ModalController,
+    ) {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
 
@@ -87,31 +94,56 @@ public  isLogin = false;
 
   }
 
-  async presentPopover(ev: any) {
+
+  
+ 
+  async presentPopover(ev) {
     const popover = await this.popoverController.create({
       component:PopoverComponent,
       event: ev,
-      translucent: true
+      cssClass: 'pop-over-style',
+      translucent: true,
     });
     return await popover.present();
+    
+  }
+  async toastPopover(ev) {
+    const popover = await this.popoverController.create({
+      component:Popover1Component,
+      event: ev,
+      
+      // cssClass: 'pop-over-style',
+      translucent: true,
+    });
+    
+   popover.present();
+    setTimeout(()=>popover.dismiss(),500);
+    
+
+    
+  }
+  async presentToast(ev:any) {
+    const toast = await this.toastController.create({
+      message: 'Your settings have been saved.',
+    
+      duration: 2000
+    });
+    toast.present();
   }
 
+  async DismissClick() {
+    await this.popoverController.dismiss();
+      }
+
   showLogin(){
-    this.loginBtn = true;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = false;
-    this.profileBtn = false;
-    // this.router.navigateByUrl('/login');
+
     this.createModalLogin();
   }
+  trolley(){
+    this.createModalTrolley();
+  }
   goRegister(){
-    this.loginBtn = false;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = true;
-    this.profileBtn = true;
-    // this.router.navigateByUrl('/register');
+ 
     this.createModalRegister();
   }
   ngOnInit() {
@@ -119,12 +151,8 @@ public  isLogin = false;
     this.getProduct();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.CountinueShoping();
 
-    this.loginBtn = false;
-    this.registerBtn =  false;
-    this. logoutBtn = true;
-    this.orderBtn = true;
-    this.profileBtn = true;
   }
 
 async viewModal(){
@@ -164,10 +192,17 @@ async createModalRegister() {
   });
   return await modal.present();
 }
+async createModalTrolley() {
+  const modal = await this.modalController.create({
+    component: TrolleyPage,
+    cssClass: 'my-custom-trolley-css'
+  
+  });
+  return await modal.present();
+}
 
    /// taking values db to cart import
   addToCart(event) {
-    
     if(firebase.auth().currentUser){
       //this.cartService.addProduct(event);
       console.log("pushing to Cart",event);
@@ -183,11 +218,11 @@ async createModalRegister() {
   }
  
   openOrders(){
-    this.loginBtn = true;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = false;
-    this.profileBtn = false;
+    // this.loginBtn = true;
+    // this.registerBtn =  true;
+    // this.logoutBtn = false;
+    // this.orderBtn = false;
+    // this.profileBtn = false;
     this.router.navigateByUrl('/orders');
   }
 
@@ -195,11 +230,11 @@ async createModalRegister() {
 
 
   openProfile(){
-    this.loginBtn = true;
-    this.registerBtn =  true;
-    this.logoutBtn = false;
-    this.orderBtn = false;
-    this.profileBtn = false;
+    // this.loginBtn = true;
+    // this.registerBtn =  true;
+    // this.logoutBtn = false;
+    // this.orderBtn = false;
+    // this.profileBtn = false;
 
     this.router.navigateByUrl('/profile');
   }
@@ -216,11 +251,18 @@ async createModalRegister() {
       // retriving from firebase.firestore
   getProducts(categories) {
         let obj = {id : '', obj : {}};
+
+
+        if(categories == 'Vase') {
+           this.active = true;
+        }
+
         if(categories) {
           this.db.collection('Products').where('categories', '==', categories).get().then((snapshot) => {
             this.Products = [];
             if (snapshot.empty) {
                     this.myProduct = false;
+                  //  alert('the are no Vase')
                     console.log(" Category is Empty...")
                   } else {
                     this.myProduct = true;
@@ -301,11 +343,11 @@ SearchProducts(ev: CustomEvent){
 
 logOut(){
   firebase.auth().signOut().then(()=> {
-    this.loginBtn = false;
-    this.registerBtn =  false;
-    this. logoutBtn = true;
-    this.orderBtn = true;
-    this.profileBtn = true;
+    // this.loginBtn = false;
+    // this.registerBtn =  false;
+    // this. logoutBtn = true;
+    // this.orderBtn = true;
+    // this.profileBtn = false;
     // Sign-out successful.
     this.router.navigateByUrl('/');
   }).catch((error)=> {
@@ -340,23 +382,18 @@ this.db.collection('admins').get().then(snapshot => {
 
 CountinueShoping(){
   this.router.navigateByUrl('/');
+  
 }
 
 
  addCart(){
   var cart = document.getElementById("toast-cart");
 cart.classList.add("show");
-cart.innerHTML = '<i class="fas fa-shopping-cart cart"></i> Product added to cart';
 setTimeout(function(){
 cart.classList.remove("show");
 }, 3000);
 }
 
- myFunction() {
-  var x = document.getElementById("snackbar");
-  x.className = "show";
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 500);
-}
 
 
 
@@ -379,4 +416,6 @@ cart.classList.remove("show");
 //   cart.classList.remove("show");
 // }, 3000);
 // }
+
+
 }

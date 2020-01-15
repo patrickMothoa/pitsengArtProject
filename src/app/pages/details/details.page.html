@@ -1,11 +1,12 @@
 <div class="closeButton" align="right">
   <div class="closeButton">
-    <ion-button fill="clear"   color="medium"  float="right"	 (click)="dismiss()"   slot="end">
+    <ion-button fill="clear" color="medium" float="right" (click)="dismiss()" slot="end">
       <ion-icon class="closeIcon" slot="icon-only" name="close"></ion-icon>
-      </ion-button>
- </div>
+    </ion-button>
+  </div>
 
 </div>
+
 
 <ion-content>
   <div class="display">
@@ -15,11 +16,11 @@
       </div>
       <div class="info">
         <div class="name">
-          <ion-title   no-padding class="prodName">{{p.obj.name}}</ion-title>
+          <ion-title no-padding class="prodName">{{p.obj.name}}</ion-title>
           <p class="prodCode">code:&nbsp; {{p.obj.productCode}}</p>
         </div>
         <div class="price">
-          <ion-label   class="prodPrice"  > R &nbsp;{{p.obj.price}}</ion-label>
+          <ion-label class="prodPrice"> R &nbsp;{{p.obj.price}}</ion-label>
         </div>
         <div class="desc">
           <p class="proDesc">{{p.obj.desc}}</p>

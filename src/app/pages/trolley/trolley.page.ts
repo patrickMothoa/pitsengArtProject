@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ToastController, LoadingController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { ConfirmationPage } from '../confirmation/confirmation.page';
 import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginPage } from '../login/login.page';
 
 @Component({
   selector: 'app-trolley',
@@ -26,7 +27,7 @@ export class TrolleyPage implements OnInit {
   orderProd = [];
   constructor(public modalController: ModalController,
     private cartService: CartService, private alertCtrl: AlertController, 
-    public data : ProductService,public transact: TransactionService, private router: Router, ) {
+    public data : ProductService,public transact: TransactionService, private router: Router,public toastController : ToastController ) {
    }
  
   ngOnInit() {
@@ -102,17 +103,56 @@ export class TrolleyPage implements OnInit {
   //   this.cartItemCount.next(this.cartItemCount.value + 1);
   // }
  
-  // removeCartItem(p) {
-  //   // this.cartService.removeProduct(p);
-  //   console.log("del");
-  //   for (let [index, p] of this.cart.entries()) {
-  //     if (this.cart) {
-  //       this.cartItemCount.next(this.cartItemCount.value - p.quantity);
-  //       this.cart.splice(index, 1);
-  //     }
-  //   }
+  removeCartItem(p) {
+    // this.cartService.removeProduct(p);
+    console.log("del");
+    for (let [index, p] of this.cart.entries()) {
+      if (this.cart) {
+        this.cartItemCount.next(this.cartItemCount.value - p.quantity);
+        this.cart.splice(index, 1);
+      }
+    }
+  }
+
+  //  async removeCartItem(p) {
+  //     console.log('item =>',p);
+    
+  //     const alert = await this.alertCtrl.create({
+  //       header: 'Confirm!',
+  //       message: 'Are you sure you want to delete?',
+  //       buttons: [
+  //         {
+  //           text: 'Cancel',
+  //           role: 'cancel',
+  //           cssClass: 'secondary',
+  //           handler: (blah) => {
+  //             console.log('Confirm Cancel: blah');
+  //           }
+  //         }, {
+  //           text: 'Okay',
+  //           handler: async () => {
+  //             const worker = await this.loadingCtrl.create({
+  //               message: 'Working',
+  //               spinner: 'bubbles'
+  //             })
+  //             worker.present();
+  //             this.db.collection('Cart').doc(p).delete().then(async res => {
+  //               worker.dismiss()
+  //               this.cart = [];
+  //               //this.retrieve();
+  //               const alerter = await this.alertCtrl.create({
+  //               message: 'item deleted'
+  //             })
+  //             alerter.present();
+  //             })
+  //           }
+  //         }
+  //       ]
+  //     });
+  
+  //     await alert.present(); 
   // }
- 
+
   getTotal() {
      this.total;
   }
@@ -156,7 +196,7 @@ export class TrolleyPage implements OnInit {
 
   async viewModal(){
     const modal = await this.modalController.create({
-      component: ConfirmationPage
+      component: ConfirmationPage,
     });
     return  modal.present();
   }
@@ -170,11 +210,29 @@ export class TrolleyPage implements OnInit {
     return await modal.present();
   }
   CountinueShoping(){
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('home');
+  }
+  async DismissClick() {
+    await this.modalController.dismiss();
+      }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your order processed successfully..',
+      duration: 2000
+    });
+    toast.present();
   }
 
   clear(){
     this.cart = [];
+  }
+  async createModalTrolley() {
+    const modal = await this.modalController.create({
+      component: TrolleyPage,
+    
+    });
+    return await modal.present();
   }
 
 }

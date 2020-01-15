@@ -1,4 +1,4 @@
-<ion-content>
+<!-- <ion-content>
   <h1>Manage Profile</h1>
   <div *ngIf="!isprofile" class="profile-form">
     <ion-item>
@@ -37,7 +37,6 @@
     </div>
     <div class="details">
       <h1>{{profile.name}}</h1>
-      <!-- <p>logged-in as <b>{{profile.position}}</b></p> -->
       <p>{{profile.address}}</p>
       <div class="details">
         <p>{{profile.email}}</p> <p>{{profile.PhoneNumber}}</p>
@@ -49,4 +48,101 @@
 
       <ion-button (click)="Orders()" slot="end">Orders</ion-button>
   </div>
-</ion-content>
+</ion-content> -->
+
+
+
+  <div class="container">
+  <div class="content">
+    <div class="row">
+      <div class=" sidebar1">
+          <ion-button class="categories"  color="warning" fill="clear" slot="end" (click)="CountinueShoping() " >
+          <ion-icon  id="1" class="homeIcon" name="home"  width="100" height="100" ></ion-icon></ion-button>
+
+      </div> 
+      <div class="main-content">
+        <div class="thisContent" >
+                   <div class="logo">
+                  <img src="../../assets/logo2.jpg" class="img-responsive center-block" alt="Logo" width="100" height="100" (click)="CountinueShoping() " >
+                </div>
+          <div class="navBarItems">
+            <div>
+                <ion-button fill="clear"  color="warning" (click)=" presentPopover($event)" slot="end"><ion-icon name="person"></ion-icon></ion-button>
+           
+                    <ion-button fill="clear" (click)="trolley()">
+                <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
+                <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
+              </ion-button>        
+            </div>
+          </div>
+        </div>
+        <ion-content scroll='true' >
+        <div class="profile-field" >
+          <div class="profile-content" >
+          <div class="profile-field-content" >
+            <div class="cover-photo" >
+              <img class="cover-image" src="../../../assets/f77392832f13b428f45dd4b7b43ebe6f.jpg" alt="">
+            </div>
+            <div class="profile-picture">
+               <div  >
+              <img class="ppc" src="../../../assets/435dc662ea9048007ec3fa59882dde66.jpg" height="500px" width="500px" alt="">
+            </div>
+            <div class="labelN" >
+                <div class="Name-label" >
+              <!-- <ion-label>name</ion-label> -->
+            </div>
+            </div>
+          
+            </div>
+            <div class="details-section" >
+
+            <div class="Account-details" >
+              <h5>Account details</h5>
+              <div class="details" >
+                <div>
+                  <ion-label>Jackmabaso@gmail.com</ion-label>
+                </div>
+                <div>
+                  <ion-label>123 Generation street soweto 2838</ion-label>
+                </div>
+                <div>
+                  <ion-label>0712 123 1232</ion-label>
+                </div>
+              </div>
+
+            </div>
+            <div  class="Account-history" (click)="ViewDetails(li)" >
+              <h5>oder history</h5>
+              <ion-card  *ngFor="let li of conArray" class="Account-history" class="history" >
+                <div>
+                  <ion-label> {{li.details.orderNumber}}</ion-label>
+                </div>
+                <div>
+                  <ion-label>{{li.details.orderdate}}</ion-label>
+                </div>
+              </ion-card>
+
+            </div>
+            
+           </div>
+
+          </div>
+          </div>
+
+        </div>
+      </ion-content>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="info" >
+  <ion-card  *ngFor = "let admin of Info">
+    <ion-item>
+         Telephone {{admin.phoneNumber}}  |
+         Physical Address {{admin.address}} |
+         Email Address {{admin.email}} |
+    </ion-item>
+  </ion-card>
+</div> -->
+
+

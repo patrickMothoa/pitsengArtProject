@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "pitsengproject"
+    "default": "pitsengproject",
+    "hosting": "projectwebapp-680bc"
   }
 }

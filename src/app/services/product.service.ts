@@ -27,6 +27,8 @@ export class ProductService {
 
   cart = [];
   Products = [];
+  myArray = [];
+
   constructor(public authService: AuthService,public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     this.getProductList();
   }

@@ -13,21 +13,13 @@ db = firebase.firestore();
 Orders = []
 conArray = []
 PList = []
-  constructor(public data : ProductService,public modalController: ModalController) { }
+  constructor(public ProductService: ProductService,public data : ProductService,public modalController: ModalController) { }
 
   ngOnInit() {
     this.DetailsHere();
-  
+    // this.conArray = this.ProductService.myArray;
+    // console.log("Data from Service",   this.conArray);
   }
-
-//   Pulling(productNumber){
-//     this.db.collection("Users").doc(productNumber).collection("Orders").onSnapshot(w => {
-//       w.forEach(d => {
-//         console.log("sssssss ", d.data());
-        
-//       })
-//     })
-//  }
 
 
 DetailsHere(){
@@ -37,7 +29,6 @@ DetailsHere(){
       categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
     }
   }
-
 
   this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
     this.conArray = [];
@@ -68,6 +59,7 @@ DetailsHere(){
     })
   }, 1500);
 }
+
 dismiss() {
 this.modalController.dismiss({
   'dismissed': true

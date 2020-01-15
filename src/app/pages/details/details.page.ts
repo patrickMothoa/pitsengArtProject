@@ -6,6 +6,9 @@ import { AlertController, ModalController, ToastController } from '@ionic/angula
 import { CartService } from 'src/app/services/cart.service';
 import { HomePage } from 'src/app/home/home.page';
 import { BehaviorSubject } from 'rxjs';
+import { Popover1Component } from 'src/app/components/popover1/popover1.component';
+import { LoginPage } from '../login/login.page';
+import { RegisterPage } from '../register/register.page';
 
 @Component({
   selector: 'app-details',

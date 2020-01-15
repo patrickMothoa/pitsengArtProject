@@ -7,9 +7,9 @@
 				</div>
 			   
 			  </div>
-</ion-header> -->
+</ion-header>
 
-<!-- 
+
 <ion-content padding>
 	<div class="main-container">
 		<div class="message">
@@ -74,49 +74,72 @@
 		<div class="message">
 			<ion-title>Payment</ion-title>
 
-			<h5>Thank you for Shopping with PitsengArt!</h5>
-			<p>You will receive your order after your payments.</p>
+			
+			<p></p>
 
 		</div>
 
-<h1>Your Order</h1>
-		<div class="oderDetails">
-			<div class="items">
-				<ion-title  >item</ion-title>
+		<h1>Your Order</h1>
+		<div class="line" >	
+				<div class="content">
+					<div class="oderDetails">
+						<div class="items">
+				<!-- <ion-title>item</ion-title> -->
 				<div *ngFor="let li of conArray" class="itemsDetails">
-				  <div class="itemName">
-					<ion-label class="ionLabel" > {{li.obj.name}}</ion-label>
-				  </div>
-		  
+					<div class="itemName">
+						<ion-label class="ionLabel"> {{li.obj.name}}</ion-label>
+					</div>
+
 				</div>
-			  </div>
-			  <div class="qty">
-				<ion-title>qty</ion-title>
+			</div>
+			<div class="qty">
+				<!-- <ion-title>qty</ion-title> -->
 				<div *ngFor="let li of conArray" class="qtyNo">
-				  <ion-label class="ionLabel"> {{li.obj.quantity}}</ion-label>
+					<ion-label class="ionLabel"> {{li.obj.quantity}}</ion-label>
 				</div>
-		  
-			  </div>
-			  <div class="price">
-				<ion-title>price</ion-title>
+
+			</div>
+			<div>
+
+			</div>
+			<div class="price">
+				<!-- <ion-title>price</ion-title> -->
 				<div *ngFor="let li of conArray" class="priceNo">
-				  <ion-label class="ionLabel">{{li.obj.price}}</ion-label>
+					<ion-label class="ionLabel">R &nbsp; {{li.obj.price}}</ion-label>
 				</div>
-			  </div>
-		</div>
-		<div class="total-amount" >
-			<div>
-				<ion-label>Total Amount</ion-label>
 			</div>
-			<div>
-				
+					</div>
+		
+			<div class="total-amount">
+				<div>
+					<ion-label>Total Amount: R 1234 </ion-label>
+				</div>
+
+				<div>
+				</div>
 			</div>
- 
 		</div>
+		<div class="businessInfor">
+			<div  *ngFor="let li of conArray" class="reference" >
+				<p>your reference number {{li.details.orderNumber}} please use it for 
+					paying the amount  due.
+					
+					</p>
+			</div>
+			<div class="bankDetails" > 
+				<p>Account Holder : Mr Pitseng</p>
+				<p>Account Number : 1234567891011</p>
+				<p>Bank Name : ABSA</p>
+				<p>Branch Name : Soweto</p>
+				<p>Branch Code : 23055</p>
+			</div> 
 
-
+		</div>
+		<div class="buttonDismiss" >
+			<ion-button class="btn" padding color="warning" shape="round" expand="full"  (click)="logoutAlert()">done
+			</ion-button>
+		</div>
 	</div>
 
+	</div>
 </ion-content> 
-
-
