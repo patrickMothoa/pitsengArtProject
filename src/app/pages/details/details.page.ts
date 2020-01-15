@@ -65,9 +65,9 @@ export class DetailsPage implements OnInit {
     return toast.present();
   }
 
+  
   addToCart(i) {
     console.log(i);
-    
     this.dbCart.add({
       timestamp: new Date().getTime(),
       customerUid: this.customerUid,
@@ -81,6 +81,7 @@ export class DetailsPage implements OnInit {
      }).then(() => {
       this.toastController(' product Added to cart')
       //this.router.navigateByUrl('basket');
+      this.dismiss();
     })
       .catch(err => {
              console.error(err);
@@ -135,9 +136,6 @@ export class DetailsPage implements OnInit {
   }
 
   dismiss() {
-    console.log("clicked")
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
       'dismissed': true
     });
