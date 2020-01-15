@@ -13,18 +13,19 @@
 <ion-label>Order History </ion-label>
       
 <ion-list >
-    <ion-card  *ngFor="let li of conArray">
-      <!-- <ion-card *ngFor="let li of PList"> -->
+  <div *ngFor="let b of conArray" class="line" >
+    <div  *ngFor="let li of b.product">
+    <ion-card  class="oderDetails">
       <ion-item class="cart-item">
         <ion-thumbnail item-start>
-          <img src="{{li.obj.image}}">
+          <img src="{{li.image}}">
         </ion-thumbnail>
-        <!-- <span class="ornum"><p>Order Number : {{li.details.orderNumber}} </p></span> -->
-        <span class="ornum"><p>Name : {{li.obj.name}}</p></span>
-        <span class="ornum"> <p> R {{li.obj.price}} </p></span>
-        <span class="ornum"> <p>Quantity: {{li.obj.quantity}}</p></span>
+        <span class="ornum"><p>Name : {{li.product_name}}</p></span>
+        <span class="ornum"> <p> R {{li.price}} </p></span>
+        <span class="ornum"> <p>Quantity: {{li.quantity}}</p></span>
       </ion-item>
     </ion-card>
-    
+  </div>
+  </div>
 </ion-list>
 </ion-content>

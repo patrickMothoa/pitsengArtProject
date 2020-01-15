@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as firebase from 'firebase';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams, NavController } from '@ionic/angular';
 import { ProductService } from 'src/app/services/product.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-orderdetails',
@@ -9,13 +11,34 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./orderdetails.page.scss'],
 })
 export class OrderdetailsPage implements OnInit {
+@Input() id: any;
+dbOrder = firebase.firestore().collection('Order');
+dbProfile = firebase.firestore().collection('userProfile');
+uid = firebase.auth().currentUser.uid;
+
 db = firebase.firestore();
 Orders = []
 conArray = []
 PList = []
-  constructor(public ProductService: ProductService,public data : ProductService,public modalController: ModalController) { }
+storage;
+key: any;
+  constructor(public route: ActivatedRoute, public ProductService: ProductService,private navParams: NavParams, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService
+    ) {
+      // this.key = this.navParams.get('id');
+      // console.log(this.key);
+     //this.DetailsHere(this.key); 
+
+      this.route.queryParams.subscribe((data) => {
+      console.log('dsd', data.id);
+      this.key = JSON.parse(data.id);
+      this.getProduct(this.key);
+      
+    }) 
+
+     }
 
   ngOnInit() {
+
     this.DetailsHere();
     // this.conArray = this.ProductService.myArray;
     // console.log("Data from Service",   this.conArray);
@@ -23,42 +46,36 @@ PList = []
 
 
 DetailsHere(){
-  let  obj = {
-    details : {orderNumber : 0, total : 0},
-    obj : {
-      categories : "", price : "", productNumber : "", quantity : 0,name : "", image : ""
-    }
-  }
-
-  this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Orders').onSnapshot((res)=>{
+  this.db.collection("Order").onSnapshot(data => {
     this.conArray = [];
-    res.forEach((doc)=>{
-      obj.details.orderNumber = doc.data().details.orderNumber;
-      obj.details.total = doc.data().details.total;
-      obj.obj.categories = doc.data().obj.categories;
-      obj.obj.price = doc.data().obj.price;
-      obj.obj.productNumber = doc.data().obj.productNumber;
-      obj.obj.quantity = doc.data().obj.quantity;
-      obj.obj.name = doc.data().obj.name;
-      obj.obj.image = doc.data().obj.image;
-
-      this.conArray.push(obj);
-      obj = {
-        details : {orderNumber : 0, total : 0},
-        obj : {
-          categories : "", price : "", productNumber : "", quantity : 0, name : "",image : ""
-        }
-      }
-       console.log('My array ', this.conArray);
-    })  
-})
-
-  setTimeout(() => {
-    this.conArray.forEach((item)=>{
-      this.Orders.push(item)
+      data.forEach((item)=>{
+        this.conArray.push({ref:item.id,info:item.data()})
+      })
+      console.log("ccc", this.conArray);
+      console.log("inside");
     })
-  }, 1500);
 }
+ionViewDidLoad() {
+  console.log('ionViewDidLoad OrderdetailsPage');
+}
+
+// DetailsHere(key) {
+//   this.dbOrder.doc('Pitseng' + key).onSnapshot((data) => {
+//     this.conArray.push(data.data());  
+//   })
+//     console.log("ssss", this.conArray);
+// }
+
+getProduct(key) {
+  console.log("This is my key", key);
+
+  this.db.collection('Order').doc(key).onSnapshot((file) => {
+    console.log(file.data(), '55555');
+    this.Orders.push(file.data())
+    }) 
+}
+
+
 
 dismiss() {
 this.modalController.dismiss({
