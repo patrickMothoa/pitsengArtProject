@@ -1,58 +1,4 @@
-<!-- <ion-content>
-  <h1>Manage Profile</h1>
-  <div *ngIf="!isprofile" class="profile-form">
-    <ion-item>
-      <ion-input type="file" accept="image/*" multiple="false" (change)="getImage($event.target.files)"></ion-input>
-</ion-item>
-<ion-item *ngIf="profile.image"><img  src="{{profile.image}}" height="80" width="80"></ion-item>
-
-<p *ngIf="isuploading">Uploading</p>
-<p *ngIf="isuploaded">Done</p>
-<ion-item>
-  <ion-label position="floating" >Name</ion-label>
-  <ion-input type="text" [(ngModel)]="profile.name"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label position="floating" >Surname</ion-label>
-  <ion-input type="text" [(ngModel)]="profile.surname"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label position="floating">Phone Number</ion-label>
-  <ion-input type="tel" [(ngModel)]="profile.PhoneNumber"></ion-input>
-</ion-item>
-
-  <ion-item>
-      <ion-label position="floating">Address</ion-label>
-      <ion-input type="email" [(ngModel)]="profile.address"></ion-input>
-    </ion-item>
-
-<ion-button expand="full" (click)="createAccount()">
-  Done
-</ion-button>
-  </div>
-  
-  <div *ngIf="isprofile" class="profileD">
-    <div class="image">
-      <img src="{{profile.image}}" alt="">
-    </div>
-    <div class="details">
-      <h1>{{profile.name}}</h1>
-      <p>{{profile.address}}</p>
-      <div class="details">
-        <p>{{profile.email}}</p> <p>{{profile.PhoneNumber}}</p>
-      </div>
-    </div>
-    <ion-button  (click)="edit()">
-        Edit
-      </ion-button>
-
-      <ion-button (click)="Orders()" slot="end">Orders</ion-button>
-  </div>
-</ion-content> -->
-
-
-
-  <div class="container">
+ <!-- <div class="container">
   <div class="content">
     <div class="row">
       <div class=" sidebar1">
@@ -89,8 +35,8 @@
             </div>
             <div class="labelN" >
                 <div class="Name-label" >
-              <!-- <ion-label>name</ion-label> -->
-            </div>
+               <ion-label>name</ion-label> -->
+            <!-- </div>
             </div>
           
             </div>
@@ -134,15 +80,56 @@
       </div>
     </div>
   </div>
-</div>
-<!-- <div class="info" >
-  <ion-card  *ngFor = "let admin of Info">
-    <ion-item>
-         Telephone {{admin.phoneNumber}}  |
-         Physical Address {{admin.address}} |
-         Email Address {{admin.email}} |
-    </ion-item>
-  </ion-card>
-</div> -->
+</div>  -->
 
+<ion-content>
+  <h1>Manage Profile</h1>
+  <div *ngIf="!isprofile" class="profile-form">
+    <ion-item>
+      <ion-input type="file" accept="image/*" multiple="false" (change)="getImage($event.target.files)"></ion-input>
+</ion-item>
+<ion-item *ngIf="profile.image"><img  src="{{profile.image}}" height="80" width="80"></ion-item>
+
+<p *ngIf="isuploading">Uploading</p>
+<p *ngIf="isuploaded">Done</p>
+<ion-item>
+  <ion-label position="floating" >Name</ion-label>
+  <ion-input type="text" [(ngModel)]="profile.name"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label position="floating" >Surname</ion-label>
+  <ion-input type="text" [(ngModel)]="profile.surname"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label position="floating">Phone Number</ion-label>
+  <ion-input type="tel" [(ngModel)]="profile.PhoneNumber"></ion-input>
+</ion-item>
+
+  <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="email" [(ngModel)]="profile.address"></ion-input>
+    </ion-item>
+
+<ion-button expand="full" (click)="createAccount()">Done</ion-button>
+  </div>
+  
+  <div *ngIf="isprofile" class="profileD">
+    <div class="image">
+      <img src="{{profile.image}}" alt="">
+    </div>
+    <div class="details">
+      <h1>{{profile.name}}</h1>
+      <!-- <p>logged-in as <b>{{profile.position}}</b></p> -->
+      <p>{{profile.address}}</p>
+      <div class="details">
+        <p>{{profile.email}}</p> <p>{{profile.PhoneNumber}}</p>
+      </div>
+    </div>
+    <ion-button  (click)="edit()">
+        Edit
+      </ion-button>
+
+      <ion-button (click)="Orders()" slot="end">Orders</ion-button>
+  </div>
+</ion-content>
 
