@@ -16,9 +16,7 @@ import { RegisterPage } from '../pages/register/register.page';
 import Swal from 'sweetalert2';
 import { TrolleyPage } from '../pages/trolley/trolley.page';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-
 declare var window
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -26,7 +24,6 @@ declare var window
 })
 export class HomePage {
   cartItemCount: BehaviorSubject<number>;
-
   @ViewChild('cart', {static: false, read: ElementRef})fab: ElementRef;
   db = firebase.firestore();
   event = {
@@ -42,7 +39,6 @@ export class HomePage {
     large: ''
   };
   toastr
-
   Products = [];
   supplier
   myProduct = false;
@@ -66,15 +62,12 @@ public  isLogin = false;
   cNumber = 0;
   temp = [];
   xxx = [];
-
   id = '';
   counter = 0;
   index = 0;
-
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
   active: boolean;
-
   constructor( public alertController: AlertController, public toastController: ToastController,
     public popoverController: PopoverController,
     // public authService: AuthService,
@@ -87,14 +80,9 @@ public  isLogin = false;
     ) {
     this.autocompleteItemz = [];
     this.autocompletez = { input: '' };
-
   //  this.smsSent = false
     firebase.auth().languageCode = 'en';
-
-
   }
-
-
   
  
   async presentPopover(ev) {
@@ -119,7 +107,6 @@ public  isLogin = false;
    popover.present();
     setTimeout(()=>popover.dismiss(),500);
     
-
     
   }
   async presentToast(ev:any) {
@@ -130,13 +117,10 @@ public  isLogin = false;
     });
     toast.present();
   }
-
   async DismissClick() {
     await this.popoverController.dismiss();
       }
-
   showLogin(){
-
     this.createModalLogin();
   }
   trolley(){
@@ -152,24 +136,19 @@ public  isLogin = false;
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
     this.CountinueShoping();
-
   }
-
 async viewModal(){
   const modal = await this.modalController.create({
     component: DetailsPage
   });
   return  modal.present();
 }
-
 ViewDetails(view) {
   console.log("sds", view);
   this.data.data = view;
   //this.router.navigateByUrl('/details')
   this.createModal();
 }
-
-
 async createModal() {
   const modal = await this.modalController.create({
     component: DetailsPage,
@@ -177,7 +156,6 @@ async createModal() {
   });
   return await modal.present();
 }
-
 async createModalLogin() {
   const modal = await this.modalController.create({
     component: LoginPage,
@@ -200,11 +178,10 @@ async createModalTrolley() {
   });
   return await modal.present();
 }
-
    /// taking values db to cart import
   addToCart(event) {
     if(firebase.auth().currentUser){
-      //this.cartService.addProduct(event);
+     // this.cartService.addProduct(event);
       console.log("pushing to Cart",event);
     }else{
       this.createModalLogin();
@@ -225,21 +202,14 @@ async createModalTrolley() {
     // this.profileBtn = false;
     this.router.navigateByUrl('/orders');
   }
-
-
-
-
   openProfile(){
     // this.loginBtn = true;
     // this.registerBtn =  true;
     // this.logoutBtn = false;
     // this.orderBtn = false;
     // this.profileBtn = false;
-
     this.router.navigateByUrl('/profile');
   }
-
-
 // gggggggggggggggggg
   productDetails(item){
     this.data.data = item;
@@ -247,16 +217,12 @@ async createModalTrolley() {
     this.createModal();
   }
   
-
       // retriving from firebase.firestore
   getProducts(categories) {
         let obj = {id : '', obj : {}};
-
-
         if(categories == 'Vase') {
            this.active = true;
         }
-
         if(categories) {
           this.db.collection('Products').where('categories', '==', categories).get().then((snapshot) => {
             this.Products = [];
@@ -295,15 +261,11 @@ async createModalTrolley() {
           });
         }
    }
-
   navDetails = []
-
   editProduct() {
     this.myProduct = false;
   }
-
 ////// for searching
-
 getProduct(){
   let obj = {id : '', obj : {}};
   this.db.collection('Products').get().then(snapshot => {
@@ -323,7 +285,6 @@ getProduct(){
           }
   });
 }
-
 SearchProducts(ev: CustomEvent){
   if(this.supplier === '') {
     this.autocompleteItemz = [];
@@ -332,7 +293,6 @@ SearchProducts(ev: CustomEvent){
  this.autocompleteItemz = this.Products;
  console.log("ooo", this.autocompleteItemz );
   this.getProduct();
-
   const val = ev.detail.value; 
   if (val.trim() !== '') {
     this.autocompleteItemz = this.autocompleteItemz.filter(term => {
@@ -340,7 +300,6 @@ SearchProducts(ev: CustomEvent){
     });
   }
 }
-
 logOut(){
   firebase.auth().signOut().then(()=> {
     // this.loginBtn = false;
@@ -379,13 +338,10 @@ this.db.collection('admins').get().then(snapshot => {
 //     timer: 500
 //   })
 // }
-
 CountinueShoping(){
   this.router.navigateByUrl('/');
   
 }
-
-
  addCart(){
   var cart = document.getElementById("toast-cart");
 cart.classList.add("show");
@@ -393,12 +349,6 @@ setTimeout(function(){
 cart.classList.remove("show");
 }, 3000);
 }
-
-
-
-
-
-
 // wishList(){
 //   var list = document.getElementById("toast");
 // list.classList.add("show");
@@ -407,7 +357,6 @@ cart.classList.remove("show");
 //   list.classList.remove("show");
 // },3000);
 // }
-
 // addCart(){
 //     var cart = document.getElementById("toast-cart");
 // cart.classList.add("show");
@@ -416,6 +365,4 @@ cart.classList.remove("show");
 //   cart.classList.remove("show");
 // }, 3000);
 // }
-
-
 }

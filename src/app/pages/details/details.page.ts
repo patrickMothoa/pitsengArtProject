@@ -33,6 +33,7 @@ export class DetailsPage implements OnInit {
     medium: '',
     large: '',
     quantity: null,
+    amount:0,
     total:0
   };
 
@@ -67,7 +68,9 @@ export class DetailsPage implements OnInit {
 
   
   addToCart(i) {
+    
     console.log(i);
+    
     this.dbCart.add({
       timestamp: new Date().getTime(),
       customerUid: this.customerUid,
@@ -76,7 +79,7 @@ export class DetailsPage implements OnInit {
       price: i.obj.price,
       quantity: this.event.quantity,
       image: i.obj.image,
-
+      amount : i.obj.price * this.event.quantity
       // total: this.event.total
      }).then(() => {
       this.toastController(' product Added to cart')
@@ -86,14 +89,15 @@ export class DetailsPage implements OnInit {
       .catch(err => {
              console.error(err);
     });
+     
     this.cartItemCount.next(this.cartItemCount.value + 1);
 
   }
   sizeSelect(i, val, y) {
-
    this.sizes = i.detail.value;
-
   }
+
+  
   openCart() {
     // this.router.navigate(['cart']);
     this.router.navigateByUrl('/trolley');
