@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar>
         <ion-title>Orders</ion-title>
     </ion-toolbar>
@@ -20,4 +20,25 @@
        </ion-item>
       </ion-card>  
 	</ion-list>
-</ion-content>
+</ion-content> -->
+
+<ion-content padding>
+  <ion-label>Order History </ion-label>
+        
+  <ion-list >
+    <div *ngIf= "conArray" class="line" >
+      <div  *ngFor="let li of conArray.product">
+      <ion-card  class="oderDetails">
+        <ion-item class="cart-item">
+          <ion-thumbnail item-start>
+            <img src="{{li.image}}">
+          </ion-thumbnail>
+          <span class="ornum"><p>Name : {{li.product_name}}</p></span>
+          <span class="ornum"> <p> R {{li.price}} </p></span>
+          <span class="ornum"> <p>Quantity: {{li.quantity}}</p></span>
+        </ion-item>
+      </ion-card>
+    </div>
+    </div>
+  </ion-list>
+  </ion-content>

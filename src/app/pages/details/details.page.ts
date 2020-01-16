@@ -67,6 +67,7 @@ export class DetailsPage implements OnInit {
 
   
   addToCart(i) {
+    
     console.log(i);
     this.dbCart.add({
       timestamp: new Date().getTime(),
@@ -90,10 +91,10 @@ export class DetailsPage implements OnInit {
 
   }
   sizeSelect(i, val, y) {
-
    this.sizes = i.detail.value;
-
   }
+
+  
   openCart() {
     // this.router.navigate(['cart']);
     this.router.navigateByUrl('/trolley');

@@ -41,29 +41,37 @@
             </div>
             <div class="details-section" >
             <div class="Account-details" >
+             
               <h5>Account details</h5>
               <div class="details" >
                 <div>
-                  <ion-label>Jackmabaso@gmail.com</ion-label>
+                  <ion-button (click)="updateDetails()"> <ion-icon  name="create"></ion-icon> </ion-button> 
                 </div>
                 <div>
-                  <ion-label>123 Generation street soweto 2838</ion-label>
+                  <ion-input [(ngModel)]='name' ></ion-input>
                 </div>
                 <div>
-                  <ion-label>0712 123 1232</ion-label>
+                  <ion-input [(ngModel)]='email' disabled></ion-input>
+                </div>
+                <div>
+                  <ion-input [(ngModel)]='address'></ion-input>
+                </div>
+                <div>
+                  <ion-input [(ngModel)]='number'></ion-input> 
                 </div>
               </div>
+           
             </div>
             <div  class="Account-history"  >
               <h5>order history</h5>
-              <ion-card  *ngFor="let li of Allorders" class="Account-history" class="history">
+              <ion-card  *ngFor="let li of Allorders" class="Account-history"  (click)="ViewDetails(li)" class="history">
                 
-                <div (click)="ViewDetails(li.ref)">
+                <div>
                   <ion-label>{{li.ref}}</ion-label>
                 </div>
                 <div>
-                  <ion-label>{{li.info.date | date:"medium"}} </ion-label>
-
+                  <ion-label>{{li.info.date }} </ion-label>
+                                 <!-- userID just for testing remove after use -->
                   <ion-label>---{{li.info.userID}}</ion-label>
 
                 </div>

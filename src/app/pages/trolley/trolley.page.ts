@@ -60,15 +60,12 @@ export class TrolleyPage implements OnInit {
   getProducts() {
     this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
       this.cartProduct = [];
-      res.forEach((doc)=>{
+      res.forEach((doc) => {
         this.cartProduct.push(doc.data());
-
-      //  this.total = this.total + parseFloat(doc.data().price);
       this.total = this.total + parseFloat(doc.data().price);
       })
 
-      // console.log('My products in cart ',this.cartProduct);
-      
+      // console.log('My products in cart ',this.cartProduct);   
     })
   }
  
