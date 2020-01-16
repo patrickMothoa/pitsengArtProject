@@ -8,6 +8,8 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoginPage } from '../login/login.page';
+import { element } from 'protractor';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-trolley',
@@ -17,13 +19,10 @@ import { LoginPage } from '../login/login.page';
 export class TrolleyPage implements OnInit {
   private cartItemCount = new BehaviorSubject(0);
 
-  // prices: number;
-  // pricesz: number = 5;
-  // amountz: number = 5;
-  // cartProductzz = {}
-dataArray = [];
-total = 0;
-  // totalzkkkk;
+  db = firebase.database();
+
+  name;
+  key;
 
   cart = [];
   myArr = [];
@@ -36,6 +35,11 @@ total = 0;
   constructor(public modalController: ModalController,
     private cartService: CartService, private alertCtrl: AlertController, 
     public data : ProductService,public transact: TransactionService, private router: Router,public toastController : ToastController ) {
+      this.dbUser.doc(firebase.auth().currentUser.uid).onSnapshot(element => {
+        console.log(element.data());
+        this.name = element.data().name
+      })
+     
    }
  
   ngOnInit() {
@@ -96,6 +100,11 @@ return this.total;
   //////////////////////// group orders together.
 
   placeOrder(){
+
+
+    // let date = moment().format('MMMM Do YYYY, h:mm:ss a');
+    // console.log("Your date is ",date);
+    
     this.orderProd=[];
     let key = Math.floor(Math.random()*100000);
    //let item = {name:'', size:[],quantity:'',image:''}
@@ -104,8 +113,9 @@ return this.total;
     this.orderProd.push(this.cartProduct[j]);
    }
    this.dbOrder.doc('Pitseng'+ key).set({
-     date: new Date().getTime(),
+     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
+     name: this.name,
      userID: firebase.auth().currentUser.uid}).then(() => {
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{
