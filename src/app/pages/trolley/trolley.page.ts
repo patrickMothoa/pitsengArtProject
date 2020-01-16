@@ -23,7 +23,7 @@ export class TrolleyPage implements OnInit {
 
   name;
   key;
-
+  total:0;
   cart = [];
   myArr = [];
   amount: number;
@@ -46,7 +46,7 @@ export class TrolleyPage implements OnInit {
     this.getProducts();
 
   //////////// working used this wa
-
+  this.deleteAll();
   }
 
   ionViewWillLeave(){
@@ -70,7 +70,6 @@ export class TrolleyPage implements OnInit {
   
 
   getProducts() {
-
     this.total = 0
     firebase.firestore().collection("Cart").onSnapshot(item => {
       item.forEach(i => {
@@ -100,14 +99,8 @@ export class TrolleyPage implements OnInit {
   //////////////////////// group orders together.
 
   placeOrder(){
-
-
-    // let date = moment().format('MMMM Do YYYY, h:mm:ss a');
-    // console.log("Your date is ",date);
-    
     this.orderProd=[];
     let key = Math.floor(Math.random()*100000);
-   //let item = {name:'', size:[],quantity:'',image:''}
    for (let j = 0; j < this.cartProduct.length; j++) {
     console.log('Products ', this.cartProduct[j]);
     this.orderProd.push(this.cartProduct[j]);
@@ -134,6 +127,17 @@ export class TrolleyPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+
+  deleteAll(){
+    console.log("clearing...");
+    
+    this.dbCart.where('customerUid','==', firebase.auth().currentUser.uid).onSnapshot((res)=>{
+      console.log("insideclearing...", res);
+      res.forEach((data)=>{
+        this.dbCart.doc(data.id).delete();
+      })
+    })
   }
 
  /////////////////////////////////////////////////////////////////////////////////////////////
