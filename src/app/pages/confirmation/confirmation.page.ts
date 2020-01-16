@@ -68,6 +68,7 @@ export class ConfirmationPage implements OnInit {
     }) */
     // console.log('My order is', this.myOrder);
 
+
   }
 
   displayProduct(key) {

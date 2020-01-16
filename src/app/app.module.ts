@@ -15,7 +15,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import * as firebase from 'firebase';
 import { DetailsPageModule } from './pages/details/details.module';
 import { ConfirmationPageModule } from './pages/confirmation/confirmation.module';
-import { OrderdetailsPageModule } from './pages/orderdetails/orderdetails.module';
+//import { OrderdetailsPageModule } from './pages/orderdetails/orderdetails.module';
   import { from } from 'rxjs';
 import { popoverController } from '@ionic/core';
 import { PopoverComponent } from './components/popover/popover.component';
@@ -49,7 +49,7 @@ firebase.initializeApp(firebaseConfig);
   declarations: [AppComponent,PopoverComponent ,Popover1Component],
   entryComponents: [PopoverComponent,Popover1Component],
   imports: [BrowserModule,FormsModule,HttpClientModule, ReactiveFormsModule, IonicModule.forRoot(),
-     AppRoutingModule,DetailsPageModule,ConfirmationPageModule,OrderdetailsPageModule, LoginPageModule,RegisterPageModule,TrolleyPageModule],
+     AppRoutingModule,DetailsPageModule,ConfirmationPageModule, LoginPageModule,RegisterPageModule,TrolleyPageModule],
   providers: [
     StatusBar,
     AuthService ,
