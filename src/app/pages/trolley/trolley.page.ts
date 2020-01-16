@@ -23,6 +23,10 @@ export class TrolleyPage implements OnInit {
 
   name;
   key;
+ 
+dataArray = [];
+total = 0;
+ 
 
   cart = [];
   myArr = [];
@@ -45,12 +49,11 @@ export class TrolleyPage implements OnInit {
   ngOnInit() {
     this.getProducts();
 
-  //////////// working used this wa
 
   }
 
   ionViewWillLeave(){
-  // this.cartProduct = [];
+ 
   }
   getTotal(){
     let total = 0;
@@ -62,8 +65,7 @@ export class TrolleyPage implements OnInit {
       })
       //
     }
-    //console.log('My tot ', total);
-
+    
     return total;
   }
 
@@ -80,7 +82,7 @@ export class TrolleyPage implements OnInit {
       })
       this.getTotal()
     })
-// return this.total;
+
   }
 
 
@@ -100,11 +102,6 @@ export class TrolleyPage implements OnInit {
   //////////////////////// group orders together.
 
   placeOrder(){
-
-
-    // let date = moment().format('MMMM Do YYYY, h:mm:ss a');
-    // console.log("Your date is ",date);
-    
     this.orderProd=[];
     let key = Math.floor(Math.random()*100000);
    //let item = {name:'', size:[],quantity:'',image:''}
