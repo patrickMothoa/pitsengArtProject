@@ -26,7 +26,7 @@ export class AuthService {
     .then((newUserCredential: firebase.auth.UserCredential) => {
       firebase
       .firestore()
-      .doc(`/userProfile/${newUserCredential.user.uid}`)
+      .doc(`/UserProfile/${newUserCredential.user.uid}`)
       .set({email});
     })
    .catch(error => {

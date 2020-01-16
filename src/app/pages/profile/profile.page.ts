@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import * as firebase from 'firebase';
-import { AlertController, PopoverController, ModalController } from '@ionic/angular';
+import { AlertController, PopoverController, ModalController, NavParams } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { PopoverComponent } from '../../components/popover/popover.component';
 import { TrolleyPage } from '../../pages/trolley/trolley.page';
@@ -15,6 +15,7 @@ import { ProductService } from 'src/app/services/product.service';
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
+ 
 })
 export class ProfilePage implements OnInit {
   db = firebase.firestore();
@@ -31,6 +32,13 @@ export class ProfilePage implements OnInit {
     phoneNumber: '',
     email: firebase.auth().currentUser.email,
   }
+
+  ///////
+  email
+  name
+  number
+  address
+  /////////
   Allorders = [];
   cart = [];
   uploadprogress = 0;
@@ -68,7 +76,7 @@ export class ProfilePage implements OnInit {
     firebase.auth().onAuthStateChanged(admins => {
       if (admins) {
         this.Users.uid = admins.uid
-        this.Users.uid = admins.email
+        this.Users.email = admins.email
       this.getProfile(); 
        this.GetOrders();
       } else {
@@ -86,23 +94,17 @@ export class ProfilePage implements OnInit {
     });
     return  modal.present();
   }
-  
-  // ViewDetails(view) {
-  //   console.log("sds", view);
-  //   this.data.data = view;
-  //   this.createModal();
-  // }
 
   ViewDetails(value) {
     console.log(value);
     let navigationExtras: NavigationExtras = {
-      queryParams: {
-        id: JSON.stringify(value)
-      }
+      queryParams : {
+        order : JSON.stringify(value)
+      } 
     };
    // this.createModal();
-   this.router.navigate(['orderdetails'], navigationExtras);
-  }
+   this.router.navigate(['orders'], navigationExtras);
+}
 
   async createModal() {
     const modal = await this.modalController.create({
@@ -138,40 +140,30 @@ async  deleteItem(li){
   CountinueShoping(){
     this.router.navigateByUrl('/');
   }
-   
-  
-   ///////////////////////
+
    ////////////////////////////////// 
   GetOrders(){
-    
-      //  this.db.collection("Order").onSnapshot(data => {
-      //     this.Allorders = [];
-      //       data.forEach((item)=>{
-      //         this.Allorders.push({ref:item.id,info:item.data()})
-      //       })
-      //       console.log("ccc", this.Allorders);
-      //       console.log("inside");
-      //     })
-
-        this.dbOrder.where('userID','==',firebase.auth().currentUser.uid).onSnapshot((data)=>{
-
-       
+  this.dbOrder.where('userID','==',firebase.auth().currentUser.uid).onSnapshot((data)=>{
           console.log("olx", data);
           this.Allorders = [];
             data.forEach((item)=>{
               this.Allorders.push({ref:item.id,info:item.data()})
             })
             console.log("ccc", this.Allorders);
-            console.log("inside");
           
-
         }) 
+  }
 
+  ///////////////////////
+  updateDetails(){
+        console.log("clicked"); 
+        firebase.firestore().collection('UserProfile').doc(this.Users.uid).update({
+          name: this.name,
+          address: this.address,
+          number: this.number
+        })
       }
   ////////////////////////////
-  ////////////////////////////////////
-  
-
 
 addCart(){
   var cart = document.getElementById("toast-cart");
@@ -180,10 +172,12 @@ setTimeout(function(){
 cart.classList.remove("show");
 }, 3000);
 }
-  trolley(){
+
+trolley(){
     this.createModalTrolley();
-  }
-  async createModalTrolley() {
+}
+
+async createModalTrolley() {
     const modal = await this.modalController.create({
       component: TrolleyPage,
       cssClass: 'my-custom-trolley-css'
@@ -193,8 +187,7 @@ cart.classList.remove("show");
   }
   
      /// taking values db to cart import
-    addToCart(event) {
-      
+addToCart(event) {
       if(firebase.auth().currentUser){
       //  this.cartService.addProduct(event);
         console.log("pushing to Cart",event);
@@ -277,44 +270,30 @@ async createModalLogin() {
       }
     }
   }
-  // createAccount(){
-  //   if (!this.profile.address||!this.profile.name||!this.profile.surname||!this.profile.phoneNumber){
-  //     this.errtext = 'Fields should not be empty'
-  //   } else {
-  //     if (!this.profile.image){
-  //       this.errtext = 'Profile image still uploading or not selected';
-  //     } else {
-  //       this.profile.uid =  this.admin.uid;
-  //       this.db.collection('admins').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => {
-  //         console.log('Profile created');
-  //         this.getProfile();
-  //       }).catch(error => {
-  //         console.log('Error');
-  //       });
-  //     }
-  //   }
-  // }
+
   getProfile(){
     this.db.collection('UserProfile').where('uid', '==', this.Users.uid).get().then(snapshot => {
+      console.log(snapshot);
       if (snapshot.empty) {
         this.isprofile = false;
       } else {
         this.isprofile = true;
+
         snapshot.forEach(doc => {
-          this.profile.address = doc.data().address;
-          this.profile.image= doc.data().image
-          this.profile.name=doc.data().name
-          this.profile.surname=doc.data().surname
-          this.profile.phoneNumber=doc.data().phoneNumber
-          this.profile.email=doc.data().email
-          
+          this.email = doc.data().email
+          this.number = doc.data().number
+          this.address = doc.data().address
+          this.name = doc.data().name
         })
       }
     })
   }
+
+
   edit() {
     this.isprofile = false;
   }
+  
   async presentPopover(ev) {
     const popover = await this.popoverController.create({
       component:PopoverComponent,

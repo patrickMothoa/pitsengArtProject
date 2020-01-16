@@ -24,16 +24,17 @@ storage;
 key: any;
   constructor(public route: ActivatedRoute, public ProductService: ProductService,private navParams: NavParams, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService
     ) {
-      // this.key = this.navParams.get('id');
-      // console.log(this.key);
-     //this.DetailsHere(this.key); 
 
-      this.route.queryParams.subscribe((data) => {
-      console.log('dsd', data.id);
-      this.key = JSON.parse(data.id);
-      this.getProduct(this.key);
+    //   this.route.queryParams.subscribe((data) => {
+    //   console.log('dsd', data.id);
+    //   this.key = JSON.parse(data.id);
+    //   this.getProduct(this.key);
       
-    }) 
+    // }) 
+
+    this.route.queryParams.subscribe((res)=>{
+      console.log(JSON.parse(res.value));
+  });
 
      }
 

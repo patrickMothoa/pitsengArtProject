@@ -63,6 +63,7 @@ total = 0;
     return total;
   }
 
+  
 
   getProducts() {
 
@@ -71,7 +72,7 @@ total = 0;
       item.forEach(i => {
         this.cartProduct.push(i.data())
         console.log("Your data here is ", i.data());
-       
+        this.total = this.total + i.data().amount;
       })
       this.getTotal()
     })
