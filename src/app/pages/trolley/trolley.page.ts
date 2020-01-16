@@ -77,9 +77,9 @@ export class TrolleyPage implements OnInit {
         console.log("Your data here is ", i.data());
         this.total = this.total + i.data().amount;
       })
-      this.getTotal()
+   
     })
-// return this.total;
+return this.total;
   }
 
 
