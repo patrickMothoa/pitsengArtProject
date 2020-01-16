@@ -46,7 +46,7 @@
 
         </div>
         <div class="buttons" >
-         {{ p.total | currency:'R':'symbol'}}
+         {{ p.amount | currency:'R':'symbol'}}
           <ion-button shape="round" color="warning" class="btn" (click)="addToCart(p)" slot="end">Add to Cart </ion-button>
         </div>
       </div>

@@ -33,6 +33,7 @@ export class DetailsPage implements OnInit {
     medium: '',
     large: '',
     quantity: null,
+    amount:0,
     total:0
   };
 
@@ -78,7 +79,7 @@ export class DetailsPage implements OnInit {
       price: i.obj.price,
       quantity: this.event.quantity,
       image: i.obj.image,
-      total : i.obj.price * this.event.quantity
+      amount : i.obj.price * this.event.quantity
       // total: this.event.total
      }).then(() => {
       this.toastController(' product Added to cart')

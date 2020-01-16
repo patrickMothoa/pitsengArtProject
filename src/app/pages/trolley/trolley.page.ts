@@ -8,6 +8,8 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoginPage } from '../login/login.page';
+import { element } from 'protractor';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-trolley',
@@ -17,9 +19,14 @@ import { LoginPage } from '../login/login.page';
 export class TrolleyPage implements OnInit {
   private cartItemCount = new BehaviorSubject(0);
 
+  db = firebase.database();
+
+  name;
+  key;
+
   cart = [];
   myArr = [];
-  total = 0;
+  amount: number;
   dbCart = firebase.firestore().collection('Cart');
   dbOrder = firebase.firestore().collection('Order');
   dbUser = firebase.firestore().collection('UserProfile');
@@ -28,24 +35,15 @@ export class TrolleyPage implements OnInit {
   constructor(public modalController: ModalController,
     private cartService: CartService, private alertCtrl: AlertController, 
     public data : ProductService,public transact: TransactionService, private router: Router,public toastController : ToastController ) {
+      this.dbUser.doc(firebase.auth().currentUser.uid).onSnapshot(element => {
+        console.log(element.data());
+        this.name = element.data().name
+      })
+     
    }
  
   ngOnInit() {
     this.getProducts();
-// pushing to Array before firebase using this way
-//     let item = this.cartService.getCart();
-//     let seleted = [];
-//     for(let obj of item){
-//       if(seleted[obj.id]){
-//         seleted[obj.id].count++;
-//       }else{
-//         seleted[obj.id] = {...obj, count : 1};
-//       }
-//     }
-// this.cart = Object.keys(seleted).map(key => seleted[key]);
-// this.total = this.cart.reduce((a, b) => a + (b.count * b.price), 0)
-// console.log("vvv", this.total);
-
 
   //////////// working used this wa
 
@@ -54,53 +52,39 @@ export class TrolleyPage implements OnInit {
   ionViewWillLeave(){
   // this.cartProduct = [];
   }
+  getTotal(){
+    let total = 0;
+    for (let i = 0; i < this.cartProduct.length; i++) {
+      let product = this.cartProduct[i].data.product;
+      // console.log(product);
+      product.forEach((item) => {
+        total += (item.amount);
+      })
+      //
+    }
+    //console.log('My tot ', total);
 
+    return total;
+  }
 
+  
 
   getProducts() {
-    this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
-      this.cartProduct = [];
-      res.forEach((doc) => {
-        this.cartProduct.push(doc.data());
-      this.total = this.total + parseFloat(doc.data().price);
-      })
 
-      // console.log('My products in cart ',this.cartProduct);   
+    this.total = 0
+    firebase.firestore().collection("Cart").onSnapshot(item => {
+      item.forEach(i => {
+        this.cartProduct.push(i.data())
+        console.log("Your data here is ", i.data());
+        this.total = this.total + i.data().amount;
+      })
+      this.getTotal()
     })
+// return this.total;
   }
- 
-  // decreaseCartItem(p) {
-  //   // this.cartService.decreaseProduct(p);
-  //    console.log("dec");
-  //    for (let [index, p] of this.cart.entries()) {
-  //     if (this.cart) {
-  //       p.quantity -= 1;
-  //       if (p.quantity == 0) {
-  //         this.cart.splice(index, 1);
-  //       }
-  //     }
-  //   }
-  // }
- 
-  // increaseCartItem(p) {
-  //   //this.cartService.addProduct(p);
-  //   console.log("inc");
-  //   let added = false;
-  //   for (let p of this.cart) {
-  //     if (this.cart) {
-  //       p.quantity += 1;
-  //       added = true;
-  //       break;
-  //     }
-  //   }
-  //   if (!added) {
-  //     this.cart.push(this.cart);
-  //   }
-  //   this.cartItemCount.next(this.cartItemCount.value + 1);
-  // }
- 
+
+
   removeCartItem(p) {
-    // this.cartService.removeProduct(p);
     console.log("del");
     for (let [index, p] of this.cart.entries()) {
       if (this.cart) {
@@ -110,54 +94,17 @@ export class TrolleyPage implements OnInit {
     }
   }
 
-  //  async removeCartItem(p) {
-  //     console.log('item =>',p);
-    
-  //     const alert = await this.alertCtrl.create({
-  //       header: 'Confirm!',
-  //       message: 'Are you sure you want to delete?',
-  //       buttons: [
-  //         {
-  //           text: 'Cancel',
-  //           role: 'cancel',
-  //           cssClass: 'secondary',
-  //           handler: (blah) => {
-  //             console.log('Confirm Cancel: blah');
-  //           }
-  //         }, {
-  //           text: 'Okay',
-  //           handler: async () => {
-  //             const worker = await this.loadingCtrl.create({
-  //               message: 'Working',
-  //               spinner: 'bubbles'
-  //             })
-  //             worker.present();
-  //             this.db.collection('Cart').doc(p).delete().then(async res => {
-  //               worker.dismiss()
-  //               this.cart = [];
-  //               //this.retrieve();
-  //               const alerter = await this.alertCtrl.create({
-  //               message: 'item deleted'
-  //             })
-  //             alerter.present();
-  //             })
-  //           }
-  //         }
-  //       ]
-  //     });
-  
-  //     await alert.present(); 
-  // }
-
-  getTotal() {
-     this.total;
-  }
 
   //////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////
   //////////////////////// group orders together.
 
   placeOrder(){
+
+
+    // let date = moment().format('MMMM Do YYYY, h:mm:ss a');
+    // console.log("Your date is ",date);
+    
     this.orderProd=[];
     let key = Math.floor(Math.random()*100000);
    //let item = {name:'', size:[],quantity:'',image:''}
@@ -166,8 +113,9 @@ export class TrolleyPage implements OnInit {
     this.orderProd.push(this.cartProduct[j]);
    }
    this.dbOrder.doc('Pitseng'+ key).set({
-     date: new Date().getTime(),
+     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
+     name: this.name,
      userID: firebase.auth().currentUser.uid}).then(() => {
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{
