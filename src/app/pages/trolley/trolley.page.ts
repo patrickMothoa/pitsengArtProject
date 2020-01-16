@@ -66,7 +66,7 @@ export class TrolleyPage implements OnInit {
         this.cartProduct.push(doc.data());
 
        // this.total = this.total + parseFloat(doc.data().price + " * " + doc.data().quantity);
-       this.total = this.total + parseFloat(doc.data().price);
+      //  this.total = this.total + parseFloat(doc.data().price);
       })
 
       // console.log('My products in cart ',this.cartProduct);

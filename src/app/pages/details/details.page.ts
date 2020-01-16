@@ -68,6 +68,7 @@ export class DetailsPage implements OnInit {
   
   addToCart(i) {
     console.log(i);
+    
     this.dbCart.add({
       timestamp: new Date().getTime(),
       customerUid: this.customerUid,
@@ -76,7 +77,7 @@ export class DetailsPage implements OnInit {
       price: i.obj.price,
       quantity: this.event.quantity,
       image: i.obj.image,
-
+      total : i.obj.price * this.event.quantity
       // total: this.event.total
      }).then(() => {
       this.toastController(' product Added to cart')
@@ -86,6 +87,7 @@ export class DetailsPage implements OnInit {
       .catch(err => {
              console.error(err);
     });
+     
     this.cartItemCount.next(this.cartItemCount.value + 1);
 
   }
