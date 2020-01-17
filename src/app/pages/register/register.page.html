@@ -136,7 +136,7 @@
           <ion-title>Your password needs more than 6 characters.</ion-title>
         </ion-item>
     <div class="buttons">
-        <ion-button color="warning"  padding shape="block"  (click)="signupUser(signupForm)" [disabled]="!signupForm.valid"> REGISTER</ion-button>
+        <ion-button color="warning"  padding shape="block"  (click)="signupUser(signupForm)" (click)="dismiss()" [disabled]="!signupForm.valid"> REGISTER</ion-button>
         <ion-button padding  (click)="loginuser()"  fill="clear" color="medium" padding shape="block" >Have an account? Login</ion-button>
     </div>
       

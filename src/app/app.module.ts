@@ -9,9 +9,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './../app/services/auth.service';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { File } from '@ionic-native/file';
-import { FileOpener } from '@ionic-native/file-opener';
-
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { Downloader } from '@ionic-native/downloader/ngx';
 import * as firebase from 'firebase';
 import { DetailsPageModule } from './pages/details/details.module';
 import { ConfirmationPageModule } from './pages/confirmation/confirmation.module';
@@ -23,6 +23,8 @@ import { LoginPageModule } from './pages/login/login.module';
 import { RegisterPageModule } from './pages/register/register.module';
 import { TrolleyPageModule } from './pages/trolley/trolley.module';
 import { Popover1Component } from './components/popover1/popover1.component';
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEdqt_gOew6SACcVm3xMXETdQxxbdbLJE",
@@ -54,6 +56,9 @@ firebase.initializeApp(firebaseConfig);
     StatusBar,
     AuthService ,
     SplashScreen,
+    FileOpener,
+    Downloader,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
   ],
   bootstrap: [AppComponent]

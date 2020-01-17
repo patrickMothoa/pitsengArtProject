@@ -21,15 +21,13 @@ export class AuthService {
   }
   signupUser(email: string, password: string): Promise<any> {
     return firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((newUserCredential: firebase.auth.UserCredential) => {
-      firebase
-      .firestore()
-      .doc(`/UserProfile/${newUserCredential.user.uid}`)
-      .set({email});
-    })
-   .catch(error => {
+    .auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+      firebase.firestore().doc(`/UserProfile/${newUserCredential.user.uid}`).set({
+        email : email,
+        uid:newUserCredential.user.uid
+
+      });
+    }).catch(error => {
       console.error(error);
       throw new Error(error);
     });

@@ -104,7 +104,7 @@
 // }
 
 import { Component, OnInit, } from '@angular/core';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -121,12 +121,14 @@ export class RegisterPage implements OnInit {
   storage = firebase.storage().ref();
   public signupForm: FormGroup;
   public loading: any;
+  modalController: any;
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public modalController: ModalController
   ) {
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -153,8 +155,8 @@ export class RegisterPage implements OnInit {
         () => {
           this.loading.dismiss().then(() => {
              this.router.navigateByUrl('/profile');
-             
-          });
+             this.modalController.dismiss();
+          })
         },
         error => {
           this.loading.dismiss().then(async () => {
@@ -163,6 +165,7 @@ export class RegisterPage implements OnInit {
               buttons: [{ text: 'Ok', role: 'cancel' }]
             });
             await alert.present();
+            
           });
         }
       );
@@ -171,7 +174,27 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  dismiss(){
+    this.modalController.dismiss({
+      'dismissed': true
+  })
+}
   loginuser() {
     this.router.navigateByUrl('/login');
   }
+
+async createModalRegister() {
+  const modal = await this.modalController.create({
+      component: RegisterPage, 
+    });
+    return await modal.present();
+}
+
+dismiss() {
+   console .log("gfgf")
+    this.modalController.dismiss({
+      'dismissed': true
+  });
+}
+ 
 }
