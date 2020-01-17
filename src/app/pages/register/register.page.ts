@@ -121,6 +121,7 @@ export class RegisterPage implements OnInit {
   storage = firebase.storage().ref();
   public signupForm: FormGroup;
   public loading: any;
+  modalController: any;
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -153,8 +154,8 @@ export class RegisterPage implements OnInit {
         () => {
           this.loading.dismiss().then(() => {
              this.router.navigateByUrl('/profile');
-             
-          });
+             this.modalController.dismiss();
+          })
         },
         error => {
           this.loading.dismiss().then(async () => {
@@ -163,6 +164,7 @@ export class RegisterPage implements OnInit {
               buttons: [{ text: 'Ok', role: 'cancel' }]
             });
             await alert.present();
+            
           });
         }
       );
@@ -171,6 +173,11 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  dismiss(){
+    this.modalController.dismiss({
+      'dismissed': true
+  })
+}
   loginuser() {
     this.router.navigateByUrl('/login');
   }

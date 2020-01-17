@@ -26,6 +26,7 @@ export class TrolleyPage implements OnInit {
 
   cart = [];
   myArr = [];
+  total:0;
   amount: number;
   dbCart = firebase.firestore().collection('Cart');
   dbOrder = firebase.firestore().collection('Order');
@@ -44,6 +45,9 @@ export class TrolleyPage implements OnInit {
  
   ngOnInit() {
     this.getProducts();
+
+  
+    
 
   //////////// working used this wa
 
@@ -78,9 +82,10 @@ export class TrolleyPage implements OnInit {
         console.log("Your data here is ", i.data());
         this.total = this.total + i.data().amount;
       })
-   
+     // console.log("xxx",this.total );
     })
 return this.total;
+
   }
 
 
@@ -101,9 +106,9 @@ return this.total;
 
   placeOrder(){
 
-
+    let inside = this.total
     // let date = moment().format('MMMM Do YYYY, h:mm:ss a');
-    // console.log("Your date is ",date);
+     console.log("vvvv", inside);
     
     this.orderProd=[];
     let key = Math.floor(Math.random()*100000);
@@ -113,10 +118,13 @@ return this.total;
     this.orderProd.push(this.cartProduct[j]);
    }
    this.dbOrder.doc('Pitseng'+ key).set({
+    totalPrice:inside,
      date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
-     name: this.name,
+     name: this.name, 
+  
      userID: firebase.auth().currentUser.uid}).then(() => {
+       
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{
               this.dbCart.doc(i.id).delete();
@@ -156,7 +164,7 @@ return this.total;
   async SuccessModal(key) {
     const modal = await this.modalController.create({
       component: ConfirmationPage,
-      componentProps: {id : key},
+      componentProps: {id : key, total: this.total},
       cssClass: 'my-custom-modal-css'
     });
     return await modal.present();

@@ -39,17 +39,20 @@ export class ConfirmationPage implements OnInit {
     desc: null,
     small:'',
     medium:'',
-    large: ''
+    large: '',
+    amount:null
   };
   myProduct = false;
   storage;
-
+  
 
   key: string;
+  total: any;
   constructor(private navParams: NavParams, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
     this.key = this.navParams.get('id');
+    this.total = this.navParams.get('total');
 
-    console.log(this.key);
+    console.log(this.key, 'khuthyt', this.total);
 
     this.displayProduct(this.key); 
     
@@ -75,8 +78,6 @@ export class ConfirmationPage implements OnInit {
     this.dbOrder.doc('Pitseng' + key).onSnapshot((data) => {
       this.conArray.push(data.data());  
     })
-
-
     // this.conArray.forEach(i => {
      
       console.log("ssssssssssssssss ");
