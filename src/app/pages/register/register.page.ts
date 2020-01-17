@@ -121,7 +121,7 @@ export class RegisterPage implements OnInit {
   storage = firebase.storage().ref();
   public signupForm: FormGroup;
   public loading: any;
-  modalController: any;
+
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -188,13 +188,6 @@ async createModalRegister() {
       component: RegisterPage, 
     });
     return await modal.present();
-}
-
-dismiss() {
-   console .log("gfgf")
-    this.modalController.dismiss({
-      'dismissed': true
-  });
 }
  
 }
