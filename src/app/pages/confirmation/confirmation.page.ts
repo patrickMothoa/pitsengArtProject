@@ -52,7 +52,7 @@ export class ConfirmationPage implements OnInit {
     this.key = this.navParams.get('id');
     this.total = this.navParams.get('total');
 
-    console.log(this.key, 'khuthyt', this.total);
+    console.log(this.key, this.total);
 
     this.displayProduct(this.key); 
     

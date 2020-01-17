@@ -1,5 +1,3 @@
-
-  <ion-button (click)="deleteAll()" > clear </ion-button>
 <ion-content>
   <div class="container">
     <div class="content">
@@ -7,7 +5,7 @@
        
         <div class="main-content">
          
-
+​
       <div class="for-heading">
         <!-- <h1>Shopping bag</h1> -->
 <div class="coverContent">
@@ -23,16 +21,14 @@
           <ion-label class="ionLabel" >{{ p.product_name }}</ion-label>
         </div>
         </div>
-        
-
       </div>
-    </div>
+​
     <div class="qty">
       <ion-title>qty</ion-title>
       <div *ngFor="let p of cartProduct" class="qtyNo">
         <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
       </div>
-
+​
     </div>
     <div class="price" >
       <ion-title>price</ion-title>
@@ -42,12 +38,13 @@
     </div>
     <div class="subtotal">
       <ion-title text-wrap>Amount</ion-title>
-
+​
       <div class="subtotalNo" *ngFor="let p of cartProduct">
-        <ion-label class="ionLabel">{{ p.amount | currency:'R':'symbol' }}</ion-label>
+        <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
   </div>
+      </div>
   <div class="total">
     
     <h2>Order Summary</h2>
@@ -62,7 +59,7 @@
     <div class="buttons" >
       <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
       </ion-button>
-
+​
       <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="DismissClick() " text-wrap > Shopping
       </ion-button>
     </div>
@@ -72,5 +69,4 @@
         </div>
       </div>
     </div>
-  <!-- </div> -->
 </ion-content>
