@@ -150,12 +150,11 @@ async  deleteItem(li){
             data.forEach((item)=>{
               this.Allorders.push({ref:item.id,info:item.data()})
             })
-            console.log("ccc", this.Allorders);
-          
-        }) 
+            console.log("ccc", this.Allorders);    
+      }) 
   }
 
-  ///////////////////////
+  ////////////////////////////////////
   updateDetails(){
         console.log("clicked"); 
         firebase.firestore().collection('UserProfile').doc(this.Users.uid).update({
@@ -261,7 +260,7 @@ async createModalLogin() {
         }, error => {
         }, () => {
           upload.snapshot.ref.getDownloadURL().then(downUrl => {this.ngOnInit
-            this.profile.image = downUrl;
+            this.image = downUrl;
             this.uploadprogress = 0;
             this.isuploaded = true;
           });

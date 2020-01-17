@@ -23,7 +23,7 @@ export class TrolleyPage implements OnInit {
 
   name;
   key;
-  total:0;
+  total = 0;
   cart = [];
   myArr = [];
   amount: number;
@@ -43,44 +43,25 @@ export class TrolleyPage implements OnInit {
    }
  
   ngOnInit() {
-    this.getProducts();
-
+   this.getProducts();
+  // this.getTotal();
   //////////// working used this wa
-  this.deleteAll();
   }
 
   ionViewWillLeave(){
   // this.cartProduct = [];
   }
-  getTotal(){
-    let total = 0;
-    for (let i = 0; i < this.cartProduct.length; i++) {
-      let product = this.cartProduct[i].data.product;
-      // console.log(product);
-      product.forEach((item) => {
-        total += (item.amount);
-      })
-      //
-    }
-    //console.log('My tot ', total);
 
-    return total;
-  }
 
-  
-
-  getProducts() {
-    this.total = 0
-    firebase.firestore().collection("Cart").onSnapshot(item => {
-      item.forEach(i => {
-        this.cartProduct.push(i.data())
-        console.log("Your data here is ", i.data());
-        this.total = this.total + i.data().amount;
-      })
-   
+ getProducts() {
+  this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
+    this.cartProduct = [];
+    res.forEach((doc)=>{
+      this.cartProduct.push(doc.data());
+   return this.total = this.total + parseFloat(doc.data().price) * parseFloat(doc.data().quantity);
     })
-return this.total;
-  }
+  })
+}
 
 
   removeCartItem(p) {
@@ -99,6 +80,9 @@ return this.total;
   //////////////////////// group orders together.
 
   placeOrder(){
+
+    let inside = this.total
+    console.log('hereTtooo ', inside);
     this.orderProd=[];
     let key = Math.floor(Math.random()*100000);
    for (let j = 0; j < this.cartProduct.length; j++) {
@@ -106,6 +90,7 @@ return this.total;
     this.orderProd.push(this.cartProduct[j]);
    }
    this.dbOrder.doc('Pitseng'+ key).set({
+     totalPrice:inside,
      date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
      name: this.name,
@@ -120,24 +105,16 @@ return this.total;
     
      this.SuccessModal(key);
      this.dismiss();
-    // this.cartProduct = []
   }
+
+  getTotal() {
+    this.total;
+ }
 
   dismiss() {
     this.modalController.dismiss({
       'dismissed': true
     });
-  }
-
-  deleteAll(){
-    console.log("clearing...");
-    
-    this.dbCart.where('customerUid','==', firebase.auth().currentUser.uid).onSnapshot((res)=>{
-      console.log("insideclearing...", res);
-      res.forEach((data)=>{
-        this.dbCart.doc(data.id).delete();
-      })
-    })
   }
 
  /////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,9 +157,6 @@ return this.total;
     toast.present();
   }
 
-  clear(){
-    this.cart = [];
-  }
   async createModalTrolley() {
     const modal = await this.modalController.create({
       component: TrolleyPage,

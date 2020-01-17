@@ -104,7 +104,7 @@
 // }
 
 import { Component, OnInit, } from '@angular/core';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -126,7 +126,8 @@ export class RegisterPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public modalController: ModalController
   ) {
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -174,4 +175,19 @@ export class RegisterPage implements OnInit {
   loginuser() {
     this.router.navigateByUrl('/login');
   }
+
+async createModalRegister() {
+  const modal = await this.modalController.create({
+      component: RegisterPage, 
+    });
+    return await modal.present();
+}
+
+dismiss() {
+   console .log("gfgf")
+    this.modalController.dismiss({
+      'dismissed': true
+  });
+}
+ 
 }

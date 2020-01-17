@@ -44,16 +44,19 @@ export class ConfirmationPage implements OnInit {
   myProduct = false;
   storage;
 
-
+  total: any;
   key: string;
   constructor(private navParams: NavParams, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
     this.key = this.navParams.get('id');
-
+    this.total = this.navParams.get('total');
+    console.log(this.key, this.total);
     console.log(this.key);
 
     this.displayProduct(this.key); 
     
   }
+
+  /////
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmPage');
