@@ -93,8 +93,10 @@ export class TrolleyPage implements OnInit {
      totalPrice:inside,
      date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
-     name: this.name,
+     name: this.name, 
+  
      userID: firebase.auth().currentUser.uid}).then(() => {
+       
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{
               this.dbCart.doc(i.id).delete();
@@ -137,7 +139,7 @@ export class TrolleyPage implements OnInit {
   async SuccessModal(key) {
     const modal = await this.modalController.create({
       component: ConfirmationPage,
-      componentProps: {id : key},
+      componentProps: {id : key, total: this.total},
       cssClass: 'my-custom-modal-css'
     });
     return await modal.present();

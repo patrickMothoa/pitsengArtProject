@@ -41,6 +41,7 @@
     "integrator-cordova-plugin-downloader": "1.1.0",
     "ionic-native": "^2.9.0",
     "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
     "pdfmake": "^0.1.62",
     "rxjs": "~6.5.1",
     "sweetalert2": "^9.5.2",
