@@ -149,6 +149,7 @@ ViewDetails(view) {
   //this.router.navigateByUrl('/details')
   this.createModal();
 }
+
 async createModal() {
   const modal = await this.modalController.create({
     component: DetailsPage,
@@ -156,6 +157,7 @@ async createModal() {
   });
   return await modal.present();
 }
+
 async createModalLogin() {
   const modal = await this.modalController.create({
     component: LoginPage,
@@ -181,7 +183,6 @@ async createModalTrolley() {
    /// taking values db to cart import
   addToCart(event) {
     if(firebase.auth().currentUser){
-     // this.cartService.addProduct(event);
       console.log("pushing to Cart",event);
     }else{
       this.createModalLogin();
@@ -195,25 +196,15 @@ async createModalTrolley() {
   }
  
   openOrders(){
-    // this.loginBtn = true;
-    // this.registerBtn =  true;
-    // this.logoutBtn = false;
-    // this.orderBtn = false;
-    // this.profileBtn = false;
+
     this.router.navigateByUrl('/orders');
   }
   openProfile(){
-    // this.loginBtn = true;
-    // this.registerBtn =  true;
-    // this.logoutBtn = false;
-    // this.orderBtn = false;
-    // this.profileBtn = false;
     this.router.navigateByUrl('/profile');
   }
-// gggggggggggggggggg
+
   productDetails(item){
     this.data.data = item;
-    // this.router.navigateByUrl('/details');
     this.createModal();
   }
   

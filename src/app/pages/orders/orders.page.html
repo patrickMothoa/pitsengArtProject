@@ -40,5 +40,12 @@
     </div>
     </div>
   </ion-list>
+  <!-- control pdf with  -->
+  <div >
+    <div *ngIf="conArray">
+      <ion-label>download-pdf : </ion-label>
+      <button ion-fab color="medium" mini (click)="downloadPDF(li.pdfLink)"><ion-icon name="download"></ion-icon></button>
+    </div>
+  </div>
   </ion-content>
-  <ion-button (click)="GotoPDF()">Generate PDF</ion-button>
+ 

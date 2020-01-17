@@ -45,7 +45,6 @@
             </div>
             <div class="labelN" >
                 <div class="Name-label" >
-              <!-- <ion-label>name</ion-label> -->
             </div>
             </div>
           
@@ -68,7 +67,7 @@
                   <ion-input [(ngModel)]='address'></ion-input>
                 </div>
                 <div>
-                  <ion-input [(ngModel)]='number'></ion-input> 
+                  <ion-input type="number" min="1" max="10" [(ngModel)]='number'></ion-input> 
                 </div>
               </div>
            
@@ -83,7 +82,7 @@
                 <div>
                   <ion-label>{{li.info.date }} </ion-label>
                                  <!-- userID just for testing remove after use -->
-                  <ion-label>---{{li.info.userID}}</ion-label>
+                  <!-- <ion-label>---{{li.info.userID}}</ion-label> -->
 
                 </div>
               </ion-card>

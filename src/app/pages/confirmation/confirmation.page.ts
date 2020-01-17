@@ -58,6 +58,8 @@ export class ConfirmationPage implements OnInit {
     
   }
 
+  /////
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmPage');
   }

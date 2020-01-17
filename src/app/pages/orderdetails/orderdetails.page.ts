@@ -14,69 +14,62 @@ import { File } from '@ionic-native/file/ngx';
   styleUrls: ['./orderdetails.page.scss'],
 })
 export class OrderdetailsPage implements OnInit {
-@Input() id: any;
+@Input() id: any
+db = firebase.firestore();
+
 dbOrder = firebase.firestore().collection('Order');
 dbProfile = firebase.firestore().collection('userProfile');
 uid = firebase.auth().currentUser.uid;
 
-db = firebase.firestore();
-Orders = []
-conArray = []
-PList = []
-storage;
-key: any;
+
+myArray = [];
   constructor( private fileOpener: FileOpener, public downloader: Downloader,public loadingCtrl: LoadingController,private file: File,public route: ActivatedRoute, public ProductService: ProductService, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
 
      }
 
   ngOnInit() {
 
-   // this.DetailsHere();
-    // this.conArray = this.ProductService.myArray;
-    // console.log("Data from Service",   this.conArray);
   }
 
-  /////////////////////////////////////////////////////
-////////////////////////////////////////
-///////////////////////
-downloadPDF(pdf) {
-  console.log('PDF link..', pdf);
-  let request: DownloadRequest = {
-    uri: pdf,
-    title: 'Reciept ' + new Date().getTime(),
-    description: '',
-    mimeType: '',
-    visibleInDownloadsUi: true,
-    notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
-    destinationInExternalFilesDir: {
-      dirType: 'Download',
-      subPath: 'Reciepts'
-    }
-  };
-  this.downloader.download(request)
-    .then((location: string) => {
-      console.log('Located at ',location);
-      //this.presentToast()
-    } )
-    .catch((error: any) => console.error(error));
-}
+// downloadPDF(pdf) {
+//   console.log('PDF link..', pdf);
+//   let request: DownloadRequest = {
+//     uri: pdf,
+//     title: 'Reciept ' + new Date().getTime(),
+//     description: '',
+//     mimeType: '',
+//     visibleInDownloadsUi: true,
+//     notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+//     destinationInExternalFilesDir: {
+//       dirType: 'Download',
+//       subPath: 'Reciepts'
+//     }
+//   };
+//   this.downloader.download(request)
+//     .then((location: string) => {
+//       console.log('Located at ',location);
+//       //this.presentToast()
+//     } )
+//     .catch((error: any) => console.error(error));
+// }
 //////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// DetailsHere(){
-//   this.db.collection("Order").onSnapshot(data => {
-//     this.conArray = [];
-//       data.forEach((item)=>{
-//         this.conArray.push({ref:item.id,info:item.data()})
-//       })
-//       console.log("ccc", this.conArray);
-//       console.log("inside");
-//     })
-// }
-// ionViewDidLoad() {
-//   console.log('ionViewDidLoad OrderdetailsPage');
-// }
+   ////////////////////////////////// 
+//  GetHere(){
+//     this.dbOrder.where('userID','==',firebase.auth().currentUser.uid).onSnapshot((data)=>{
+//             console.log("olx", data);
+//             this.myArray = [];
+//               data.forEach((item)=>{
+//                 this.myArray.push({ref:item.id,info:item.data()})
+//               })
+//               console.log("ccc", this.myArray);
+            
+//        }) 
+//     }
+  
+    ///////////////////////
 
 // // DetailsHere(key) {
 // //   this.dbOrder.doc('Pitseng' + key).onSnapshot((data) => {
@@ -96,10 +89,10 @@ downloadPDF(pdf) {
 
 
 
-// dismiss() {
-// this.modalController.dismiss({
-//   'dismissed': true
-// });
-// }
+dismiss() {
+this.modalController.dismiss({
+  'dismissed': true
+});
+}
 
 }

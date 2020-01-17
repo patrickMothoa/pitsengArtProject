@@ -116,7 +116,6 @@ export class TrolleyPage implements OnInit {
       'dismissed': true
     });
   }
-​
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////
   stringGen(len){
@@ -156,7 +155,6 @@ export class TrolleyPage implements OnInit {
     });
     toast.present();
   }
-​
   async createModalTrolley() {
     const modal = await this.modalController.create({
       component: TrolleyPage,

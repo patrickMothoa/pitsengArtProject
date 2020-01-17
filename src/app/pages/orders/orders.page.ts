@@ -5,10 +5,11 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { OrderdetailsPage } from '../orderdetails/orderdetails.page';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 //import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
-
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @Component({
   selector: 'app-orders',
@@ -29,7 +30,7 @@ PList = []
 storage;
 key: any;
 loading: any;
-  constructor( private router: Router,public route: ActivatedRoute, public ProductService: ProductService, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService
+  constructor(private fileOpener: FileOpener, public downloader: Downloader,public loadingCtrl: LoadingController, private router: Router,public route: ActivatedRoute, public ProductService: ProductService, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService
     ) {
 
     this.route.queryParams.subscribe((res : any)=>{
@@ -42,12 +43,33 @@ loading: any;
   });
  }
 
-//async presentLoading(msg) {
-  //const loading = await this.loadingCtrl.create({
-   // message: msg
- // });
- // return await loading.present();
-//}
+
+///////////////////////////////////
+///////////////////////////////
+downloadPDF(pdf) {
+  console.log('PDF link..', pdf);
+  let request: DownloadRequest = {
+    uri: pdf,
+    title: 'Reciept ' + new Date().getTime(),
+    description: '',
+    mimeType: '',
+    visibleInDownloadsUi: true,
+    notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+    destinationInExternalFilesDir: {
+      dirType: 'Download',
+      subPath: 'Reciepts'
+    }
+  };
+  this.downloader.download(request)
+    .then((location: string) => {
+      console.log('Located at ',location);
+      //this.presentToast()
+    } )
+    .catch((error: any) => console.error(error));
+}
+
+/////////////////////////////
+/////////////////////////////////
 
   ngOnInit() {
 
@@ -76,9 +98,9 @@ this.modalController.dismiss({
 });
 }
 
- GotoPDF(){
-  this.router.navigateByUrl('/orderdetails'); 
-}
+//  GotoPDF(){
+//   this.router.navigateByUrl('/orderdetails'); 
+// }
 
 
 }
