@@ -4,7 +4,7 @@ import { ModalController, NavController, LoadingController } from '@ionic/angula
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { TransactionService } from 'src/app/services/transaction.service';
-import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+// import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 
@@ -22,8 +22,30 @@ dbProfile = firebase.firestore().collection('userProfile');
 uid = firebase.auth().currentUser.uid;
 
 
-myArray = [];
-  constructor( private fileOpener: FileOpener, public downloader: Downloader,public loadingCtrl: LoadingController,private file: File,public route: ActivatedRoute, public ProductService: ProductService, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService) {
+Orders = []
+conArray = []
+PList = []
+storage;
+key: any;
+  constructor(public route: ActivatedRoute, 
+    public ProductService: ProductService,
+   
+     public modalController: ModalController,
+     public navCtrl: NavController,
+     public transact: TransactionService, 
+     public data: ProductService
+    ) {
+
+    //   this.route.queryParams.subscribe((data) => {
+    //   console.log('dsd', data.id);
+    //   this.key = JSON.parse(data.id);
+    //   this.getProduct(this.key);
+      
+    // }) 
+
+    this.route.queryParams.subscribe((res)=>{
+      console.log(JSON.parse(res.value));
+  });
 
      }
 

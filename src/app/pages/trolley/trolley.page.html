@@ -97,10 +97,16 @@
         </div>
       </div>
 
+      <div class="qty">
+        <ion-title>qty</ion-title>
+        <div *ngFor="let p of cartProduct" class="qtyNo">
+          <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
+        </div>
+      </div>
     <div class="qty">
-      <ion-title>qty</ion-title>
+      <ion-title>size</ion-title>
       <div *ngFor="let p of cartProduct" class="qtyNo">
-        <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
+        <ion-label class="ionLabel"> {{ p.size }}</ion-label>
       </div>
 
     </div>

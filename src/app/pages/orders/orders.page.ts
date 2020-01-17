@@ -97,6 +97,35 @@ this.modalController.dismiss({
   'dismissed': true
 });
 }
+// downloadPDF(pdf) {
+//   /*     this.loader.create({
+//         content: "Downloading...",
+//         duration: 3000
+//       }).present(); */
+//   console.log('PDF link..', pdf);
+//   let request: DownloadRequest = {
+//     uri: pdf,
+//     title: 'Reciept ' + new Date().getTime(),
+//     description: '',
+//     mimeType: '',
+//     visibleInDownloadsUi: true,
+//     notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+//     destinationInExternalFilesDir: {
+//       dirType: 'Download',
+//       subPath: 'Reciepts'
+//     }
+//   };
+//   this.downloader.download(request)
+//     .then((location: string) => {
+//       console.log('Located at ',location);
+//       this.presentToast()
+//     } )
+//     .catch((error: any) => console.error(error));
+//   //  this.pdfObj = pdfMake.createPdf();
+//   // this.pdfObj.getBuffer((buffer) => {
+  
+//   // });
+// }
 
 //  GotoPDF(){
 //   this.router.navigateByUrl('/orderdetails'); 

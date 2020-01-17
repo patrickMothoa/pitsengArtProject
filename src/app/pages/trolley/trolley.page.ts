@@ -33,8 +33,12 @@ export class TrolleyPage implements OnInit {
   cartProduct = [];
   orderProd = [];
   constructor(public modalController: ModalController,
-    private cartService: CartService, private alertCtrl: AlertController, 
-    public data : ProductService,public transact: TransactionService, private router: Router,public toastController : ToastController ) {
+    private cartService: CartService, 
+    private alertCtrl: AlertController, 
+    public data : ProductService,
+    public transact: TransactionService, 
+    private router: Router,
+    public toastController : ToastController ) {
       this.dbUser.doc(firebase.auth().currentUser.uid).onSnapshot(element => {
         console.log(element.data());
         this.name = element.data().name
@@ -43,13 +47,13 @@ export class TrolleyPage implements OnInit {
    }
  
   ngOnInit() {
-   this.getProducts();
-  // this.getTotal();
-  //////////// working used this wa
+    this.getProducts();
+
+
   }
 ​
   ionViewWillLeave(){
-  // this.cartProduct = [];
+ 
   }
 ​
 ​
@@ -94,7 +98,10 @@ export class TrolleyPage implements OnInit {
      date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
      name: this.name,
-     userID: firebase.auth().currentUser.uid}).then(() => {
+     userID: firebase.auth().currentUser.uid,
+     pdfLink : "",
+     orderNumber:'Pitseng'+key
+    }).then(() => {
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{
               this.dbCart.doc(i.id).delete();
@@ -116,6 +123,7 @@ export class TrolleyPage implements OnInit {
       'dismissed': true
     });
   }
+​
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////
   stringGen(len){
@@ -155,6 +163,7 @@ export class TrolleyPage implements OnInit {
     });
     toast.present();
   }
+​
   async createModalTrolley() {
     const modal = await this.modalController.create({
       component: TrolleyPage,
