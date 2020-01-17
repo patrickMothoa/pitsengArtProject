@@ -22,7 +22,13 @@ conArray = []
 PList = []
 storage;
 key: any;
-  constructor(public route: ActivatedRoute, public ProductService: ProductService,private navParams: NavParams, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService
+  constructor(public route: ActivatedRoute, 
+    public ProductService: ProductService,
+    private navParams: NavParams,
+     public modalController: ModalController,
+     public navCtrl: NavController,
+     public transact: TransactionService, 
+     public data: ProductService
     ) {
 
     //   this.route.queryParams.subscribe((data) => {

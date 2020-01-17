@@ -37,8 +37,12 @@ total = 0;
   cartProduct = [];
   orderProd = [];
   constructor(public modalController: ModalController,
-    private cartService: CartService, private alertCtrl: AlertController, 
-    public data : ProductService,public transact: TransactionService, private router: Router,public toastController : ToastController ) {
+    private cartService: CartService, 
+    private alertCtrl: AlertController, 
+    public data : ProductService,
+    public transact: TransactionService, 
+    private router: Router,
+    public toastController : ToastController ) {
       this.dbUser.doc(firebase.auth().currentUser.uid).onSnapshot(element => {
         console.log(element.data());
         this.name = element.data().name
@@ -80,9 +84,9 @@ total = 0;
         console.log("Your data here is ", i.data());
         this.total = this.total + i.data().amount;
       })
-      this.getTotal()
+   
     })
-
+return this.total;
   }
 
 
@@ -113,7 +117,10 @@ total = 0;
      date: moment().format('MMMM Do YYYY, h:mm:ss a'),
      product: this.orderProd,
      name: this.name,
-     userID: firebase.auth().currentUser.uid}).then(() => {
+     userID: firebase.auth().currentUser.uid,
+     pdfLink : "",
+     orderNumber:'Pitseng'+key
+    }).then(() => {
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{
               this.dbCart.doc(i.id).delete();
