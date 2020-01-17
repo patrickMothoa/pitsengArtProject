@@ -38,6 +38,7 @@ export class ProfilePage implements OnInit {
   name
   number
   address
+  image
   /////////
   Allorders = [];
   cart = [];
@@ -209,6 +210,22 @@ async createModalLogin() {
      // this.router.navigateByUrl('/cart');
      this.router.navigateByUrl('/trolley');
     }
+
+    changeListener(event): void {
+      const i = event.target.files[0];
+      console.log(i);
+      const upload = this.storage.child(i.name).put(i);
+      upload.on('state_changed', snapshot => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('upload is: ', progress , '% done.');
+      }, err => {
+      }, () => {
+        upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+          console.log('File avail at: ', dwnURL);
+          this.image = dwnURL;
+        });
+      });
+    }
   async getImage(image){
     let imagetosend = image.item(0);
     if (!imagetosend) {
@@ -284,10 +301,13 @@ async createModalLogin() {
           this.number = doc.data().number
           this.address = doc.data().address
           this.name = doc.data().name
+          this.image = doc.data().image
         })
       }
     })
   }
+
+  
 
 
   edit() {

@@ -15,7 +15,7 @@
                 <ion-button fill="clear"  color="warning" (click)=" presentPopover($event)" slot="end"><ion-icon name="person"></ion-icon></ion-button>
            
                     <ion-button fill="clear" (click)="trolley()">
-                <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
+                <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label>
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
               </ion-button>        
             </div>
@@ -29,8 +29,19 @@
               <img class="cover-image" src="../../../assets/f77392832f13b428f45dd4b7b43ebe6f.jpg" alt="">
             </div>
             <div class="profile-picture">
-               <div  >
+               <!-- <div  >
               <img class="ppc" src="../../../assets/435dc662ea9048007ec3fa59882dde66.jpg" height="500px" width="500px" alt="">
+            </div> -->
+            <div>
+            <ion-item *ngIf="!image">
+              <ion-label color="medium" position="stacked" id="profile_image">Profile picture</ion-label>
+              <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="image"><img src="{{image}}" height="80" width="80"></ion-item>
+            </div>
+
+            <div>
+              <!-- <img class="ppc"  src="{{p.data.image}}" alt="" height="500px" > -->
             </div>
             <div class="labelN" >
                 <div class="Name-label" >
