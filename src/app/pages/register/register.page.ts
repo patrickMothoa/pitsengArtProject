@@ -121,7 +121,6 @@ export class RegisterPage implements OnInit {
   storage = firebase.storage().ref();
   public signupForm: FormGroup;
   public loading: any;
-
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
