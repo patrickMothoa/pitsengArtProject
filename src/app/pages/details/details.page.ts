@@ -22,7 +22,7 @@ export class DetailsPage implements OnInit {
   @ViewChild('cart', { static: false, read: ElementRef }) fab: ElementRef;
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection('Cart');
-  customerUid = firebase.auth().currentUser.uid;
+ // customerUid = firebase.auth().currentUser.uid;
   MyObj = [];
   event = {
     image: '',
@@ -70,32 +70,52 @@ export class DetailsPage implements OnInit {
 
   
 addToCart(i) {
-    console.log(i);
-    this.dbCart.add({
-      timestamp: new Date().getTime(),
-      customerUid: this.customerUid,
-      product_name : i.obj.name,
-      size : this.sizes,
-      price: i.obj.price,
-      quantity: this.event.quantity,
-      image: i.obj.image,
-      amount : i.obj.price * this.event.quantity
-      // total: this.event.total
-     }).then(() => {
-      this.toastController(' product Added to cart')
-      //this.router.navigateByUrl('basket');
-      this.dismiss();
-    })
-      .catch(err => {
-             console.error(err);
-    });
-    this.cartItemCount.next(this.cartItemCount.value + 1);
+if(firebase.auth().currentUser){
+ let customerUid = firebase.auth().currentUser.uid;
 
+ console.log(i);
+ this.dbCart.add({
+   timestamp: new Date().getTime(),
+   customerUid: customerUid,
+   product_name : i.obj.name,
+   size : this.sizes,
+   price: i.obj.price,
+   quantity: this.event.quantity,
+   image: i.obj.image,
+   amount : i.obj.price * this.event.quantity
+   // total: this.event.total
+  }).then(() => {
+   this.toastController(' product Added to cart')
+   //this.router.navigateByUrl('basket');
+   this.dismiss();
+ })
+   .catch(err => {
+          console.error(err);
+ });
+ this.cartItemCount.next(this.cartItemCount.value + 1);
+}else{
+  this.createModalLogin();
+}
   }
   sizeSelect(i, val, y) {
 
    this.sizes = i.detail.value;
 
+  }
+  async createModal() {
+    const modal = await this.modalController.create({
+      component: DetailsPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
+  
+  async createModalLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      
+    });
+    return await modal.present();
   }
 
   
