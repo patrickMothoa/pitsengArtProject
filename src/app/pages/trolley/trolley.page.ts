@@ -77,9 +77,7 @@ export class TrolleyPage implements OnInit {
       }
     }
   }
-​
-​
-  //////////////////////////////////////////////////////////////////////////////////////
+
   ////////////////////////////////////////////////////////////////////////////////////
   //////////////////////// group orders together.
 ​
@@ -106,7 +104,7 @@ export class TrolleyPage implements OnInit {
             res.forEach((i)=>{
               this.dbCart.doc(i.id).delete();
             })
-          })
+        })
    })
     console.log('My prod ', this.orderProd);
     
