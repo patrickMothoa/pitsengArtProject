@@ -26,7 +26,7 @@ export class TrolleyPage implements OnInit {
   total = 0;
   cart = [];
   myArr = [];
-  amount: number;
+  amount;
   dbCart = firebase.firestore().collection('Cart');
   dbOrder = firebase.firestore().collection('Order');
   dbUser = firebase.firestore().collection('UserProfile');
@@ -62,7 +62,7 @@ export class TrolleyPage implements OnInit {
     this.cartProduct = [];
     res.forEach((doc)=>{
       this.cartProduct.push(doc.data());
-   return this.total = this.total + parseFloat(doc.data().price) * parseFloat(doc.data().quantity);
+     this.total = this.total + parseFloat(doc.data().price) * parseFloat(doc.data().quantity);
     })
   })
 }
@@ -100,7 +100,7 @@ export class TrolleyPage implements OnInit {
      name: this.name,
      userID: firebase.auth().currentUser.uid,
      pdfLink : "",
-     orderNumber:'Pitseng'+key
+     orderNumber:'Pitseng'+key,
     }).then(() => {
           this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
             res.forEach((i)=>{

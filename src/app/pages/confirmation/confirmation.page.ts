@@ -45,6 +45,7 @@ export class ConfirmationPage implements OnInit {
   myProduct = false;
   storage;
   
+  myArray = [];
 
   key: string;
   totalPrice: any;
@@ -53,7 +54,9 @@ export class ConfirmationPage implements OnInit {
     this.totalPrice = this.navParams.get('total');
 
     console.log(this.key, this.totalPrice);
-
+  this.myArray.push(this.totalPrice);
+  console.log("xxx", this.myArray);
+  
     this.displayProduct(this.key); 
     
   }
@@ -67,29 +70,19 @@ export class ConfirmationPage implements OnInit {
 
   ngOnInit() {
 
-   /*  this.dbOrder.doc(this.doc_id).onSnapshot((res) => {
-      this.myOrder.push(res.data());
-      this.orderNumber = res.id;
-    }) */
-    // console.log('My order is', this.myOrder);
-
-
   }
 
   displayProduct(key) {
     this.dbOrder.doc('Pitseng' + key).onSnapshot((data) => {
       this.conArray.push(data.data());  
+      this.totalPrice;
     })
-    // this.conArray.forEach(i => {
-     
+     return this.totalPrice;
       console.log("ssssssssssssssss ");
-    // })
   }
   
 
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
       'dismissed': true
     });
