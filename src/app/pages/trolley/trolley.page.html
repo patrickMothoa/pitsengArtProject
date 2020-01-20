@@ -118,9 +118,8 @@
     </div>
     <div class="subtotal">
       <ion-title text-wrap>Amount</ion-title>
-
       <div class="subtotalNo" *ngFor="let p of cartProduct">
-        <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
+        <ion-label class="ionLabel">{{ p.amount | currency:'R':'symbol' }}</ion-label>
       </div>
     </div>
   </div>
@@ -137,8 +136,7 @@
       </div>
     </div>
     <div class="buttons" >
-      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
-      </ion-button>
+      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order</ion-button>
 
       <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="DismissClick() " text-wrap > Shopping
       </ion-button>

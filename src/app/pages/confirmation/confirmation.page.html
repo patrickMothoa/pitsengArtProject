@@ -16,7 +16,11 @@
 					<div *ngFor="let li of b.product" class="oderDetails">
 						<div class="items">
 				<!-- <ion-title>item</ion-title> -->
+				<div>
+					<ion-label  class="ionLabel">Item name</ion-label>
+				  </div>
 				<div  class="itemsDetails">
+					
 					<div class="itemName">
 						<ion-label class="ionLabel"> {{li.product_name}}</ion-label>
 					</div>
@@ -24,7 +28,9 @@
 				</div>
 			</div>
 			<div class="qty">
-				<!-- <ion-title>qty</ion-title> -->
+				<div>
+					<ion-label  class="ionLabel">Quantity </ion-label>
+				  </div>
 				<div class="qtyNo">
 					<ion-label class="ionLabel"> {{li.quantity}}</ion-label>
 				</div>
@@ -34,15 +40,21 @@
 
 			</div>
 			<div class="price">
+				<div>
+					<ion-label  class="ionLabel">Price</ion-label>
+				  </div>
 				<div class="priceNo">
 					<ion-label class="ionLabel">R &nbsp; {{li.price}}</ion-label>
 				</div>
 			</div>
-			<!-- <div class="amount">
+			<div class="amount">
+				<div>
+					<ion-label  class="ionLabel"> Amount </ion-label>
+				  </div>
 				<div class="amountNo">
 					<ion-label class="ionLabel">R &nbsp; {{li.amount}}</ion-label>
 				</div>
-			</div> -->
+			</div>
 					</div>
 		
 		
