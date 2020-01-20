@@ -16,7 +16,9 @@ import { RegisterPage } from '../register/register.page';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  cartItemCount: BehaviorSubject<number>;
+  private cartItemCount = new BehaviorSubject(0);
+
+  //cartItemCount: BehaviorSubject<number>;
   @ViewChild('cart', { static: false, read: ElementRef }) fab: ElementRef;
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection('Cart');
