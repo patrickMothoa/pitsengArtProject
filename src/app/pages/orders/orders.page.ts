@@ -50,9 +50,16 @@ pdfLink :any;
       console.log(array);
       this.conArray = array['info']
       console.log(this.conArray);
-    
+
+      
+    ///////
+       this.PList = array['info']
+       console.log(this.PList);
+       
+
   });
  }
+/////////////////////
 
 
 ///////////////////////////////////

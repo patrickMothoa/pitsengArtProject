@@ -1,48 +1,38 @@
-<!-- <ion-header>
-    <ion-toolbar>
-        <ion-title>Orders</ion-title>
-    </ion-toolbar>
-</ion-header>
 
-<ion-content padding>
-	<ion-label>Order List </ion-label>
-    <div *ngIf="display">
-      <h5  class="empty-cart"><ion-icon name="cart" class="navicon"></ion-icon>Order History is empty</h5>
-    </div>
-        
-	<ion-list >
-      <ion-card  *ngFor="let li of conArray">
-        <ion-item class="cart-item" (click)="ViewDetails(li)">
-          <ion-item class="cart-item"{{li.details.orderdate}}>
-          <span class="ornum"><p>Order Number : {{li.details.orderNumber}} | </p></span>
-          <span class="ornum"> <p> Date : {{li.details.orderdate}}</p> </span> 
-        </ion-item>
-       </ion-item>
-      </ion-card>  
-	</ion-list>
-</ion-content> -->
 <ion-content padding>
   <ion-label>Order History </ion-label>
         
   <ion-list >
     <div *ngIf= "conArray" class="line" >
+
       <div  *ngFor="let li of conArray.product">
       <ion-card  class="oderDetails">
         <ion-item class="cart-item">
           <ion-thumbnail item-start>
             <img src="{{li.image}}">
           </ion-thumbnail>
-          <span class="ornum"><p>Name : {{li.product_name}}</p></span>
-          <span class="ornum"> <p> R {{li.price}} </p></span>
-          <span class="ornum"> <p>Quantity: {{li.quantity}}</p></span>
+          <ion-label>Name : {{li.product_name}}</ion-label>
+          <ion-label>Price :R {{li.price}}</ion-label>
+          <ion-label>Quantity: {{li.quantity}}</ion-label>
+          <ion-label>Amount : {{li.amount}}</ion-label>
         </ion-item>
+
+        <div >
+          <span class="ornum"><p> total : {{PList.totalPrice}}</p></span>
+        </div>
+
       </ion-card>
+
+    
+
+
     </div>
     </div>
   </ion-list>
-  <!-- control pdf with  *ngIf="conArray" -->
-  <div>
-    <div>
+
+  <!-- control pdf with  -->
+  <div >
+    <div *ngIf="conArray">
       <ion-label>download-pdf : </ion-label>
       <button ion-fab color="medium" mini (click)="downloadUrl(pdfLink)"><ion-icon name="download"></ion-icon></button>
     </div>

@@ -16,6 +16,7 @@ import { RegisterPage } from '../pages/register/register.page';
 import Swal from 'sweetalert2';
 import { TrolleyPage } from '../pages/trolley/trolley.page';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+
 declare var window
 @Component({
   selector: 'app-home',

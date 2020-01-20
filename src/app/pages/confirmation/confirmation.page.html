@@ -1,73 +1,3 @@
-<!-- <ion-header>
-		<div class="closeButton" >
-				<div >
-				   <ion-button fill="clear"  color="tertiary"  float="right"	 (click)="dismiss()" slot="end">
-					 <ion-icon slot="icon-only" name="close"></ion-icon>
-					 </ion-button>
-				</div>
-			   
-			  </div>
-</ion-header>
-
-
-<ion-content padding>
-	<div class="main-container">
-		<div class="message">
-			<ion-title>Payment</ion-title>
-
-			<h5>Thank you for Shopping with PitsengArt!</h5>
-			<p>You will receive your order after your payments.</p>
-
-		</div>
-
-		<div>
-			<div class="bill-info">
-
-				<div>
-					<div class="order-heading">your order</div>
-					<div>
-									<ion-list>
-						<ion-item class="review-item" *ngFor="let li of conArray">
-							<span class="ornum">
-								<p>Your order confirmation number is {{li.details.orderNumber}}</p>
-							</span>
-							<span class="ornum">
-								<p>Date : {{li.details.orderdate}}</p>
-							</span>
-							<span class="ornum">
-								<p>Name : {{li.obj.name}}</p>
-							</span>
-							<span class="ornum">
-								<p> R {{li.obj.price}} </p>
-							</span>
-							<span class="ornum">
-								<p>Quantity: {{li.obj.quantity}}</p>
-							</span>
-							<h5> Total: {{li.details.total}}</h5>
-						</ion-item>
-					</ion-list>	
-					</div>
-	
-				</div>
-
-
-				<ion-label>Banking Details. </ion-label>
-				<div class="bill-info">
-					<p>Account Holder : Mr Pitseng</p>
-					<p>Account Number : 1234567891011</p>
-					<p>Bank Name : ABSA</p>
-					<p>Branch Name : Soweto</p>
-					<p>Branch Code : 23055</p>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
-
-</ion-content> -->
-
-
 
 <ion-content padding>
 	<div class="main-container">
@@ -121,11 +51,9 @@
 	</div>
 	<div class="total-amount">
 		<div>
-			<ion-label>{{total | currency: '&#82;'}}</ion-label>
+			<ion-label>{{totalPrice | currency: '&#82;'}}</ion-label>
 		</div>
 
-		<div>
-		</div>
 	</div>
 		<div class="businessInfor">
 			<div class="reference" >
@@ -144,8 +72,7 @@
 
 		</div>
 		<div class="buttonDismiss" >
-			<ion-button class="btn" padding color="warning" shape="round" expand="full"  (click)="logoutAlert()">done
-			</ion-button>
+			<ion-button class="btn" padding color="warning" shape="round" expand="full"  (click)="logoutAlert()">done</ion-button>
 		</div>
 	
 

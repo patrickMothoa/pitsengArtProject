@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { LoginPage } from '../login/login.page';
 import { element } from 'protractor';
 import * as moment from 'moment'
-
+​
 @Component({
   selector: 'app-trolley',
   templateUrl: './trolley.page.html',
@@ -18,9 +18,9 @@ import * as moment from 'moment'
 })
 export class TrolleyPage implements OnInit {
   private cartItemCount = new BehaviorSubject(0);
-
+​
   db = firebase.database();
-
+​
   name;
   key;
   total = 0;
@@ -51,12 +51,12 @@ export class TrolleyPage implements OnInit {
 
 
   }
-
+​
   ionViewWillLeave(){
  
   }
-
-
+​
+​
  getProducts() {
   this.dbCart.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
     this.cartProduct = [];
@@ -66,8 +66,8 @@ export class TrolleyPage implements OnInit {
     })
   })
 }
-
-
+​
+​
   removeCartItem(p) {
     console.log("del");
     for (let [index, p] of this.cart.entries()) {
@@ -78,13 +78,11 @@ export class TrolleyPage implements OnInit {
     }
   }
 
-
-  //////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////
   //////////////////////// group orders together.
-
+​
   placeOrder(){
-
+​
     let inside = this.total
     console.log('hereTtooo ', inside);
     this.orderProd=[];
@@ -106,24 +104,26 @@ export class TrolleyPage implements OnInit {
             res.forEach((i)=>{
               this.dbCart.doc(i.id).delete();
             })
-          })
+        })
    })
     console.log('My prod ', this.orderProd);
     
      this.SuccessModal(key);
      this.dismiss();
   }
-
+​
   getTotal() {
     this.total;
+    console.log("cctotal", this.total);
+    
  }
-
+​
   dismiss() {
     this.modalController.dismiss({
       'dismissed': true
     });
   }
-
+​
  /////////////////////////////////////////////////////////////////////////////////////////////
 /////// generating Random string   ///////////////////////////////////////////////////////////
   stringGen(len){
@@ -133,7 +133,7 @@ export class TrolleyPage implements OnInit {
         text += charset.charAt(Math.floor(Math.random() * charset.length));
     return text;
   }
-
+​
   async viewModal(){
     const modal = await this.modalController.create({
       component: ConfirmationPage,
@@ -144,7 +144,7 @@ export class TrolleyPage implements OnInit {
   async SuccessModal(key) {
     const modal = await this.modalController.create({
       component: ConfirmationPage,
-      componentProps: {id : key, total: this.total},
+      componentProps: {id : key},
       cssClass: 'my-custom-modal-css'
     });
     return await modal.present();
@@ -155,7 +155,7 @@ export class TrolleyPage implements OnInit {
   async DismissClick() {
     await this.modalController.dismiss();
       }
-
+​
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Your order processed successfully..',
@@ -163,7 +163,7 @@ export class TrolleyPage implements OnInit {
     });
     toast.present();
   }
-
+​
   async createModalTrolley() {
     const modal = await this.modalController.create({
       component: TrolleyPage,
@@ -171,5 +171,5 @@ export class TrolleyPage implements OnInit {
     });
     return await modal.present();
   }
-
+​
 }

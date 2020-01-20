@@ -16,11 +16,13 @@ import { RegisterPage } from '../register/register.page';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  cartItemCount: BehaviorSubject<number>;
+  private cartItemCount = new BehaviorSubject(0);
+
+  //cartItemCount: BehaviorSubject<number>;
   @ViewChild('cart', { static: false, read: ElementRef }) fab: ElementRef;
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection('Cart');
-  customerUid = firebase.auth().currentUser.uid;
+  //customerUid = firebase.auth().currentUser.uid;
   MyObj = [];
   event = {
     image: '',
@@ -56,7 +58,6 @@ export class DetailsPage implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-
     // this.items = this.cartService.getProducts();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
@@ -67,36 +68,76 @@ export class DetailsPage implements OnInit {
   }
 
   
-addToCart(i) {
-    console.log(i);
-    this.dbCart.add({
-      timestamp: new Date().getTime(),
-      customerUid: this.customerUid,
-      product_name : i.obj.name,
-      size : this.sizes,
-      price: i.obj.price,
-      quantity: this.event.quantity,
-      image: i.obj.image,
+  addToCart(i) {
+    /////////
+    if(firebase.auth().currentUser){
+    let  customerUid = firebase.auth().currentUser.uid;
+      console.log(i);
+      this.dbCart.add({
+        timestamp: new Date().getTime(),
+        customerUid: customerUid,
+        product_name : i.obj.name,
+        size : this.sizes,
+        price: i.obj.price,
+        quantity: this.event.quantity,
+        image: i.obj.image
+       }).then(() => {
+        this.toastController(' product Added to cart')
+        this.dismiss();
+      })
+        .catch(err => {
+               console.error(err);
+      });
 
-      // total: this.event.total
-     }).then(() => {
-      this.toastController(' product Added to cart')
-      //this.router.navigateByUrl('basket');
-      this.dismiss();
-    })
-      .catch(err => {
-             console.error(err);
-    });
-    this.cartItemCount.next(this.cartItemCount.value + 1);
-
-  }
+      this.cartItemCount.next(this.cartItemCount.value + 1);
+    
+    }else{
+      this.createModalLogin();
+    }
+    
+      /////
+        // console.log(i);
+        // this.dbCart.add({
+        //   timestamp: new Date().getTime(),
+        //   customerUid: this.customerUid,
+        //   product_name : i.obj.name,
+        //   size : this.sizes,
+        //   price: i.obj.price,
+        //   quantity: this.event.quantity,
+        //   image: i.obj.image,
+    
+        //   // total: this.event.total
+        //  }).then(() => {
+        //   this.toastController(' product Added to cart')
+        //   //this.router.navigateByUrl('basket');
+        //   this.dismiss();
+        // })
+        //   .catch(err => {
+        //          console.error(err);
+        // });
+     
+    
+      }
   sizeSelect(i, val, y) {
-
    this.sizes = i.detail.value;
-
   }
 
+  async createModal() {
+    const modal = await this.modalController.create({
+      component: DetailsPage,
+      cssClass: 'my-custom-modal-css'
+    });
+    return await modal.present();
+  }
   
+  async createModalLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage, 
+    });
+    return await modal.present();
+  }
+  ////
+
   openCart() {
     // this.router.navigate(['cart']);
     this.router.navigateByUrl('/trolley');
@@ -109,27 +150,8 @@ addToCart(i) {
     console.log('ionViewDidLoad ProductPage');
   }
 
-  // retriving from firebase.firestore
   getProducts() {
-    // this.db.collection('Products').get().then(snapshot => {
-    //   if (snapshot.empty) {
-    //     this.myProduct = false;
-    //   } else {
-    //     this.myProduct = true;
-    //     snapshot.forEach(doc => {
-    //       this.event.image = doc.data().image;
-    //       this.event.categories = doc.data().categories;
-    //       this.event.name = doc.data().name;
-    //       this.event.price = doc.data().price;
-    //       this.event.productno = doc.data().productCode;
-    //       this.event.desc = doc.data().desc;
-    //       this.event.small = doc.data().small;
-    //       this.event.medium = doc.data().medium;
-    //       this.event.large = doc.data().large;
 
-    //     })
-    //   }
-    // })
   }
   async myModal() {
     const modal = await this.modalController.create({
