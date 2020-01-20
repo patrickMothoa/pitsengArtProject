@@ -25,13 +25,13 @@ export class ProfilePage implements OnInit {
   uid
   profile = {
     image: '',
-    surname:'',
     name: '',
     address: '',
     uid: '',
-    phoneNumber: '',
+    number: '',
     email: firebase.auth().currentUser.email,
   }
+
 
   ///////
   email
@@ -67,9 +67,13 @@ export class ProfilePage implements OnInit {
   public userTransact: any;
   users = [];
   myArray =[]
-  constructor(public router: Router,public alertCtrl: AlertController, public popoverController: PopoverController,
+
+  constructor(public router: Router,
+    public alertCtrl: AlertController,
+    public popoverController: PopoverController,
     public modalController: ModalController,
-    public data: ProductService, public transact: TransactionService,
+    public data: ProductService,
+    public transact: TransactionService,
     private cartService: CartService,) {
     this.uid = firebase.auth().currentUser.uid;
    }
@@ -148,11 +152,16 @@ async  deleteItem(li){
           console.log("olx", data);
           this.Allorders = [];
             data.forEach((item)=>{
-              this.Allorders.push({ref:item.id,info:item.data()})
+              this.Allorders.push({ref:item.id,info:item.data(), total:item.data()})
             })
-            console.log("ccc", this.Allorders);    
+            console.log("ccc", this.Allorders);
+
       }) 
   }
+
+  getTotal() {
+  //  this.total;
+ }
 
   ////////////////////////////////////
   updateDetails(){
@@ -225,6 +234,8 @@ async createModalLogin() {
         });
       });
     }
+
+
   async getImage(image){
     let imagetosend = image.item(0);
     if (!imagetosend) {
@@ -270,19 +281,21 @@ async createModalLogin() {
   }
   
   createAccount(){
-    if (!this.profile.address||!this.profile.name||!this.profile.surname||!this.profile.phoneNumber){
+    if (!this.address||!this.name||!this.email||!this.number){
+
       this.errtext = 'Fields should not be empty'
     } else {
-      if (!this.profile.image){
+      if (!this.image){
         this.errtext = 'Profile image still uploading or not selected';
       } else {
         this.profile.uid =  this.Users.uid;
+
         this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => {
-          console.log('Profile created');
           this.getProfile();
         }).catch(error => {
           console.log('Error');
         });
+
       }
     }
   }
@@ -305,8 +318,6 @@ async createModalLogin() {
       }
     })
   }
-
-  
 
 
   edit() {

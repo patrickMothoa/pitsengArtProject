@@ -30,6 +30,7 @@ PList = []
 storage;
 key: any;
 loading: any;
+//totalPrice: any;
   constructor(private fileOpener: FileOpener, public downloader: Downloader,public loadingCtrl: LoadingController, private router: Router,public route: ActivatedRoute, public ProductService: ProductService, public modalController: ModalController,public navCtrl: NavController,public transact: TransactionService, public data: ProductService
     ) {
 
@@ -39,13 +40,17 @@ loading: any;
       console.log(array);
       this.conArray = array['info']
       console.log(this.conArray);
-    
+
+      
+    ///////
+       this.PList = array['info']
+       console.log(this.PList);
+       
+
   });
  }
+/////////////////////
 
-
-///////////////////////////////////
-///////////////////////////////
 downloadPDF(pdf) {
   console.log('PDF link..', pdf);
   let request: DownloadRequest = {
@@ -97,39 +102,5 @@ this.modalController.dismiss({
   'dismissed': true
 });
 }
-// downloadPDF(pdf) {
-//   /*     this.loader.create({
-//         content: "Downloading...",
-//         duration: 3000
-//       }).present(); */
-//   console.log('PDF link..', pdf);
-//   let request: DownloadRequest = {
-//     uri: pdf,
-//     title: 'Reciept ' + new Date().getTime(),
-//     description: '',
-//     mimeType: '',
-//     visibleInDownloadsUi: true,
-//     notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
-//     destinationInExternalFilesDir: {
-//       dirType: 'Download',
-//       subPath: 'Reciepts'
-//     }
-//   };
-//   this.downloader.download(request)
-//     .then((location: string) => {
-//       console.log('Located at ',location);
-//       this.presentToast()
-//     } )
-//     .catch((error: any) => console.error(error));
-//   //  this.pdfObj = pdfMake.createPdf();
-//   // this.pdfObj.getBuffer((buffer) => {
-  
-//   // });
-// }
-
-//  GotoPDF(){
-//   this.router.navigateByUrl('/orderdetails'); 
-// }
-
 
 }

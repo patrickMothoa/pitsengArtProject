@@ -114,6 +114,8 @@ export class TrolleyPage implements OnInit {
 ​
   getTotal() {
     this.total;
+    console.log("cctotal", this.total);
+    
  }
 ​
   dismiss() {

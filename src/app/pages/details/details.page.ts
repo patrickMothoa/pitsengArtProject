@@ -16,7 +16,9 @@ import { RegisterPage } from '../register/register.page';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  cartItemCount: BehaviorSubject<number>;
+  private cartItemCount = new BehaviorSubject(0);
+
+  //cartItemCount: BehaviorSubject<number>;
   @ViewChild('cart', { static: false, read: ElementRef }) fab: ElementRef;
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection('Cart');
@@ -78,7 +80,7 @@ export class DetailsPage implements OnInit {
         size : this.sizes,
         price: i.obj.price,
         quantity: this.event.quantity,
-        image: i.obj.image,
+        image: i.obj.image
        }).then(() => {
         this.toastController(' product Added to cart')
         this.dismiss();
@@ -86,6 +88,8 @@ export class DetailsPage implements OnInit {
         .catch(err => {
                console.error(err);
       });
+
+      this.cartItemCount.next(this.cartItemCount.value + 1);
     
     }else{
       this.createModalLogin();
@@ -111,7 +115,7 @@ export class DetailsPage implements OnInit {
         //   .catch(err => {
         //          console.error(err);
         // });
-        this.cartItemCount.next(this.cartItemCount.value + 1);
+     
     
       }
   sizeSelect(i, val, y) {
