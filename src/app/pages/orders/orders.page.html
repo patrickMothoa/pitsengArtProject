@@ -40,11 +40,11 @@
     </div>
     </div>
   </ion-list>
-  <!-- control pdf with  -->
-  <div >
-    <div *ngIf="conArray">
+  <!-- control pdf with  *ngIf="conArray" -->
+  <div>
+    <div>
       <ion-label>download-pdf : </ion-label>
-      <button ion-fab color="medium" mini (click)="downloadPDF(li.pdfLink)"><ion-icon name="download"></ion-icon></button>
+      <button ion-fab color="medium" mini (click)="downloadUrl(pdfLink)"><ion-icon name="download"></ion-icon></button>
     </div>
   </div>
   </ion-content>
