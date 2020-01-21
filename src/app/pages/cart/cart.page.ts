@@ -26,13 +26,15 @@ export class CartPage implements OnInit {
   myArr = [];
   mysize: string = '';
   sizes = [];
-
+  checkbox=[];
+  checked : boolean = false;
   name;
   key;
   total = 0;
   amount: number;
   dbWishlist = firebase.firestore().collection('Wishlist');
-
+  ///
+  productis = [];
   dbOrder = firebase.firestore().collection('Order');
   dbUser = firebase.firestore().collection('UserProfile');
   cartProduct = [];
@@ -67,9 +69,23 @@ export class CartPage implements OnInit {
   //   console.log('My array ', this.cart );
   // }, 1500);
   /////
+
 this.getProducts();
   }
-  ///
+
+  	
+addValue(even, p, j){
+  this.checked = !this.checked
+  console.log("checked: " + this.checked);
+
+  if(this.checked) {
+
+  }else {
+    
+  }
+
+
+}
   getProducts() {
     console.log("mylist....");
     
