@@ -4,7 +4,7 @@
     <div class="ion-padding">
    
       <ion-list>
-        <ion-item *ngFor="let p of cart" class="ion-text-wrap">
+        <ion-item *ngFor="let p of cart; let j=index" class="ion-text-wrap">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -14,41 +14,40 @@
               </ion-item>
                 
             <ion-avatar>
-                <img src="{{p.image}}">
+                <img src="{{p.product.image}}">
             </ion-avatar>
-                <b>Name :{{ p.product_name }}</b>
-                <p> Price: {{ p.quantity * p.price | currency:'R':'symbol' }}</p>
+                <b>Name :{{ p.product.product_name }}</b>
+                <p> Price: {{ p.product.price | currency:'R':'symbol' }}</p>
 
                 <ion-item class="radioBttns" lines="none" >
                   <ion-label color="medium" position="floating">Size</ion-label>
                   <ion-select multiple="true" color="medium" (ionChange)="sizeSelect($event, s, i)">
-                  <ion-select-option *ngFor="let s of p.size; let i = index">{{s}}</ion-select-option>
+                  <ion-select-option *ngFor="let s of p.product.size; let i = index">{{s}}</ion-select-option>
               </ion-select>
             </ion-item>
-
-              </ion-col>
+          </ion-col>
 
             </ion-row>
 
             <ion-row class="ion-align-items-center">
               <ion-col size="1" class="ion-align-self-center">
-                Quantity : {{ p.quantity }}
+                Quantity : {{ p.product.quantity }}
               </ion-col>
               <ion-col size="1" class="ion-align-self-center">
-                <ion-button color="medium" fill="clear" (click)="decreaseCartItem(p)">
+                <ion-button color="medium" fill="clear" (click)="decreaseCartItem(j)">
                   <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
             
    
               <ion-col size="1" class="ion-align-self-center">
-                <ion-button color="medium" fill="clear" (click)="increaseCartItem(p)">
+                <ion-button color="medium" fill="clear" (click)="increaseCartItem(j)">
                   <ion-icon name="add-circle" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
    
               <ion-col size="2" offset="5">
-                <ion-button color="medium" fill="clear" (click)="removeCartItem(p)">
+                <ion-button color="medium" fill="clear" (click)="removeCartItem(p.id)">
                   <ion-icon name="close-circle" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>

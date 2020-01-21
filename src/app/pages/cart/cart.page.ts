@@ -50,27 +50,7 @@ export class CartPage implements OnInit {
  
   ngOnInit() {
     this.cart = this.cartService.getCart();
-  ////
-  // this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Wishlist').onSnapshot((res)=> {
-  //   this.myArr = [];
-  //   res.forEach((doc)=>{
-  //     this.myArr.push(doc.data());
-  //   })
-  //   console.log("vvv");
-    
-  // })
-
-  // setTimeout(() => {
-  //   this.clear();
-  //   this.cart = [];
-  //   this.myArr.forEach((item)=>{
-  //     this.cart.push(item.name.obj);
-  //   })
-  //   console.log('My array ', this.cart );
-  // }, 1500);
-  /////
-
-this.getProducts();
+    this.getProducts();
   }
 
   	
@@ -93,114 +73,41 @@ addValue(even, p, j){
       this.cart = [];
       console.log("inside....mylist");
       res.forEach((doc)=>{
-        this.cart.push(doc.data());
+        this.cart.push({id: doc.id, product: doc.data()});
+
+        let i = this.cart.length
+        this.cart[i -1]['productID'] = doc.id
+console.log("vvv", this.cart);
 
      // return  this.total = this.getTotal();
     // return this.total = this.total + parseFloat(doc.data().price) * parseFloat(doc.data().quantity);
-     ///
+    ///
    
       })
     })
   }
  
   decreaseCartItem(p) {
-     console.log("dec");
-     for (let [index, p] of this.cart.entries()) {
-      if (this.cart) {
-        p.quantity -= 1;
-        if (p.quantity == 0) {
-          this.cart.splice(index, 1);
-        }
-      }
-    }
+  
+    this.cart[p].product.quantity--;
   }
  
   increaseCartItem(p) {
-    console.log("inc");
-    let added = false;
-    for (let p of this.cart) {
-      if (this.cart) {
-        p.quantity += 1;
-        added = true;
-        break;
-      }
-    }
-    if (!added) {
-      this.cart.push(this.cart);
-    }
-    this.wishItemCount.next(this.wishItemCount.value + 1);
+    console.log(p);
+    this.cart[p].product.quantity++;
+
   }
  
-  removeCartItem(p) {
-    // this.cartService.removeProduct(p);
-    console.log("del");
-    for (let [index, p] of this.cart.entries()) {
-      if (this.cart) {
-        this.wishItemCount.next(this.wishItemCount.value - p.quantity);
-        this.cart.splice(index, 1);
-      }
-    }
+  removeCartItem(id) {
+
+    this.dbWishlist.doc(id).delete();
   }
  
   getTotal() {
-    return this.cart.reduce((i, j) => i + j.price * j.quantity, 0);
+    return this.cart.reduce((i, j) => i + j.product.price * j.product.quantity, 0);
     
   }
   ////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////// group orders together.
-  ​
-  placeOrder(){
-​
-    let inside = this.total
-    console.log('hereTtooo ', inside);
-    this.orderProd=[];
-    let key = Math.floor(Math.random()*100000);
-   for (let j = 0; j < this.cartProduct.length; j++) {
-    console.log('Products ', this.cartProduct[j]);
-    this.orderProd.push(this.cartProduct[j]);
-   }
-   this.dbOrder.doc('Pitseng'+ key).set({
-     totalPrice:inside,
-     date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-     product: this.orderProd,
-     name: this.name,
-     userID: firebase.auth().currentUser.uid,
-     pdfLink : "",
-     orderNumber:'Pitseng'+key
-    }).then(() => {
-          this.dbWishlist.where('customerUid','==',firebase.auth().currentUser.uid).onSnapshot((res)=>{
-            res.forEach((i)=>{
-              this.dbWishlist.doc(i.id).delete();
-            })
-        })
-   })
-    console.log('My prod ', this.orderProd);
-    
-    // this.SuccessModal(key);
-     this.dismiss();
-  }
-​
-//   getTotal() {
-//     this.total;
-//     console.log("cctotal", this.total);
-    
-//  }
-// ​
-  dismiss() {
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-   }
-​
- /////////////////////////////////////////////////////////////////////////////////////////////
-/////// generating Random string   ///////////////////////////////////////////////////////////
-  stringGen(len){
-    var text = " ";
-    var charset = "abcdefghijklmnopqrstuvwxyz0123456789";
-    for( var i=0; i < len; i++ )
-        text += charset.charAt(Math.floor(Math.random() * charset.length));
-    return text;
-  }
 
   async viewModal(){
     const modal = await this.modalController.create({
