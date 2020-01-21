@@ -8,10 +8,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CartService {
   private cartItemCount = new BehaviorSubject(0);
+  private wishItemCount = new BehaviorSubject(0);
   db = firebase.firestore();
 
   cart = [];
- 
+
   event = {
     image: '',
     categories:'',
@@ -30,14 +31,11 @@ export class CartService {
 
  
   cartList =  [];
-  constructor(public authService: AuthService) { 
-    //this.db.collection('Users').doc(firebase.auth().currentUser.uid);
-  }
+  constructor(public authService: AuthService) { }
  
   CartList() {
- 
-    this.db.collection('Kart').get().then(snapshot => {
-    this.cart = []
+    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').get().then(snapshot => {
+    this.cart
     snapshot.forEach(doc => {
     this.cart.push(doc.data());
   });
@@ -50,12 +48,10 @@ export class CartService {
     return this.cartList; 
   }
  
-   addProduct(name, size, price, quantity) {
-    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Cart').doc().set({
-      name : name,
-      size : size,
-      price: price,
-      quantity: quantity
+   addProduct(event) {
+    this.db.collection('Users').doc(firebase.auth().currentUser.uid).collection('Wishlist').doc().set({
+      name : event,
+      // quantity : event += 1
      })
       .catch(err => {
              console.error(err);
@@ -64,10 +60,6 @@ export class CartService {
   }
   
 
-  /// this pushes to array not firebase
- //   addProduct(event){
- //  this.cart.push(event);
-//   }
   
 
   getCart() {
@@ -77,26 +69,30 @@ export class CartService {
   getCartItemCount() {
     return this.cartItemCount;
   }
+
+  getWishCount(){
+    return this.wishItemCount;
+  }
  
-  // decreaseProduct(event) {
-  //   for (let [index, p] of this.cart.entries()) {
-  //     if (p.id === event.id) {
-  //       p.amount -= 1;
-  //       if (p.amount == 0) {
-  //         this.cart.splice(index, 1);
-  //       }
-  //     }
-  //   }
-  //   this.cartItemCount.next(this.cartItemCount.value - 1);
-  // }
+  decreaseProduct(event) {
+    for (let [index, p] of this.cart.entries()) {
+      if (p.id === event.id) {
+        p.amount -= 1;
+        if (p.amount == 0) {
+          this.cart.splice(index, 1);
+        }
+      }
+    }
+    this.cartItemCount.next(this.cartItemCount.value - 1);
+  }
  
-  // removeProduct(event) {
-  //   for (let [index, p] of this.cart.entries()) {
-  //     if (p.id === event.id) {
-  //       this.cartItemCount.next(this.cartItemCount.value - p.amount);
-  //       this.cart.splice(index, 1);
-  //     }
-  //   }
-  // }
+  removeProduct(event) {
+    for (let [index, p] of this.cart.entries()) {
+      if (p.id === event.id) {
+        this.cartItemCount.next(this.cartItemCount.value - p.amount);
+        this.cart.splice(index, 1);
+      }
+    }
+  }
 
 }

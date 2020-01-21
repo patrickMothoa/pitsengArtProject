@@ -25,7 +25,10 @@ declare var window
 })
 export class HomePage {
   cartItemCount: BehaviorSubject<number>;
+  wishItemCount: BehaviorSubject<number>;
   @ViewChild('cart', {static: false, read: ElementRef})fab: ElementRef;
+  dbWishlist = firebase.firestore().collection('Wishlist');
+
   db = firebase.firestore();
   event = {
     id: '',
@@ -43,13 +46,7 @@ export class HomePage {
   Products = [];
   supplier
   myProduct = false;
-     ////
-  // loginBtn = false;
-  // registerBtn =  false;
-  // logoutBtn = false;
-  // orderBtn = false;
-  // profileBtn = false;
-    /////
+ 
   sliderConfig = {
     slidesPerView: 1.6,
     spaceBetween: 10,
@@ -69,7 +66,7 @@ public  isLogin = false;
   public itemz: Array<{ title: string; icon: string }> = [];
   public allItems: Array<{ title: string; icon: string }> = [];
   active: boolean;
-  constructor( public alertController: AlertController, public toastController: ToastController,
+  constructor( public alertController: AlertController,    public toastCtrl: ToastController,
     public popoverController: PopoverController,
     // public authService: AuthService,
     private navCtrl:NavController,
@@ -111,7 +108,7 @@ public  isLogin = false;
     
   }
   async presentToast(ev:any) {
-    const toast = await this.toastController.create({
+    const toast = await this.toastCtrl.create({
       message: 'Your settings have been saved.',
     
       duration: 2000
@@ -136,6 +133,7 @@ public  isLogin = false;
     this.getProduct();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.wishItemCount = this.cartService.getWishCount();
     this.CountinueShoping();
   }
 async viewModal(){
@@ -294,12 +292,6 @@ SearchProducts(ev: CustomEvent){
 }
 logOut(){
   firebase.auth().signOut().then(()=> {
-    // this.loginBtn = false;
-    // this.registerBtn =  false;
-    // this. logoutBtn = true;
-    // this.orderBtn = true;
-    // this.profileBtn = false;
-    // Sign-out successful.
     this.router.navigateByUrl('/');
   }).catch((error)=> {
     // An error happened.
@@ -321,15 +313,7 @@ this.db.collection('admins').get().then(snapshot => {
        }
 })
 }
-// alert(){
-//   Swal.fire({
-//     position: 'center',
-//     icon: 'success',
-//     title: 'Added to cart',
-//     showConfirmButton: false,
-//     timer: 500
-//   })
-// }
+
 CountinueShoping(){
   this.router.navigateByUrl('/');
   
@@ -341,20 +325,48 @@ setTimeout(function(){
 cart.classList.remove("show");
 }, 3000);
 }
-// wishList(){
-//   var list = document.getElementById("toast");
-// list.classList.add("show");
-// list.innerHTML = '<i class="far fa-heart wish"></i> Product added to List';
-// setTimeout(function(){
-//   list.classList.remove("show");
-// },3000);
-// }
-// addCart(){
-//     var cart = document.getElementById("toast-cart");
-// cart.classList.add("show");
-// cart.innerHTML = '<i class="fas fa-shopping-cart cart"></i> Product added to cart';
-// setTimeout(function(){
-//   cart.classList.remove("show");
-// }, 3000);
-// }
+
+  
+  openNewCart() {
+    this.router.navigateByUrl('/cart');
+  }
+
+  /////
+  async toastController(message) {
+    let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
+    return toast.present();
+  }
+  addNewCart(i) {
+    //
+    if(firebase.auth().currentUser){
+    let  customerUid = firebase.auth().currentUser.uid;
+      console.log(i);
+      this.dbWishlist.add({
+        timestamp: new Date().getTime(),
+        customerUid: customerUid,
+        product_name : i.obj.name,
+        price: i.obj.price,
+        size:i.obj.size,
+        quantity: i.obj.quantity,
+        image: i.obj.image
+       }).then(() => {
+        this.toastController('product Added to wishlist')
+        // this.dismiss();
+      })
+        .catch(err => {
+               console.error(err);
+      });
+
+      this.wishItemCount.next(this.wishItemCount.value + 1);
+    
+    }else{
+      this.createModalLogin();
+    }    
+ }
+ dismiss() {
+  this.modalController.dismiss({
+    'dismissed': true
+  });
+}
+
 }

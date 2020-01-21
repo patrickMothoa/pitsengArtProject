@@ -40,21 +40,28 @@
                 </div>
               </ion-list>
             </div>
+
             <div>
-         
+         <ion-button  fill="clear"  color="warning" fill="clear" (click)="openProfile()" slot="end">Orders</ion-button>
                 <ion-button fill="clear"  color="warning" (click)=" presentPopover($event)" slot="end"><ion-icon name="person"></ion-icon></ion-button>
               
                 <ion-button fill="clear" (click)="trolley()">
                 <ion-label  color="warning" class="cart-length">{{ cartItemCount | async }}</ion-label >
                 <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
                 </ion-button>
+
               <!-- <ion-buttons fill="clear">
-                <ion-button  fill="clear" (click)="openCart()">
+                <ion-button  fill="clear" (click)="openNewCart()">
                     <ion-badge *ngIf="cart.length > 0">{{ cart.length }}</ion-badge>
                     <ion-icon color="warning" slot="icon-only" name="cart"></ion-icon>
                 </ion-button>
-              </ion-buttons> -->
-         <!-- <ion-button color="warning" fill="clear" (click)="logOut()" slot="end">Logout</ion-button> -->
+              </ion-buttons>  -->
+
+              <ion-button fill="clear" (click)="openNewCart()">
+                <ion-label  color="warning" class="wishlist-length">{{ wishItemCount | async }}</ion-label >
+                  <ion-icon color="warning" slot="icon-only" name="heart"></ion-icon>
+                </ion-button> 
+       
         
             </div>
           </div>
@@ -75,10 +82,16 @@
                      <div >
                         <ion-label class="price" >R{{event.obj.price}}</ion-label>
                      </div>
-                     <div  >
+                     <div>
                        <ion-button class="card-button" color="warning" fill="clear" (click)="ViewDetails(event)" slot="end"> View More</ion-button>
                      </div>
+
+                     <div>
+                      <ion-button color="warning" fill="clear" (click)="addNewCart(event)" slot="end">addWishlist</ion-button>
+                    </div>
+
             </div>
+         
           </div>
         </div>
       </ion-content>
@@ -86,13 +99,5 @@
     </div>
   </div>
 </div>
-<!-- <div class="info" >
-  <ion-card  *ngFor = "let admin of Info">
-    <ion-item>
-         Telephone {{admin.phoneNumber}}  |
-         Physical Address {{admin.address}} |
-         Email Address {{admin.email}} |
-    </ion-item>
-  </ion-card>
-</div> -->
+
 
