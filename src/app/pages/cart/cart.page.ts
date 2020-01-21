@@ -63,9 +63,9 @@ addValue(even, p, j){
   }else {
     
   }
-
-
 }
+
+
   getProducts() {
     console.log("mylist....");
     

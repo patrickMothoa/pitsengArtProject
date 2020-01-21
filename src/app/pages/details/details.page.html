@@ -50,6 +50,13 @@
          {{ p.amount | currency:'R':'symbol'}}
          <ion-button shape="round" color="warning" class="btn" (click)="addToCart(p)" slot="end">Add to Cart </ion-button>
         </div>
+
+        <div>
+          <ion-button color="warning" fill="clear" (click)="addNewCart(p)" slot="end">
+            <ion-icon color="warning" slot="icon-only" name="heart"></ion-icon>
+          </ion-button>
+        </div>
+
       </div>
     </div>
   </div>

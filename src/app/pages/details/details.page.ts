@@ -17,11 +17,12 @@ import { RegisterPage } from '../register/register.page';
 })
 export class DetailsPage implements OnInit {
   private cartItemCount = new BehaviorSubject(0);
-
+private wishItemCount = new BehaviorSubject(0);
   //cartItemCount: BehaviorSubject<number>;
   @ViewChild('cart', { static: false, read: ElementRef }) fab: ElementRef;
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection('Cart');
+  dbWishlist = firebase.firestore().collection('Wishlist');
  // customerUid = firebase.auth().currentUser.uid;
   MyObj = [];
   event = {
@@ -62,6 +63,7 @@ export class DetailsPage implements OnInit {
     // this.items = this.cartService.getProducts();
     this.cart = this.cartService.getCart();
     this.cartItemCount = this.cartService.getCartItemCount();
+    this.wishItemCount = this.cartService.getWishCount();
   }
   async toastController(message) {
     let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
@@ -169,6 +171,32 @@ if(firebase.auth().currentUser){
       'dismissed': true
     });
   }
-
+  addNewCart(i) {
+    //
+    if(firebase.auth().currentUser){
+    let  customerUid = firebase.auth().currentUser.uid;
+      console.log(i);
+      this.dbWishlist.add({
+        timestamp: new Date().getTime(),
+        customerUid: customerUid,
+        product_name : i.obj.name,
+        price: i.obj.price,
+        size:i.obj.size,
+        quantity: i.obj.quantity,
+        image: i.obj.image
+       }).then(() => {
+        this.toastController('product Added to wishlist')
+        // this.dismiss();
+      })
+        .catch(err => {
+               console.error(err);
+      });
+      this.dismiss();
+      this.wishItemCount.next(this.wishItemCount.value + 1);
+    
+    }else{
+      this.createModalLogin();
+    }    
+ }
 
 }
