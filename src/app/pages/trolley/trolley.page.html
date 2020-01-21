@@ -1,144 +1,59 @@
 
-<!-- <ion-content>
-  <div class="container">
-    <div class="content">
-      <div class="row">
-       
-        <div class="main-content">
-         
-​
-      <div class="for-heading">
-       
-<div class="coverContent">
-  
-  <div class="heading">
-    <div class="items">
-      <ion-title  >item</ion-title>
-      <div *ngFor="let p of cartProduct" class="itemsDetails">
-        <div class="itemImage">
-          <img src="{{p.image}}" width="100px" height="100px" alt="">
-        </div>
-        <div class="itemName">
-          <ion-label class="ionLabel" >{{ p.product_name }}</ion-label>
-        </div>
-        </div>
-      </div>
-​
-    <div class="qty">
-      <ion-title>qty</ion-title>
-      <div *ngFor="let p of cartProduct" class="qtyNo">
-        <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
-      </div>
-​
-    </div>
-    <div class="price" >
-      <ion-title>price</ion-title>
-      <div *ngFor="let p of cartProduct" class="priceNo">
-        <ion-label class="ionLabel">{{ p.price | currency:'R':'symbol' }}</ion-label>
-      </div>
-    </div>
-    <div class="subtotal">
-      <ion-title text-wrap>Amount</ion-title>
-​
-      <div class="subtotalNo" *ngFor="let p of cartProduct">
-        <ion-label class="ionLabel">{{ p.quantity * p.price | currency:'R':'symbol' }}</ion-label>
-      </div>
-    </div>
-  </div>
-      </div>
-  <div class="total">
-    
-    <h2>Order Summary</h2>
-    <div class="totaldetails">
-      <div>
-        <ion-label  class="ionLabel"> total amount </ion-label>
-      </div>
-      <div>
-        <ion-label  class="ionLabel"> R &nbsp; {{total | currency: '&#82;'}}</ion-label>
-      </div>
-    </div>
-    <div class="buttons" >
-      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order
-      </ion-button>
-​
-      <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="DismissClick() " text-wrap > Shopping
-      </ion-button>
-    </div>
-  </div>
-</div> 
-</div>
-        </div>
-      </div>
-    </div>
-</ion-content> -->
-
 <ion-content>
-  <div class="container">
-    <div class="content">
-      <div class="row">
-       
-        <div class="main-content">
-         
-
-      <div class="for-heading">
-        <!-- <h1>Shopping bag</h1> -->
-<div class="coverContent">
   
-  <div class="heading">
-    <div class="items">
-      <ion-title  >item</ion-title>
-      <div *ngFor="let p of cartProduct" class="itemsDetails">
-        <div class="itemImage">
-          <img src="{{p.image}}" width="100px" height="100px" alt="">
-        </div>
-        <div class="itemName">
-          <ion-label class="ionLabel" >{{ p.product_name }}</ion-label>
-        </div>
-        </div>
-      </div>
 
-      <div class="qty">
-        <ion-title>qty</ion-title>
-        <div *ngFor="let p of cartProduct" class="qtyNo">
-          <ion-label class="ionLabel"> {{ p.quantity }}</ion-label>
-        </div>
-      </div>
-    <div class="qty">
-      <ion-title>size</ion-title>
-      <div *ngFor="let p of cartProduct" class="qtyNo">
-        <ion-label class="ionLabel"> {{ p.size }}</ion-label>
-      </div>
+      <ion-list>
+        <ion-item *ngFor="let p of cartProduct; let j=index" class="ion-text-wrap">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9">
+            <ion-avatar>
+                <img src="{{p.prod.image}}">
+            </ion-avatar>
+                <b>Name :{{ p.prod.product_name }}</b>
+                <p> Price: {{ p.prod.price | currency:'R':'symbol' }}</p>
 
-    </div>
-    <div class="price" >
-      <ion-title>price</ion-title>
-      <div *ngFor="let p of cartProduct" class="priceNo">
-        <ion-label class="ionLabel">{{ p.price | currency:'R':'symbol' }}</ion-label>
-      </div>
-    </div>
-    <div class="subtotal">
-      <ion-title text-wrap>Amount</ion-title>
-      <div class="subtotalNo" *ngFor="let p of cartProduct">
-        <ion-label class="ionLabel">{{ p.amount | currency:'R':'symbol' }}</ion-label>
-      </div>
-    </div>
-  </div>
-      </div>
-  <div class="total">
-    
-    <h2>Order Summary</h2>
-    <div class="totaldetails">
-      <div>
-        <ion-label  class="ionLabel"> total amount </ion-label>
-      </div>
-      <div>
-        <ion-label  class="ionLabel"> R &nbsp; {{total | currency: '&#82;'}}</ion-label>
-      </div>
-    </div>
+                <ion-item class="radioBttns" lines="none" >
+                  <ion-label color="medium" position="floating">Size</ion-label>
+                  <ion-select multiple="true" color="medium" (ionChange)="sizeSelect($event, s, i)">
+                  <ion-select-option *ngFor="let s of p.prod.size; let i = index">{{s}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
 
+            </ion-row>
+
+            <ion-row class="ion-align-items-center">
+              <ion-col size="1" class="ion-align-self-center">
+                Quantity : {{ p.prod.quantity }}
+              </ion-col>
+              <ion-col size="1" class="ion-align-self-center">
+                <ion-button color="medium" fill="clear" (click)="decreaseCartItem(j)">
+                  <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            
+   
+              <ion-col size="1" class="ion-align-self-center">
+                <ion-button color="medium" fill="clear" (click)="increaseCartItem(j)">
+                  <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+   
+              <ion-col size="2" offset="5">
+                <ion-button color="medium" fill="clear" (click)="removeCartItem(p.id)">
+                  <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          
+          </ion-grid>
+        </ion-item>
+         <ion-item>
+         
     <div class="businessInfor">
       <div class="reference" >
-        <!--{{'Pitseng'+key}}  -->
+        <!-- {{'Pitseng'+key}}   -->
         <p>your reference number: 5445455 please use it for 
           paying the amount  due.
           
@@ -151,19 +66,18 @@
         <p>Branch Name : Soweto</p>
         <p>Branch Code : 23055</p>
       </div> 
-
     </div>
+   </ion-item> 
+  </ion-list>
 
+  <div>
+    <ion-label  class="ionLabel">  &nbsp; {{ getTotal() | currency: '&#82;'}}</ion-label>
+  </div>
     <div class="buttons" >
-      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order</ion-button>
+      <ion-button class="btn" padding color="danger" shape="round" expand="full" (click)="placeOrder()">Place Order </ion-button>
 
       <ion-button class="btn" padding color="warning" shape="round" expand="full" (click)="DismissClick() " text-wrap > Shopping
       </ion-button>
     </div>
-  </div>
-</div> 
-</div>
-        </div>
-      </div>
-    </div>
+
 </ion-content>
